@@ -38,8 +38,14 @@ _\ \ |_| |_| | (_| |  __/ | | | |_
 
 - Put your name in commit name, and a clear description.
 
+- In case of error, use Git Shell, just by entering in repository and doing
+
+$ git commit -m "message"
+
+It will show you errors to fix.
 
 
 	[[THE PROJECT]]
 
 // talk and present
+
