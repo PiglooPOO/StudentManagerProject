@@ -1,26 +1,8 @@
- __ _             _            _          
-/ _\ |_ _   _  __| | ___ _ __ | |_        
-\ \| __| | | |/ _` |/ _ \ '_ \| __|       
-_\ \ |_| |_| | (_| |  __/ | | | |_        
-\__/\__|\__,_|\__,_|\___|_| |_|\__|       
-                                          
-                                          
-  /\/\   __ _ _ __   __ _  __ _  ___ _ __ 
- /    \ / _` | '_ \ / _` |/ _` |/ _ \ '__|
-/ /\/\ \ (_| | | | | (_| | (_| |  __/ |   
-\/    \/\__,_|_| |_|\__,_|\__, |\___|_|   
-                          |___/           
-   ___           _           _            
-  / _ \_ __ ___ (_) ___  ___| |_          
- / /_)/ '__/ _ \| |/ _ \/ __| __|         
-/ ___/| | | (_) | |  __/ (__| |_          
-\/    |_|  \___// |\___|\___|\__|         
-              |__/                        
+#[Student MANAGER Project](https://github.com/PiglooPOO/StudentManagerProject)
 
+## HOW TO
 
-    [[HOW TO]]
-
-    [IMPORT PROJECT]
+### Import Project
 
 - Open Eclipse
 - Right click on project pannel
@@ -30,11 +12,11 @@ _\ \ |_| |_| | (_| |  __/ | | | |_
 - /!\ Select EclipseProject folder, not StudentManagerProject !
 - "Finish"
 
-	[WORK]
+### Work
 
 - /!\ ALWAYS SYNC BEFORE WORKING /!\
 
-	[COMMIT]
+### Commit
 
 - Put your name in commit name, and a clear description.
 
@@ -45,7 +27,7 @@ $ git commit -m "message"
 It will show you errors to fix.
 
 
-	[[THE PROJECT]]
+## THE PROJECT
 
-// talk and present
+<talk and present>
 
