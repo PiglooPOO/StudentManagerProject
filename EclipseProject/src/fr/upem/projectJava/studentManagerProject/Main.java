@@ -31,8 +31,12 @@ public class Main {
 					+ "13 Enregistrer une base de données\n"
 					+ "14 Modifier la configuration\n"
 <<<<<<< HEAD
+<<<<<<< HEAD
 					+ "15 Editer une attestation de réussite\n"
 					+ "16 Quitter");
+=======
+					+ "15 Editer une attestation de réussite\n16 Quitter");
+>>>>>>> 990c87344fc1efe97e6467d4414b1a69a84d416a
 =======
 					+ "15 Editer une attestation de réussite\n16 Quitter");
 >>>>>>> 990c87344fc1efe97e6467d4414b1a69a84d416a
@@ -43,8 +47,13 @@ public class Main {
 					System.out.print("Ce choix est invalide, recommencez : ");
 				choiceNumber = sc.nextInt();
 <<<<<<< HEAD
+<<<<<<< HEAD
 			} catch(InputMismatchException e){
 		        e.printStackTrace();
+=======
+			} catch(InputMismatchException ime){
+		        System.out.println("Your input is invalid, please try again");
+>>>>>>> 990c87344fc1efe97e6467d4414b1a69a84d416a
 =======
 			} catch(InputMismatchException ime){
 		        System.out.println("Your input is invalid, please try again");
