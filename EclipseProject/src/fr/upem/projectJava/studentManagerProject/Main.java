@@ -29,6 +29,56 @@ public class Main {
 				+ "14 Modifier la configuration\n"
 				+ "15 Editer une attestation de réussite\n16 Quitter");
 		
+<<<<<<< HEAD
+		while(choiceNumber!=16){
+			System.out.println("Bienvenue dans StudentMangager de l'Ecole Pigloo\n");
+			System.out.println("Menu\n");
+			System.out.println("1 Ajouter un élève\n"
+					+ "2 Rechercher un élève\n"
+					+ "3 Ajouter une filière\n"
+					+ "4 Rechercher une filière"
+			        + "5 Ajouter une matière\n"
+			        + "6 Rechercher une matière\n"
+			        + "7 Ajouter des notes\n"
+			        + "8 Rechercher des notes\n"
+			        + "9 Ajouter une année\n"
+			        + "10 Inscrire un élève dans une filière et année\n"
+			        + "11 Editer les diplômes\n"
+					+ "12 Charger une base de données\n"
+					+ "13 Enregistrer une base de données\n"
+					+ "14 Modifier la configuration\n"
+<<<<<<< HEAD
+<<<<<<< HEAD
+					+ "15 Editer une attestation de réussite\n"
+					+ "16 Quitter");
+=======
+					+ "15 Editer une attestation de réussite\n16 Quitter");
+>>>>>>> 990c87344fc1efe97e6467d4414b1a69a84d416a
+=======
+					+ "15 Editer une attestation de réussite\n16 Quitter");
+>>>>>>> 990c87344fc1efe97e6467d4414b1a69a84d416a
+			try {
+				Scanner sc = new Scanner(System.in);
+				System.out.println("Entrer le chiffre correspondant à votre choix !\n");
+				if(choiceNumber==-1)
+					System.out.print("Ce choix est invalide, recommencez : ");
+				choiceNumber = sc.nextInt();
+<<<<<<< HEAD
+<<<<<<< HEAD
+			} catch(InputMismatchException e){
+		        e.printStackTrace();
+=======
+			} catch(InputMismatchException ime){
+		        System.out.println("Your input is invalid, please try again");
+>>>>>>> 990c87344fc1efe97e6467d4414b1a69a84d416a
+=======
+			} catch(InputMismatchException ime){
+		        System.out.println("Your input is invalid, please try again");
+>>>>>>> 990c87344fc1efe97e6467d4414b1a69a84d416a
+		    }
+			
+			switch(choiceNumber){
+=======
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Entrer le chiffre correspondant à votre choix !\n");
 		choiceNumber = sc.nextInt();
@@ -84,6 +134,7 @@ public class Main {
 			// Quitter ?
 			break;
 		default:
+>>>>>>> parent of 330f36e... Q : Main loop and error input
 			
 		}
 		
