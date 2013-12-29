@@ -1,5 +1,7 @@
 package fr.upem.projectJava.studentManagerProject;
 
+import java.util.Scanner;
+
 public class Main {
 	
 	public static void main(String[] args){
@@ -9,13 +11,27 @@ public class Main {
 	public static void startMenu(){
 		
 		int choiceNumber = 16;
-		System.out.println("Bienvenue dans StudentMangager de l'Ecole Pigloo");
+		System.out.println("Bienvenue dans StudentMangager de l'Ecole Pigloo\n");
 		System.out.println("Menu\n");
-		System.out.println("1 Ajouter un élève\n2 Rechercher un élève\n3 Ajouter une filière\n4 Rechercher une filière");
-		System.out.println("5 Ajouter une matière\n6 Rechercher une matière\n7 Ajouter des notes\n8 Rechercher des notes");
-		System.out.println("9 Ajouter une année\n10 Inscrire un élève dans une filière et année\n11 Editer les diplômes");
-		System.out.println("12 Charger une base de données\n13 Enregistrer une base de données\n14 Modifier la configuration");
-		System.out.println("15 Editer une attestation de réussite\n16 Quitter");
+		System.out.println("1 Ajouter un élève\n"
+				+ "2 Rechercher un élève\n"
+				+ "3 Ajouter une filière\n"
+				+ "4 Rechercher une filière"
+		        + "5 Ajouter une matière\n"
+		        + "6 Rechercher une matière\n"
+		        + "7 Ajouter des notes\n"
+		        + "8 Rechercher des notes\n"
+		        + "9 Ajouter une année\n"
+		        + "10 Inscrire un élève dans une filière et année\n"
+		        + "11 Editer les diplômes\n"
+				+ "12 Charger une base de données\n"
+				+ "13 Enregistrer une base de données\n"
+				+ "14 Modifier la configuration\n"
+				+ "15 Editer une attestation de réussite\n16 Quitter");
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Entrer le chiffre correspondant à votre choix !\n");
+		choiceNumber = sc.nextInt();
 		
 		switch(choiceNumber){
 		
