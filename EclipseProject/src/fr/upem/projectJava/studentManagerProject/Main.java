@@ -8,26 +8,32 @@ import java.util.Scanner;
 
 public class Main {
 	
-	public static void main(String[] args) throws SQLException{
+	public static void main(String[] args) throws SQLException, ClassNotFoundException{
 		
 		Connection conn = null;
 		try{
+			try{
+				Class.forName("org.postgresql.Driver");
+			}
+			catch(ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
 			
-			String url = "UrlBDDXav";
-			String user = "loginXav";
-			String passwd = "mdpXav";
+			String url = "jdbc:postgresql://sqletud.univ-mlv.fr:5432/xgerber_db";
+			String user = "xgerber";
+			String passwd = "Minions77";
 			
 			conn = DriverManager.getConnection(url, user, passwd);
 			System.out.println("Connexion effective !");
 			startMenu();
 			
-		} catch (Exception e){
+		} catch (SQLException e){
 			e.printStackTrace();
 		} finally {
 			if(conn != null)
 				conn.close();
 		}  
-		startMenu();
 	}
 	
 	public static void startMenu(){
