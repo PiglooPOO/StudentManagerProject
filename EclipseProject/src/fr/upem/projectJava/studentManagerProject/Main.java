@@ -45,7 +45,7 @@ public class Main {
 			switch(choiceNumber){
 			
 			case 1:
-				// Ajouter un élève
+				// Ajouter un étudiant
 				break;
 			case 2:
 				// Rechercher une élève
@@ -104,22 +104,7 @@ public class Main {
 	
 	private static void clearConsole()
 	{
-	    try
-	    {
-	        String os = System.getProperty("os.name");
-
-	        if (os.contains("Windows"))
-	        {
-	            Runtime.getRuntime().exec("cls");
-	        }
-	        else
-	        {
-	            Runtime.getRuntime().exec("clear");
-	        }
-	    }
-	    catch (Exception exception)
-	    {
-	        //  Handle exception.
-	    }
+	    for(int i = 0; i < 25; i++)
+	    	System.out.println();
 	}
 }
