@@ -1,17 +1,40 @@
 package fr.upem.projectJava.studentManagerProject;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws SQLException{
+		
+		Connection conn = null;
+		try{
+			
+			String url = "UrlBDDXav";
+			String user = "loginXav";
+			String passwd = "mdpXav";
+			
+			conn = DriverManager.getConnection(url, user, passwd);
+			System.out.println("Connexion effective !");
+			startMenu();
+			
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			if(conn != null)
+				conn.close();
+		}  
 		startMenu();
 	}
 	
 	public static void startMenu(){
 		
 		int choiceNumber = 0;
+		
+		Scanner sc = null;
 		
 		while(choiceNumber!=16){
 			System.out.println("Bienvenue dans StudentMangager de l'Ecole Pigloo\n");
@@ -33,7 +56,7 @@ public class Main {
 					+ "15 Editer une attestation de réussite\n"
 					+ "16 Quitter");
 			try {
-				Scanner sc = new Scanner(System.in);
+				sc = new Scanner(System.in);
 				System.out.println("Entrer le chiffre correspondant à votre choix !\n");
 				if(choiceNumber==-1)
 					System.out.print("Ce choix est invalide, recommencez : ");
@@ -99,6 +122,8 @@ public class Main {
 				choiceNumber=0;
 			clearConsole();
 		}
+		if(sc != null)
+			sc.close();
 		System.out.println("\nFermeture du Programme");
 	}
 	
