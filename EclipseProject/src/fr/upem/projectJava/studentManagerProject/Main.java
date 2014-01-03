@@ -1,39 +1,12 @@
 package fr.upem.projectJava.studentManagerProject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
 	
-	public static void main(String[] args) throws SQLException, ClassNotFoundException{
-		
-		Connection conn = null;
-		try{
-			try{
-				Class.forName("org.postgresql.Driver");
-			}
-			catch(ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-			
-			String url = "jdbc:postgresql://sqletud.univ-mlv.fr:5432/xgerber_db";
-			String user = "xgerber";
-			String passwd = "Minions77";
-			
-			conn = DriverManager.getConnection(url, user, passwd);
-			System.out.println("Connexion effective !");
-			startMenu();
-			
-		} catch (SQLException e){
-			e.printStackTrace();
-		} finally {
-			if(conn != null)
-				conn.close();
-		}  
+	public static void main(String[] args){
+		startMenu();
 	}
 	
 	public static void startMenu(){
@@ -74,7 +47,8 @@ public class Main {
 			switch(choiceNumber){
 			
 			case 1:
-				// Ajouter un étudiant
+				Student e=new Student();
+				e.addStudent();
 				break;
 			case 2:
 				// Rechercher une élève

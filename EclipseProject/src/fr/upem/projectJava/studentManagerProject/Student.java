@@ -1,5 +1,7 @@
 package fr.upem.projectJava.studentManagerProject;
 
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,12 +16,12 @@ public class Student {
 	private String adress;
 	private String phoneNumber;
 	private String mail;
-	private Date birthday;
+	private String birthday;
 	private String sex;
 	private int number;
 	private static int occurence=0;
 	
-	public Student(String name, String firstName, String adress, String phoneNumber, String mail, Date birthday, String sex) {
+	public Student(String name, String firstName, String adress, String phoneNumber, String mail, String birthday, String sex) {
 		this.name = name;
 		this.firstName = firstName;
 		this.adress = adress;
@@ -32,18 +34,40 @@ public class Student {
 	}
 	
 	public Student(){
-		Scanner sc=new Scanner(System.in);	
-		System.out.print("Prénom:");
-		String firstname = sc.next();
-		System.out.print("Nom:");
-		String name = sc.next();
-		String adress=sc.nextLine();
+		Scanner sc=new Scanner(System.in);
+		do
+		{
+			System.out.print("Prénom:");
+			this.firstName = sc.next();
+			if(this.firstName.length()>30)
+				System.out.println("Erreur, le prénom que vous avez entrer est trop long");
+		}
+		while(this.firstName.length()>30);
+		do
+		{
+			System.out.print("Nom:");
+			this.name = sc.next();
+			if(this.name.length()>30)
+				System.out.println("Erreur, le nom que vous avez entrer est trop long");
+		}
+		while(this.name.length()>30);
+		
+		this.adress=sc.nextLine();
 		System.out.print("Adresse:");
 		adress=sc.nextLine();
-		System.out.print("Numéro de Téléphone:");
-		String phoneNumber = sc.next();
+		
+		do
+		{
+			System.out.print("Numéro de Téléphone:");
+			this.phoneNumber = sc.next();
+			if(this.phoneNumber.length()!=10)
+				System.out.println("Erreur, entrer le numéro de téléphone sans espace");
+		}
+		while(this.phoneNumber.length()!=10);
+		
 		System.out.print("E-mail:");
-		String mail = sc.next();
+		this.mail = sc.next();
+		
 		Date date = null;
 		while(date==null)
 		{
@@ -62,11 +86,23 @@ public class Student {
 					date=null;
 					System.out.println("La date saisie est invalide");
 				}
+				else
+				{
+					if(day<10 && month<10)
+						this.birthday=year+"-0"+month+"-0"+day;
+					if(day>9 && month<10)
+						this.birthday=year+"-0"+month+"-"+day;
+					if(day<10 && month>9)
+						this.birthday=year+"-"+month+"-0"+day;
+					else
+						this.birthday=year+"-"+month+"-"+day;
+				}
 			}
 			catch(ParseException e){
 				System.out.println("Erreur dans le format de la date");
 			}
 		}
+		
 		boolean bon=false;
 		String sex=null;
 		while(bon==false)
@@ -77,7 +113,7 @@ public class Student {
 			if(sex.equals("femme") || sex.equals("homme"))
 				bon=true;
 		}
-		new Student(name, firstname, adress, phoneNumber, mail, date, sex);
+		this.sex=sex;
 		sc.close();
 	}
 
@@ -129,7 +165,7 @@ public class Student {
 		this.sex = sex;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
@@ -141,7 +177,13 @@ public class Student {
 		return occurence;
 	}
 	
-	public void addStudent(Student e){
-		
+	public void addStudent(){
+		System.out.println(this.getBirthday());
+		try {
+			Statement state = BDConnection.getInstance().createStatement();
+			state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `sex`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getSex()+"')");
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 }
