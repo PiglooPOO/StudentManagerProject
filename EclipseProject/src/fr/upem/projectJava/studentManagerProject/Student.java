@@ -17,20 +17,17 @@ public class Student {
 	private String phoneNumber;
 	private String mail;
 	private String birthday;
-	private String sex;
+	private int gender;
 	private int number;
-	private static int occurence=0;
 	
-	public Student(String name, String firstName, String adress, String phoneNumber, String mail, String birthday, String sex) {
+	public Student(String name, String firstName, String adress, String phoneNumber, String mail, String birthday, int gender) {
 		this.name = name;
 		this.firstName = firstName;
 		this.adress = adress;
 		this.phoneNumber = phoneNumber;
 		this.mail = mail;
 		this.birthday = birthday;
-		this.sex = sex;
-		number=occurence;
-		occurence++;
+		this.gender = gender;
 	}
 	
 	public Student(){
@@ -104,16 +101,19 @@ public class Student {
 		}
 		
 		boolean bon=false;
-		String sex=null;
+		String gender=null;
 		while(bon==false)
 		{
 			System.out.print("Sexe (homme ou femme):");
-			sex=sc.next();
-			sex=sex.toLowerCase();
-			if(sex.equals("femme") || sex.equals("homme"))
+			gender=sc.next();
+			gender=gender.toLowerCase();
+			if(gender.equals("femme") || gender.equals("homme"))
 				bon=true;
 		}
-		this.sex=sex;
+		if(gender=="homme")
+			this.gender=1;
+		if(gender=="femme")
+			this.gender=2;
 	}
 
 	public String getName() {
@@ -156,12 +156,12 @@ public class Student {
 		this.mail = mail;
 	}
 
-	public String getSex() {
-		return sex;
+	public int getGender() {
+		return gender;
 	}
 
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setGender(int gender) {
+		this.gender = gender;
 	}
 
 	public String getBirthday() {
@@ -171,15 +171,11 @@ public class Student {
 	public int getNumber() {
 		return number;
 	}
-
-	public static int getOccurence() {
-		return occurence;
-	}
 	
 	public void addStudent(){
 		try {
-			Statement state = BDConnection.getInstance().createStatement();
-			state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `sex`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getSex()+"')");
+			Statement state = DBConnection.getInstance().createStatement();
+			state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

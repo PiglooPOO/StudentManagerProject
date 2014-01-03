@@ -5,14 +5,26 @@ import java.util.Scanner;
 
 public class Main {
 	
-	public static void main(String[] args){
+	public static void main(String[] args) {
+		for (int i = 1; (DBConnection.getInstance()==null); i++) {
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(i>10){
+				System.out.println("\n\tErreur de la connection avec la BDD");
+				return;
+			}
+			System.out.println(i+")\tErreur de la connection avec la BDD, nouvel essaie dans 3 secondes.");
+		}
 		startMenu();
 	}
 	
 	public static void startMenu(){
 		
 		int choiceNumber = 0;
-		
 		Scanner sc = null;
 		
 		while(choiceNumber!=16){

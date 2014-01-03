@@ -4,14 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class BDConnection {
+public class DBConnection {
 	
 	private static Connection conn;
-	private String url = "jdbc:mysql://localhost/test";
-	private String user = "";
+	private String url = "jdbc:mysql://localhost/smp";
+	private String user = "root";
 	private String passwd = "";
 	
-	private BDConnection(){
+	private DBConnection(){
 		try {
 			try{
 				Class.forName("com.mysql.jdbc.Driver");
@@ -27,8 +27,11 @@ public class BDConnection {
 	}
 	public static Connection getInstance(){
 		if(conn == null){
-			new BDConnection();
+			new DBConnection();
+			System.out.println("SQL connection done");
 		}
+		else
+			System.out.println("SQL connection already done");
 		return conn;	
-	}	
+	}
 }
