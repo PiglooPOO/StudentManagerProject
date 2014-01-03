@@ -114,7 +114,6 @@ public class Student {
 				bon=true;
 		}
 		this.sex=sex;
-		sc.close();
 	}
 
 	public String getName() {
@@ -178,7 +177,6 @@ public class Student {
 	}
 	
 	public void addStudent(){
-		System.out.println(this.getBirthday());
 		try {
 			Statement state = BDConnection.getInstance().createStatement();
 			state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `sex`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getSex()+"')");
