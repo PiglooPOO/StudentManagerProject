@@ -12,6 +12,9 @@
 - /!\ Select EclipseProject folder, not StudentManagerProject !
 - "Finish"
 
+### /!\ SQL /!\
+- #[FILE IN /](https://github.com/PiglooPOO/StudentManagerProject/blob/master/smp.sql)
+
 ### Work
 
 - /!\ ALWAYS SYNC BEFORE WORKING /!\
