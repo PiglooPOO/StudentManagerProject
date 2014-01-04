@@ -188,7 +188,7 @@ public class Student {
 			System.out.println("\nValidez-vous cet étudiant? (O/N)");
 			valid = sc.next();
 		}
-		while(valid.toLowerCase().equals("non") || valid.toLowerCase().equals("n") || valid.toLowerCase().equals("oui") || valid.toLowerCase().equals("o"));
+		while(valid.toLowerCase() == "non" || valid.toLowerCase() == "n" || valid.toLowerCase() == "oui" || valid.toLowerCase() == "o");
 		
 		if(valid.toLowerCase() == "o" || valid.toLowerCase() == "oui"){
 			try {
