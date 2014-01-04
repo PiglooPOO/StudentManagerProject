@@ -33,7 +33,7 @@ public class Main {
 			System.out.println("1 Ajouter un élève\n"
 					+ "2 Rechercher un élève\n"
 					+ "3 Ajouter une filière\n"
-					+ "4 Rechercher une filière"
+					+ "4 Rechercher une filière\n"
 			        + "5 Ajouter une matière\n"
 			        + "6 Rechercher une matière\n"
 			        + "7 Ajouter des notes\n"
@@ -66,7 +66,8 @@ public class Main {
 				// Rechercher une élève
 				break;
 			case 3: 
-				// Ajouter une filière
+				Formation f = new Formation();
+				f.addFormation();
 				break;
 			case 4:
 				// Rechercher une filière
