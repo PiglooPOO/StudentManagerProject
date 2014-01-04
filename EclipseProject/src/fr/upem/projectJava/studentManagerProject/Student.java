@@ -107,21 +107,19 @@ public class Student {
 			System.out.print("Sexe (homme ou femme):");
 			gender=sc.next();
 			gender=gender.toLowerCase();
-			if(gender.equals("femme") || gender.equals("homme"))
+			if(gender.equalsIgnoreCase("femme") || gender.equalsIgnoreCase("homme"))
 				bon=true;
 		}
-		if(gender=="homme"){
-			this.gender=1;
+		if(gender.equalsIgnoreCase("homme")){
+			this.gender = 1;
+		}
+		if(gender.equalsIgnoreCase("femme")){
+			this.gender = 2;
 			if(sc != null)
 				sc.close();
 			System.out.println("\nEtudiant bien ajouté.");
 		}
-		if(gender=="femme"){
-			this.gender=2;
-			if(sc != null)
-				sc.close();
-			System.out.println("\nEtudiant bien ajouté.");
-		}
+		
 	}
 
 	public String getName() {
@@ -188,9 +186,9 @@ public class Student {
 			System.out.println("\nValidez-vous cet étudiant? (O/N)");
 			valid = sc.next();
 		}
-		while(valid.toLowerCase() == "non" || valid.toLowerCase() == "n" || valid.toLowerCase() == "oui" || valid.toLowerCase() == "o");
+		while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
 		
-		if(valid.toLowerCase() == "o" || valid.toLowerCase() == "oui"){
+		if(valid.equalsIgnoreCase("o") || valid.equalsIgnoreCase("oui")){
 			try {
 				Statement state = DBConnection.getInstance().createStatement();
 				state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
@@ -202,6 +200,7 @@ public class Student {
 	}
 
 	public String toString() {
+		String gender = (this.gender==1)?"Femme":"Homme";
 		return "Nom : " +name+"\n"
 				+ "Prénom : " +firstName+"\n"
 				+ "Adress : " +adress+"\n"
@@ -210,6 +209,4 @@ public class Student {
 				+ "Date de naissance : " +birthday+"\n"
 				+ "Sexe : " +gender;
 	}
-	
-	
 }
