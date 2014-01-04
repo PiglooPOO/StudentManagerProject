@@ -1,5 +1,37 @@
 #[Student MANAGER Project](https://github.com/PiglooPOO/StudentManagerProject)
 
+## TODO
+
+- Ajouter un étudiant \[done\]
+- Rechercher un étudiant (par nom, prenom, filiaire, année, année+filiaire)
+> - Inscrire un élève dans une filière et année
+> - Modifier des informations
+> - Attribuer des notes
+> - Afficher ses moyennes
+> - Editer attestation de réussite
+- Créer une filière
+- Rechercher une filière
+> - Ajouter une matière, des élèves
+> - Afficher ses éleves par année (pouvoir y acceder)
+- Rechercher une matière
+> - Ajouter à une filiaire pour une année
+
+- Ajouter des notes
+> - Pour année en cours en recherchant formation puis en choisissant la matière
+
+- Rechercher des notes ?
+
+- Créer une année
+> - Copier une formation de l'année précédente en faisant passer les élèves year_formation_student.nbyear +1 si < formation.nbyear
+
+- Afficher les diplomés
+> - Editer une attestation de réussite
+
+- Charger une base de données?
+- Enregistrer la base de données?
+- Modifier la configuration?
+
+
 ## HOW TO
 
 ### Import Project
