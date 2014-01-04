@@ -80,7 +80,8 @@ public class Main {
 				// Rechercher une filière
 				break;
 			case 5:
-				// Ajouter une matière
+				Subject m = new Subject();
+				m.addSubject();
 				break;
 			case 6:
 				// Rechercher une matière
@@ -113,12 +114,17 @@ public class Main {
 				// Editer une attestation de réussite
 				break;
 			case 16:
-				// Quitter ?
+				if(sc != null)
+					sc.close();
+				System.out.println("\nFermeture du Programme");
 				break;
 			default:
 				choiceNumber = -1;
 		}
+<<<<<<< HEAD
 		return choiceNumber;
+=======
+>>>>>>> 08737260bee5bb87c37c0ad9c0795fd70db903be
 	}
 	
 	private static void clearConsole()

@@ -31,7 +31,7 @@ public class Student {
 	}
 	
 	public Student(){
-		Scanner sc=new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		do
 		{
 			System.out.print("Prénom:");
@@ -110,10 +110,18 @@ public class Student {
 			if(gender.equals("femme") || gender.equals("homme"))
 				bon=true;
 		}
-		if(gender=="homme")
+		if(gender=="homme"){
 			this.gender=1;
-		if(gender=="femme")
+			if(sc != null)
+				sc.close();
+			System.out.println("\nEtudiant bien ajouté.");
+		}
+		if(gender=="femme"){
 			this.gender=2;
+			if(sc != null)
+				sc.close();
+			System.out.println("\nEtudiant bien ajouté.");
+		}
 	}
 
 	public String getName() {
@@ -173,11 +181,35 @@ public class Student {
 	}
 	
 	public void addStudent(){
-		try {
-			Statement state = DBConnection.getInstance().createStatement();
-			state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		System.out.println(this.toString());
+		Scanner sc = new Scanner(System.in);
+		String valid=null;
+		do{
+			System.out.println("\nValidez-vous cet étudiant? (O/N)");
+			valid = sc.next();
+		}
+		while(valid.toLowerCase().equals("non") || valid.toLowerCase().equals("n") || valid.toLowerCase().equals("oui") || valid.toLowerCase().equals("o"));
+		
+		if(valid.toLowerCase() == "o" || valid.toLowerCase() == "oui"){
+			try {
+				Statement state = DBConnection.getInstance().createStatement();
+				state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
+				System.out.println("Etudiant bien ajouté.");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
+
+	public String toString() {
+		return "Nom : " +name+"\n"
+				+ "Prénom : " +firstName+"\n"
+				+ "Adress : " +adress+"\n"
+				+ "Numéro de Téléphone : " +phoneNumber+"\n"
+				+ "Email : " +mail+ "\n"
+				+ "Date de naissance : " +birthday+"\n"
+				+ "Sexe : " +gender;
+	}
+	
+	
 }
