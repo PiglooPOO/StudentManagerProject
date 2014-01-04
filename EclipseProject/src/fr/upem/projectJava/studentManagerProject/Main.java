@@ -19,10 +19,7 @@ public class Main {
 			}
 			System.out.println(i+")\tErreur de la connection avec la BDD, nouvel essaie dans 3 secondes.");
 		}
-		startMenu();
-	}
-	
-	public static void startMenu(){
+		
 		
 		int choiceNumber = 0;
 		Scanner sc = null;
@@ -53,11 +50,21 @@ public class Main {
 					System.out.print("Ce choix est invalide, recommencez : ");
 				choiceNumber = sc.nextInt();
 			} catch(InputMismatchException e){
-		        e.printStackTrace();
+				choiceNumber = -1;
 		    }
-			
-			switch(choiceNumber){
-			
+			startMenu(choiceNumber);
+
+			if(choiceNumber!=-1 && choiceNumber!=16)
+				choiceNumber=0;
+			clearConsole();
+		}
+		if(sc != null)
+			sc.close();
+		System.out.println("\nFermeture du Programme");
+	}
+	
+	public static int startMenu(int choiceNumber){
+		switch(choiceNumber){
 			case 1:
 				Student e=new Student();
 				e.addStudent();
@@ -110,14 +117,8 @@ public class Main {
 				break;
 			default:
 				choiceNumber = -1;
-			}
-			if(choiceNumber!=-1 && choiceNumber!=16)
-				choiceNumber=0;
-			clearConsole();
 		}
-		if(sc != null)
-			sc.close();
-		System.out.println("\nFermeture du Programme");
+		return choiceNumber;
 	}
 	
 	private static void clearConsole()
