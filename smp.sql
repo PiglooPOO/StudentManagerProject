@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Sam 04 Janvier 2014 à 13:15
+-- Généré le: Sam 04 Janvier 2014 à 14:05
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `formation` (
   `name` varchar(50) CHARACTER SET utf8 NOT NULL,
   `diploma` varchar(50) CHARACTER SET utf8 NOT NULL,
   `nbYear` int(11) NOT NULL,
+  `curYear` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf16 AUTO_INCREMENT=2 ;
 
@@ -40,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `formation` (
 -- Contenu de la table `formation`
 --
 
-INSERT INTO `formation` (`id`, `name`, `diploma`, `nbYear`) VALUES
-(1, 'informatique', 'Diplôme Universitaire et Technologique', 0);
+INSERT INTO `formation` (`id`, `name`, `diploma`, `nbYear`, `curYear`) VALUES
+(1, 'informatique', 'Diplôme Universitaire et Technologique', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -98,16 +99,15 @@ INSERT INTO `subject` (`id`, `name`, `coefficient`) VALUES
 CREATE TABLE IF NOT EXISTS `year_formation_student` (
   `year` int(11) NOT NULL,
   `idFormation` int(11) NOT NULL,
-  `idStudent` int(11) NOT NULL,
-  `nbYear` int(11) NOT NULL
+  `idStudent` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `year_formation_student`
 --
 
-INSERT INTO `year_formation_student` (`year`, `idFormation`, `idStudent`, `nbYear`) VALUES
-(2013, 1, 1, 0);
+INSERT INTO `year_formation_student` (`year`, `idFormation`, `idStudent`) VALUES
+(2013, 1, 1);
 
 -- --------------------------------------------------------
 
