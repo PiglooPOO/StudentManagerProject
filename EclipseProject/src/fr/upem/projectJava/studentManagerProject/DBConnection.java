@@ -30,8 +30,6 @@ public class DBConnection {
 			new DBConnection();
 			System.out.println("SQL connection done");
 		}
-		else
-			System.out.println("SQL connection already done");
 		return conn;	
 	}
 }
