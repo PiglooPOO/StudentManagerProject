@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Sam 04 Janvier 2014 à 14:05
--- Version du serveur: 5.6.12-log
--- Version de PHP: 5.4.12
+-- Généré le: Sam 04 Janvier 2014 à 14:58
+-- Version du serveur: 5.5.24-log
+-- Version de PHP: 5.3.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données: `smp`
 --
-CREATE DATABASE IF NOT EXISTS `smp` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `smp` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `smp`;
 
 -- --------------------------------------------------------
@@ -78,7 +78,6 @@ INSERT INTO `student` (`number`, `name`, `firstName`, `adress`, `phoneNumber`, `
 CREATE TABLE IF NOT EXISTS `subject` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) CHARACTER SET latin1 NOT NULL,
-  `coefficient` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
@@ -86,9 +85,9 @@ CREATE TABLE IF NOT EXISTS `subject` (
 -- Contenu de la table `subject`
 --
 
-INSERT INTO `subject` (`id`, `name`, `coefficient`) VALUES
-(1, 'gestion', 3),
-(2, 'automate', 4);
+INSERT INTO `subject` (`id`, `name`) VALUES
+(1, 'gestion'),
+(2, 'automate');
 
 -- --------------------------------------------------------
 

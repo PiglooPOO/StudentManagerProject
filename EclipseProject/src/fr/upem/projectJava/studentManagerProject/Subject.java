@@ -1,25 +1,35 @@
 package fr.upem.projectJava.studentManagerProject;
+
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
 public class Subject {
 
-	private String title;
-	private int coefficient;
+	private String name;
 
 	
-	public Subject(String title, int coefficient) {
-		this.title=title;
-		this.coefficient=coefficient;
+	public Subject(String name, int coefficient) {
+		this.name=name;
+	}
+	
+	public Subject(){
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Entrer le nom de la matière");
+		this.name=sc.nextLine();
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
-
-	public int getCoefficient() {
-		return coefficient;
-	}
-
-	public void setCoefficient(int coefficient) {
-		this.coefficient = coefficient;
+	
+	public void addSubject(){
+		try {
+			Statement state = DBConnection.getInstance().createStatement();
+			state.executeUpdate("INSERT INTO `subject`(`name`) VALUES ('"+this.getName()+"')");
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }
