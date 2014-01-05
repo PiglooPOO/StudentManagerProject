@@ -14,26 +14,27 @@ public class Main {
 	
 	public static void main(String[] args) {
 		checkConnection();
-		
-		int choiceNumber = 0;
 		Scanner sc = null;
+		int choiceNumber = 0;
 		
 		while(choiceNumber!=16){
-			drawMenu();
+			if(choiceNumber == 0)
+				drawMenu();
+			System.out.println("Entrer le chiffre correspondant à votre choix !\n");
 			try {
 				sc = new Scanner(System.in);
-				System.out.println("Entrer le chiffre correspondant à votre choix !\n");
-				if(choiceNumber==-1)
+				
+				while((choiceNumber = sc.nextInt())<1 || choiceNumber>16){
 					System.out.print("Ce choix est invalide, recommencez : ");
-				choiceNumber = sc.nextInt();
+				}
 			} catch(InputMismatchException e){
-				choiceNumber = -1;
+				System.out.println("Ce choix est invalide, ");
+				choiceNumber = -2;
 		    }
 			startSubMenu(choiceNumber);
-
-			if(choiceNumber!=-1 && choiceNumber!=16)
-				choiceNumber=0;
-			clearConsole();
+			if(choiceNumber != 16 && choiceNumber != -2)
+				choiceNumber = 0;
+			//clearConsole();
 		}
 		if(sc != null)
 			sc.close();
@@ -131,8 +132,7 @@ public class Main {
 				break;
 			case 16:
 				break;
-			default:
-				choiceNumber = -1;
+			default:;
 		}
 		return choiceNumber;
 	}
@@ -289,18 +289,18 @@ public class Main {
 					if(!Student.showStudent(number)){
 						System.out.println("L'étudiant "+number+" n'éxiste pas.");
 						System.out.println("Appuyez sur Entrer pour continuer.");
-						sc.nextLine();
+						sc.nextLine();sc.nextLine();
 					}
 					if(number<0){
 						System.out.println("Ceci n'est pas un numéro étudiant.");
 						System.out.println("Appuyez sur Entrer pour continuer.");
-						sc.nextLine();
+						sc.nextLine();sc.nextLine();
 					}
 					
 				} catch (InputMismatchException e) {
 					System.out.println("Ceci n'est pas un numéro étudiant.");
 					System.out.println("Appuyez sur Entrer pour continuer.");
-					sc.nextLine();
+					sc.nextLine();sc.nextLine();
 				}
 				
 				break;

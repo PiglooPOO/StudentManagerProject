@@ -2,15 +2,16 @@
 
 ## TODO
 
-- Ajouter un étudiant \[done\]
+Verbes en ER
+Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -2 pour erreur)
 
-- Rechercher un étudiant (par nom, prenom, filiaire, année, année+filiaire)
+- Ajouter un étudiant \[done\]
+- Rechercher un étudiant (par no étudiant, nom, prenom, matière, filiaire, année, année+filiaire)
 > - Inscrire un élève dans une filière et année
 > - Modifier des informations
 > - Attribuer des notes
 > - Afficher ses moyennes
 > - Editer attestation de réussite
-
 - Créer une filière
 - Rechercher une filière
 > - Ajouter une matière, des élèves

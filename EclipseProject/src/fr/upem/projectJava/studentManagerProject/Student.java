@@ -116,11 +116,7 @@ public class Student {
 		}
 		if(gender.equalsIgnoreCase("femme")){
 			this.gender = 2;
-			if(sc != null)
-				sc.close();
-			System.out.println("\nEtudiant bien ajouté.");
 		}
-		
 	}
 
 	public String getName() {
