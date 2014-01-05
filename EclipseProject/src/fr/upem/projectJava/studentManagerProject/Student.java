@@ -242,7 +242,7 @@ public class Student {
 					break;
 				case 5 :
 					//TODO
-					//Diplome.editDiplome();
+					Diplome.editDiplome(number);
 					break;
 				default:
 					break;
