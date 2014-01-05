@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Sam 04 Janvier 2014 à 14:58
--- Version du serveur: 5.5.24-log
--- Version de PHP: 5.3.13
+-- Généré le: Dim 05 Janvier 2014 à 21:26
+-- Version du serveur: 5.6.12-log
+-- Version de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -34,15 +34,35 @@ CREATE TABLE IF NOT EXISTS `formation` (
   `diploma` varchar(50) CHARACTER SET utf8 NOT NULL,
   `nbYear` int(11) NOT NULL,
   `curYear` int(11) NOT NULL,
+  `isAvailable` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf16 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf16 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `formation`
 --
 
-INSERT INTO `formation` (`id`, `name`, `diploma`, `nbYear`, `curYear`) VALUES
-(1, 'informatique', 'Diplôme Universitaire et Technologique', 2, 2);
+INSERT INTO `formation` (`id`, `name`, `diploma`, `nbYear`, `curYear`, `isAvailable`) VALUES
+(1, 'informatique', 'Diplôme Universitaire et Technologique', 2, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `settings`
+--
+
+CREATE TABLE IF NOT EXISTS `settings` (
+  `name` varchar(20) NOT NULL,
+  `directorName` varchar(30) NOT NULL,
+  `directorFirstName` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `settings`
+--
+
+INSERT INTO `settings` (`name`, `directorName`, `directorFirstName`) VALUES
+('Pigloo', 'GOUIN', 'Pain');
 
 -- --------------------------------------------------------
 
@@ -60,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `birthday` date NOT NULL,
   `gender` tinyint(4) NOT NULL,
   PRIMARY KEY (`number`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `student`

@@ -223,8 +223,8 @@ public class Student {
 						+ "\n0 Revenir au menu précédent");
 				
 				sc = new Scanner(System.in);
-				while((choiceNumber = sc.nextInt()) != 0){
-					System.out.println("Mauvais choix.");
+				while((choiceNumber = sc.nextInt()) < 0 || choiceNumber > 5){
+					System.out.println("Mauvais choix." + choiceNumber);
 				}
 				
 				switch (choiceNumber) {
