@@ -6,6 +6,35 @@ import java.util.Scanner;
 public class Main {
 	
 	public static void main(String[] args) {
+		checkConnection();
+		
+		int choiceNumber = 0;
+		Scanner sc = null;
+		
+		while(choiceNumber!=16){
+			drawMenu();
+			try {
+				sc = new Scanner(System.in);
+				System.out.println("Entrer le chiffre correspondant à votre choix !\n");
+				if(choiceNumber==-1)
+					System.out.print("Ce choix est invalide, recommencez : ");
+				choiceNumber = sc.nextInt();
+			} catch(InputMismatchException e){
+				choiceNumber = -1;
+		    }
+			startSubMenu(choiceNumber);
+
+			if(choiceNumber!=-1 && choiceNumber!=16)
+				choiceNumber=0;
+			clearConsole();
+		}
+		if(sc != null)
+			sc.close();
+		System.out.println("\nFermeture du Programme");
+	}
+	
+	
+	public static void checkConnection(){
 		for (int i = 1; (DBConnection.getInstance()==null); i++) {
 			try {
 				Thread.sleep(3000);
@@ -19,51 +48,31 @@ public class Main {
 			}
 			System.out.println(i+")\tErreur de la connection avec la BDD, nouvel essaie dans 3 secondes.");
 		}
-		
-		
-		int choiceNumber = 0;
-		Scanner sc = null;
-		
-		while(choiceNumber!=16){
-			System.out.println("Bienvenue dans StudentMangager de l'Ecole Pigloo\n");
-			System.out.println("Menu\n");
-			System.out.println("1 Ajouter un élève\n"
-					+ "2 Rechercher un élève\n"
-					+ "3 Ajouter une filière\n"
-					+ "4 Rechercher une filière\n"
-			        + "5 Ajouter une matière\n"
-			        + "6 Rechercher une matière\n"
-			        + "7 Ajouter des notes\n"
-			        + "8 Rechercher des notes\n"
-			        + "9 Ajouter une année\n"
-			        + "10 Inscrire un élève dans une filière et année\n"
-			        + "11 Editer les diplômes\n"
-					+ "12 Charger une base de données\n"
-					+ "13 Enregistrer une base de données\n"
-					+ "14 Modifier la configuration\n"
-					+ "15 Editer une attestation de réussite\n"
-					+ "16 Quitter");
-			try {
-				sc = new Scanner(System.in);
-				System.out.println("Entrer le chiffre correspondant à votre choix !\n");
-				if(choiceNumber==-1)
-					System.out.print("Ce choix est invalide, recommencez : ");
-				choiceNumber = sc.nextInt();
-			} catch(InputMismatchException e){
-				choiceNumber = -1;
-		    }
-			startMenu(choiceNumber);
-
-			if(choiceNumber!=-1 && choiceNumber!=16)
-				choiceNumber=0;
-			clearConsole();
-		}
-		if(sc != null)
-			sc.close();
-		System.out.println("\nFermeture du Programme");
 	}
 	
-	public static int startMenu(int choiceNumber){
+	
+	public static void drawMenu(){
+		System.out.println("Bienvenue dans StudentMangager de l'Ecole Pigloo\n");
+		System.out.println("Menu\n");
+		System.out.println("1 Ajouter un élève\n"
+				+ "2 Rechercher un élève\n"
+				+ "3 Ajouter une filière\n"
+				+ "4 Rechercher une filière\n"
+		        + "5 Ajouter une matière\n"
+		        + "6 Rechercher une matière\n"
+		        + "7 Ajouter des notes\n"
+		        + "8 Rechercher des notes\n"
+		        + "9 Ajouter une année\n"
+		        + "10 Inscrire un élève dans une filière et année\n"
+		        + "11 Editer les diplômes\n"
+				+ "12 Charger une base de données\n"
+				+ "13 Enregistrer une base de données\n"
+				+ "14 Modifier la configuration\n"
+				+ "15 Editer une attestation de réussite\n"
+				+ "16 Quitter");
+	}
+	
+	public static int startSubMenu(int choiceNumber){
 		switch(choiceNumber){
 			case 1:
 				Student e=new Student();
