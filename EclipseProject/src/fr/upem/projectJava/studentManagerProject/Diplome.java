@@ -45,7 +45,6 @@ public class Diplome {
     }
   }
 
-
   private static void addMetaData(Document document) {
     document.addTitle("Attestation");
     document.addSubject("");
@@ -105,5 +104,6 @@ public class Diplome {
     for (int i = 0; i < number; i++) {
       paragraph.add(new Paragraph(" "));
     }
-  }
+  } 
 } 
+
