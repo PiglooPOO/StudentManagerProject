@@ -224,7 +224,7 @@ public class Student {
 				
 				sc = new Scanner(System.in);
 				while((choiceNumber = sc.nextInt()) < 0 || choiceNumber > 5){
-					System.out.println("Mauvais choix." + choiceNumber);
+					System.out.println("Mauvais choix.");
 				}
 				
 				switch (choiceNumber) {
