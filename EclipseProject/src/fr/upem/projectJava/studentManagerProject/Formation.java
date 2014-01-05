@@ -93,6 +93,11 @@ public class Formation {
 		this.studentList.add(etudiant);
 	}
 	
+	public static boolean searchByFormation(String answerFormation){
+		
+		return false;
+	}
+	
 	public void addFormation(){
 		try {
 			Statement state = DBConnection.getInstance().createStatement();
@@ -100,5 +105,18 @@ public class Formation {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	public static void deleteFormation(int id){
+		
+	}
+	
+	public static void editFormation(int id){
+		
+	}
+	
+	public static boolean showFormation(int id){
+		
+		return false;
 	}
 }

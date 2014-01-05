@@ -17,10 +17,15 @@ public class Main {
 		Scanner sc = null;
 		int choiceNumber = 0;
 		
+<<<<<<< HEAD
 		while(choiceNumber!=16){
 			if(choiceNumber == 0)
 				drawMenu();
 			System.out.println("Entrer le chiffre correspondant à votre choix !\n");
+=======
+		while(choiceNumber!=15){
+			drawMenu();
+>>>>>>> e7a1ed38fff6c88412d01894f377ecfbeb6eb90d
 			try {
 				sc = new Scanner(System.in);
 				
@@ -65,19 +70,18 @@ public class Main {
 		System.out.println("1 Ajouter un élève\n"
 				+ "2 Rechercher un élève\n"
 				+ "3 Ajouter une filière\n"
-				+ "4 Rechercher une filière\n"
+				+ "4 Rechercher une filière ou une matière\n"
 		        + "5 Ajouter une matière\n"
-		        + "6 Rechercher une matière\n"
-		        + "7 Ajouter des notes\n"
-		        + "8 Rechercher des notes\n"
-		        + "9 Ajouter une année\n"
-		        + "10 Inscrire un élève dans une filière et année\n"
-		        + "11 Editer les diplômes\n"
-				+ "12 Charger une base de données\n"
-				+ "13 Enregistrer une base de données\n"
-				+ "14 Modifier la configuration\n"
-				+ "15 Editer une attestation de réussite\n"
-				+ "16 Quitter");
+		        + "6 Ajouter des notes\n"
+		        + "7 Rechercher des notes\n"
+		        + "8 Ajouter une année\n"
+		        + "9 Inscrire un élève dans une filière et année\n"
+		        + "10 Editer les diplômes\n"
+				+ "11 Charger une base de données\n"
+				+ "12 Enregistrer une base de données\n"
+				+ "13 Modifier la configuration\n"
+				+ "14 Editer une attestation de réussite\n"
+				+ "15 Quitter");
 	}
 	
 	public static int startSubMenu(int choiceNumber){
@@ -94,43 +98,40 @@ public class Main {
 				f.addFormation();
 				break;
 			case 4:
-				// Rechercher une filière
+				startMenuSearchFormation();
 				break;
 			case 5:
 				Subject m = new Subject();
 				m.addSubject();
 				break;
 			case 6:
-				// Rechercher une matière
-				break;
-			case 7:
 				// Ajouter des notes
 				break;
-			case 8:
+			case 7:
 				// Rechercher des notes
 				break;
-			case 9:
+			case 8:
 				// Ajouter une année
 				break;
-			case 10:
+			case 9:
 				// Inscrire un élève dans une filière et année.
 				break;
-			case 11:
+			case 10:
 				// Editer les diplômes
 				break;
-			case 12:
+			case 11:
 				// Charger une bade de données
 				break;
-			case 13:
+			case 12:
 				saveDB();
 				break;
-			case 14:
+			case 13:
 				// Modifier la configuration
 				break;
-			case 15:
+			case 14:
 				// Editer une attestation de réussite
 				break;
-			case 16:
+			case 15:
 				break;
 			default:;
 		}
@@ -323,6 +324,161 @@ public class Main {
 			}
 		}while(choiceNumber != 8);
 	}
+	
+	private static void startMenuSearchFormation(){
+		int choiceNumber = 0;
+		
+		do{
+			Scanner sc = new Scanner(System.in);
+			
+			System.out.println(">> Rechercher dans la structure des filières\n"
+					+ "1 Rechercher une de filière\n"
+					+ "2 Rechercher une de matière\n"
+					+ "3 Retour au Menu\n\n");
+			System.out.print(">> ");
+			choiceNumber = sc.nextInt();
+			sc.nextLine();
+			switch(choiceNumber){
+			case 1:
+				String answerFormation = "";
+				int answerChoice1 = 0;
+				System.out.println("Entrer le nom de la filière : ");
+				try{
+					answerFormation = sc.nextLine();
+					if(!Formation.searchByFormation(answerFormation)){
+						System.out.println("La filière "+answerFormation+" n'éxiste pas.");
+						System.out.println("Appuyez sur Entrer pour continuer.");
+						sc.nextLine();
+						}
+					if(answerFormation.length()<0){
+						System.out.println("Ceci n'est pas un nom de filière.");
+						System.out.println("Appuyez sur Entrer pour continuer.");
+						sc.nextLine();
+					}
+				}catch(InputMismatchException e){
+					System.out.println("Ceci n'est pas une filière.");
+					System.out.println("Appuyez sur Entrer pour continuer.");
+					sc.nextLine();
+				}
+				
+				System.out.println("Que voulez-vous faire ?\n"
+						+ "1 Editer\n"
+						+ "2 Supprimer\n"
+						+ "3 Ajouter\n"
+						+ "4 Visualiser\n"
+						+ "5 Quitter\n");
+				
+				System.out.print(">> ");
+				answerChoice1 = sc.nextInt();
+				sc.nextLine();
+				int id;
+				switch(answerChoice1){
+				case 1:
+					System.out.println("Entrer le numéro de l'étudiant que vous voulez éditer\n"
+							+ ">> ");
+					id = sc.nextInt();
+					sc.nextLine();
+					Formation.editFormation(id);
+					break;
+				case 2:
+					System.out.println("Entrer le numéro de l'étudiant que vous voulez supprimer\n"
+							+ ">> ");
+					id = sc.nextInt();
+					sc.nextLine();
+					Formation.deleteFormation(id);
+					break;
+				case 3:
+					Formation f = new Formation();
+					f.addFormation();
+					break;
+				case 4:
+					System.out.println("Entrer le numéro de l'étudiant que vous voulez visualiser\n"
+							+ ">> ");
+					id = sc.nextInt();
+					sc.nextLine();
+					Formation.showFormation(id);
+					break;
+				case 5:
+					break;
+				default:
+					answerChoice1 = -1;
+				}
+				break;
+				
+				
+			case 2:
+				String answerSubject = "";
+				int answerChoice2 = 0;
+				System.out.println("Entrer le nom de la filière : ");
+				try{	
+					answerSubject = sc.nextLine();
+					if(!Subject.searchBySubject(answerSubject)){
+						System.out.println("La matière "+answerSubject+" n'éxiste pas.");
+						System.out.println("Appuyez sur Entrer pour continuer.");
+						sc.nextLine();
+						}
+					if(answerSubject.length()<0){
+						System.out.println("Ceci n'est pas un nom de matière.");
+						System.out.println("Appuyez sur Entrer pour continuer.");
+						sc.nextLine();
+					}
+				}catch(InputMismatchException e){
+					System.out.println("Ceci n'est pas une matière.");
+					System.out.println("Appuyez sur Entrer pour continuer.");
+					sc.nextLine();
+				}
+				
+				System.out.println("Que voulez-vous faire ?\n"
+						+ "1 Editer\n"
+						+ "2 Supprimer\n"
+						+ "3 Ajouter\n"
+						+ "4 Visualiser\n"
+						+ "5 Quitter\n");
+				
+				System.out.print(">> ");
+				answerChoice2 = sc.nextInt();
+				sc.nextLine();
+				switch(answerChoice2){
+				case 1:
+					System.out.println("Entrer le numéro de l'étudiant que vous voulez éditer\n"
+							+ ">> ");
+					id = sc.nextInt();
+					sc.nextLine();
+					Subject.editSubject(id);
+					break;
+				case 2:
+					System.out.println("Entrer le numéro de l'étudiant que vous voulez supprimer\n"
+							+ ">> ");
+					id = sc.nextInt();
+					sc.nextLine();
+					Subject.deleteSubject(id);
+					break;
+				case 3:
+					Subject sub = new Subject();
+					sub.addSubject();
+					break;
+				case 4:
+					System.out.println("Entrer le numéro de l'étudiant que vous voulez visualiser\n"
+							+ ">> ");
+					id = sc.nextInt();
+					sc.nextLine();
+					Subject.showSubject(id);
+					break;
+				case 5:
+					break;
+				default:
+					answerChoice2 = -1;
+				}
+				break;
+				
+			case 3:
+				break;
+			default:
+				choiceNumber = -1;
+			}		
+		}while(choiceNumber != 3);
+
+	}	
 	
 	private static void clearConsole()
 	{

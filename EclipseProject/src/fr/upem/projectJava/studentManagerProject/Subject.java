@@ -28,6 +28,11 @@ public class Subject {
 		return name;
 	}
 	
+	public static boolean searchBySubject(String answerSubject){	
+		
+		return false;
+	}
+	
 	public void addSubject(){
 		try {
 			Statement state = DBConnection.getInstance().createStatement();
@@ -35,6 +40,19 @@ public class Subject {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+	}
+
+	public static void deleteSubject(int id){
+		
+	}
+	
+	public static void editSubject(int id){
+		
+	}
+	
+	public static boolean showSubject(int id){
+		
+		return false;
 	}
 
 }
