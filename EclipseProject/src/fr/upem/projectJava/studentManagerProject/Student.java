@@ -213,17 +213,39 @@ public class Student {
 						"\nMail :\t\t" + result.getString("mail")+
 						"\nDate de naissance :\t" + result.getDate("birthday").toString()+
 						"\nSexe :\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"));
+				
 				System.out.println(""
 						+ "\n1 Inscrire un élève dans une filière et année"
 						+ "\n2 Modifier des informations"
 						+ "\n3 Attribuer des notes"
 						+ "\n4 Afficher ses moyennes"
 						+ "\n5 Editer attestation de réussite"
-						+ "\n6 Revenir au menu précédent");
+						+ "\n0 Revenir au menu précédent");
 				
 				sc = new Scanner(System.in);
 				while((choiceNumber = sc.nextInt()) != 0){
 					System.out.println("Mauvais choix.");
+				}
+				
+				switch (choiceNumber) {
+				case 1 :
+					//TODO
+					break;
+				case 2 :
+					//TODO
+					break;
+				case 3 :
+					//TODO
+					break;
+				case 4 :
+					//TODO
+					break;
+				case 5 :
+					//TODO
+					//Diplome.editDiplome();
+					break;
+				default:
+					break;
 				}
 			}
 		} catch (SQLException e) {

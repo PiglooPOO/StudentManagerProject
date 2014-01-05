@@ -6,12 +6,14 @@ Verbes en ER
 Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -2 pour erreur)
 
 - Ajouter un étudiant \[done\]
+
 - Rechercher un étudiant (par no étudiant, nom, prenom, matière, filiaire, année, année+filiaire)
 > - Inscrire un élève dans une filière et année
 > - Modifier des informations
 > - Attribuer des notes
 > - Afficher ses moyennes
 > - Editer attestation de réussite
+
 - Créer une filière
 - Rechercher une filière
 > - Ajouter une matière, des élèves
@@ -21,8 +23,6 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 
 - Ajouter des notes
 > - Pour année en cours en recherchant formation puis en choisissant la matière
-
-- Rechercher des notes ?
 
 - Créer une année
 > - Copier une formation de l'année précédente en faisant passer les élèves year_formation_student.nbyear +1 si < formation.nbyear

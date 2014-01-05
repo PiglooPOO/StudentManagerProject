@@ -3,6 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -103,7 +104,7 @@ public class Formation {
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE id = "+id);
 			if(result.next()){
 				System.out.println(
-						"\nGestion du " + result.getString("diploma")+ " " + result.getString("name")+ result.getInt("curYear") +"ème année.\n");
+						"\nGestion du " + result.getString("diploma")+ " " + result.getString("name") +" "+ result.getInt("curYear") +"ème année.\n");
 				
 				System.out.println("Que voulez-vous faire ?\n"
 						+ "1 Editer\n"
@@ -113,8 +114,8 @@ public class Formation {
 						+ "5 Quitter\n");
 				
 				System.out.print(">> ");
-				choiceNumber = sc.nextInt();
 				sc = new Scanner(System.in);
+				choiceNumber = sc.nextInt();
 				sc.nextLine();
 				
 				switch(choiceNumber){
@@ -148,9 +149,26 @@ public class Formation {
 	}
 	
 	public static boolean addSubjectToFormation(int id){
+		
 		return false;
 	}
-	public static boolean searchFormationByName(String answerFormation){
+	public static boolean searchFormationsByName(String answerFormation){
+		Statement state;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+answerFormation+"%\" OR diploma LIKE \"%"+answerFormation+"%\"");
+			while(result.next()){
+				System.out.println(result.getInt("id")+" "+result.getString("diploma")+" "+result.getString("name"));
+			}
+			Scanner sc = new Scanner(System.in);
+			int id = sc.nextInt();
+			sc.nextLine();
+			showFormation(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return false;
 	}
 	
