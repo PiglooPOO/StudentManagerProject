@@ -198,6 +198,13 @@ public class Student {
 			}
 		}
 	}
+	
+	public static boolean showStudent(int number){
+		
+		
+		return false;
+		
+	}
 
 	public String toString() {
 		String gender = (this.gender==1)?"Femme":"Homme";

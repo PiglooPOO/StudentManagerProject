@@ -79,7 +79,7 @@ public class Main {
 				e.addStudent();
 				break;
 			case 2:
-				// Rechercher une élève
+				startMenuSearchStudent();
 				break;
 			case 3: 
 				Formation f = new Formation();
@@ -128,6 +128,66 @@ public class Main {
 				choiceNumber = -1;
 		}
 		return choiceNumber;
+	}
+	
+	private static void startMenuSearchStudent(){
+		int choiceNumber = 0;
+		
+		do{
+			Scanner sc = new Scanner(System.in);
+			System.out.println("1 Rechercher par numéro d'étudiant\n"
+					+ "2 Rechercher par Nom\n"
+					+ "3 Rechercher par Prénom\n"
+					+ "4 Rechercher par Matière\n"
+					+ "5 Rechercher par Filière\n"
+					+ "6 Rechercher par Année\n"
+					+ "7 Rechercher par Année et Filière\n"
+					+ "8 Retour au Menu\n");
+			System.out.print("Entrez votre choix : ");
+			choiceNumber = sc.nextInt();
+			switch(choiceNumber)
+			{
+			case 1:
+				int number;
+				System.out.print("Entrez le numéro étudiant de l'étudiant : ");
+				try {
+					number = sc.nextInt();
+					if(!Student.showStudent(number)){
+						System.out.println("L'étudiant "+number+" n'éxiste pas.");
+						System.out.println("Appuyez sur Entrer pour continuer.");
+						sc.nextLine();
+					}
+					if(number<0){
+						System.out.println("Ceci n'est pas un numéro étudiant.");
+						System.out.println("Appuyez sur Entrer pour continuer.");
+						sc.nextLine();
+					}
+					
+				} catch (InputMismatchException e) {
+					System.out.println("Ceci n'est pas un numéro étudiant.");
+					System.out.println("Appuyez sur Entrer pour continuer.");
+					sc.nextLine();
+				}
+				
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			case 8:
+				break;
+			default:
+				choiceNumber = -1;
+			}
+		}while(choiceNumber != 8);
 	}
 	
 	private static void clearConsole()

@@ -3,12 +3,14 @@
 ## TODO
 
 - Ajouter un étudiant \[done\]
+
 - Rechercher un étudiant (par nom, prenom, filiaire, année, année+filiaire)
 > - Inscrire un élève dans une filière et année
 > - Modifier des informations
 > - Attribuer des notes
 > - Afficher ses moyennes
 > - Editer attestation de réussite
+
 - Créer une filière
 - Rechercher une filière
 > - Ajouter une matière, des élèves
