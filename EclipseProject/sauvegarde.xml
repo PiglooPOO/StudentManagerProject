@@ -1,0 +1,67 @@
+<Students>
+	<Student>
+		<number>1</number>
+		<name>BOULIC</name>
+		<firstName>Quentin</firstName>
+		<adress>23 boulevard Aristide BRIAND</adress>
+		<phoneNumber>0610101010</phoneNumber>
+		<mail>qboulic@etudiant.univ-mlv.fr</mail>
+		<birthday>1994-09-07</birthday>
+		<gender>1</gender>
+	</Student>
+	<Student>
+		<number>2</number>
+		<name>GERBER</name>
+		<firstName>Xavier</firstName>
+		<adress>6 rue des bleuets</adress>
+		<phoneNumber>0000000000</phoneNumber>
+		<mail>xavier1.gerber@gmail.com</mail>
+		<birthday>1994-10-05</birthday>
+		<gender>1</gender>
+	</Student>
+</Students>
+
+<Subjects>
+	<Subject>
+		<id>1</id>
+		<name>gestion</name>
+	</Subject>
+	<Subject>
+		<id>2</id>
+		<name>automate</name>
+	</Subject>
+</Subjects>
+
+<Formations>
+	<Formation>
+		<id>1</id>
+		<name>informatique</name>
+		<diploma>Diplôme Universitaire et Technologique</diploma>
+		<nbYear>2</nbYear>
+		<curYear>2</curYear>
+	</Formation>
+</Formations>
+
+<years_formations_students>
+	<year_formation_student>
+		<year>2013</year>
+		<idFormation>1</idFormation>
+		<idStudent>1</idStudent>
+	</year_formation_student>
+</years_formations_students>
+
+<years_formations_subjects>
+	<year_formation_subject>
+		<year>2013</year>
+		<idFormation>1</idFormation>
+		<idSubject>1</idSubject>
+	</year_formation_subject>
+	<year_formation_subject>
+		<year>2013</year>
+		<idFormation>1</idFormation>
+		<idSubject>2</idSubject>
+	</year_formation_subject>
+</years_formations_subjects>
+
+<years_students_subjects_notes>
+</years_students_subjects_notes>
