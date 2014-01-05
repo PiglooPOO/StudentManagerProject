@@ -1,5 +1,6 @@
 package fr.upem.projectJava.studentManagerProject;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
@@ -200,6 +201,38 @@ public class Student {
 	}
 	
 	public static boolean showStudent(int number){
+		Statement state;
+		Scanner sc = null;
+		int choiceNumber = 0;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM student WHERE number = "+number);
+			if(result.next()){
+				System.out.println(
+						"\nNom :\t\t" + result.getString("name")+
+						"\nPrénom :\t" + result.getString("firstName")+
+						"\nAdresse :\t" + result.getString("adress")+
+						"\nTel :\t\t" + result.getString("phoneNumber")+
+						"\nMail :\t\t" + result.getString("mail")+
+						"\nDate de naissance :\t" + result.getDate("birthday").toString()+
+						"\nSexe :\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"));
+				System.out.println(""
+						+ "\n1 Inscrire un élève dans une filière et année"
+						+ "\n2 Modifier des informations"
+						+ "\n3 Attribuer des notes"
+						+ "\n4 Afficher ses moyennes"
+						+ "\n5 Editer attestation de réussite"
+						+ "\n6 Revenir au menu précédent");
+				
+				sc = new Scanner(System.in);
+				while((choiceNumber = sc.nextInt()) != 0){
+					System.out.println("Mauvais choix.");
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		return false;
@@ -207,7 +240,7 @@ public class Student {
 	}
 
 	public String toString() {
-		String gender = (this.gender==1)?"Femme":"Homme";
+		String gender = (this.gender==2)?"Femme":"Homme";
 		return "Nom : " +name+"\n"
 				+ "Prénom : " +firstName+"\n"
 				+ "Adress : " +adress+"\n"
