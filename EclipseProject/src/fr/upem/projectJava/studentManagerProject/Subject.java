@@ -15,8 +15,13 @@ public class Subject {
 	
 	public Subject(){
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Entrer le nom de la matière");
-		this.name=sc.nextLine();
+		do{
+			System.out.print("Entrer le nom de la matière : ");
+			this.name=sc.nextLine();
+			if(this.name.length()>30)
+				System.out.println("Le nom de la matière entré est trop long.");
+		}
+		while(this.name.length()>30);
 	}
 
 	public String getName() {

@@ -24,14 +24,29 @@ public class Formation {
 	
 	public Formation(){
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Nom de la filière : ");
-		this.name=sc.nextLine();
+		do{
+			System.out.print("Nom de la filière : ");
+			this.name=sc.nextLine();
+			if(this.name.length()>50)
+				System.out.println("Le nom de la filière entré est trop long");
+		}
+		while(this.name.length()>50);
+		do{
 		System.out.print("Nom du diplôme remis par la filière : ");
 		this.diploma=sc.nextLine();
+		if(this.name.length()>50)
+			System.out.println("Le nom de la filière entré est trop long");
+		}
+		while(this.name.length()>50);
 		System.out.print("Nombre d'année total de la filière : ");
 		this.nbYear=sc.nextInt();
+		do{
 		System.out.print("Année de la filière :");
 		this.curYear=sc.nextInt();
+		if(curYear>nbYear)
+			System.out.println("L'année entré n'est pas disponible pour cette filière");
+		}
+		while(curYear>nbYear);
 	}
 
 	public int getNbYear() {
