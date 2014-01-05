@@ -67,5 +67,13 @@
 
 <years_students_subjects_notes>
 	<year_student_subject_note>
+		<year>
+		</year>
+		<idFormation>
+		</idFormation>
+		<idSubject>
+		</idSubject>
+		<idStudent>
+		</idStudent>
 	</year_student_subject_note>
 </years_students_subjects_notes>
