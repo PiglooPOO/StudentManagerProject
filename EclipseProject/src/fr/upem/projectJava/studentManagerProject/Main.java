@@ -69,15 +69,11 @@ public class Main {
 				+ "3 Ajouter une filière\n"
 				+ "4 Rechercher une filière ou une matière\n"
 		        + "5 Ajouter une matière\n"
-		        + "6 Ajouter des notes\n"
-		        + "7 Rechercher des notes\n"
 		        + "8 Ajouter une année\n"
-		        + "9 Inscrire un élève dans une filière et année\n"
 		        + "10 Editer les diplômes\n"
 				+ "11 Charger une base de données\n"
 				+ "12 Enregistrer une base de données\n"
 				+ "13 Modifier la configuration\n"
-				+ "14 Editer une attestation de réussite\n"
 				+ "0 Quitter");
 	}
 	
@@ -138,7 +134,8 @@ public class Main {
 	private static void startMenuSearchStudent(){
 		Scanner sc = null;
 		int choiceNumber = 1;
-		
+		String str;
+		int number;
 		while(choiceNumber!=0){
 			if(choiceNumber == 1)
 				System.out.println("1 Rechercher par numéro d'étudiant\n"
@@ -164,7 +161,6 @@ public class Main {
 		    }
 			switch(choiceNumber){
 				case 1:
-					int number;
 					System.out.print("Entrez le numéro étudiant de l'étudiant : ");
 					try {
 						number = sc.nextInt();
@@ -187,6 +183,24 @@ public class Main {
 					
 					break;
 				case 2:
+					System.out.print("Entrez le nom de l'étudiant : ");
+					try {
+						str = sc.nextLine();
+						if(!Student.showStudentsByName(str)){
+							System.out.println("L'étudiant "+str+" n'éxiste pas.");
+							System.out.println("Appuyez sur Entrer pour continuer.");
+							sc.nextLine();sc.nextLine();
+						}
+						if(str == ""){
+							System.out.println("Ceci n'est pas un nom.");
+							System.out.println("Appuyez sur Entrer pour continuer.");
+							sc.nextLine();sc.nextLine();
+						}
+					} catch (InputMismatchException e) {
+						System.out.println("Ceci n'est pas un nom.");
+						System.out.println("Appuyez sur Entrer pour continuer.");
+						sc.nextLine();sc.nextLine();
+					}
 					break;
 				case 3:
 					break;

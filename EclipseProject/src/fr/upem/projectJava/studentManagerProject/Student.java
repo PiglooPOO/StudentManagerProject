@@ -307,4 +307,46 @@ public class Student {
 		} while (idStudent<0);
 		showStudent(idStudent);
 	}
+	
+	public static boolean showStudentsByName(String st) {
+		Statement state;
+		Scanner sc = null;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.name IS LIKE \"%"+st+"%\" ORDER BY number");
+			int year = 0;
+			if(!result.next())
+				return false;
+			do{
+				if(year<result.getInt("year")){
+					year = result.getInt("year");
+					System.out.println("\n"
+							+ "\t####################################\n"
+							+ "\t################# "+year+" #############\n"
+							+ "\t####################################\n"
+							+ "");
+				}
+				System.out.println(result.getInt("student.number")+"\t"
+						+ result.getString("name")
+						+ " " + result.getString("firstName"));
+			}while(result.next());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
+		int idStudent = -1;
+		sc = new Scanner(System.in);
+		do {
+			try {
+				idStudent = sc.nextInt();
+				sc.nextLine();
+			} catch (InputMismatchException e) {
+				// TODO: handle exception
+			}
+		} while (idStudent<0);
+		showStudent(idStudent);
+		return true;
+	}
 }
