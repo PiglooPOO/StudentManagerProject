@@ -28,7 +28,53 @@ public class Subject {
 		return name;
 	}
 	
-	public static boolean searchBySubject(String answerSubject){	
+	public static boolean searchSubjectsByName(String answerSubject){	
+		Scanner sc = new Scanner(System.in);
+		int choiceNumber = 0;
+		int id = 0;
+		System.out.println("Que voulez-vous faire ?\n"
+				+ "1 Editer\n"
+				+ "2 Supprimer\n"
+				+ "3 Ajouter à une formation\n"
+				+ "4 Visualiser\n"
+				+ "5 Quitter\n");
+		
+		System.out.print(">> ");
+		choiceNumber = sc.nextInt();
+		sc.nextLine();
+		
+		
+		switch(choiceNumber){
+			case 1:
+				System.out.println("Entrer le numéro de l'étudiant que vous voulez éditer\n"
+						+ ">> ");
+				id = sc.nextInt();
+				sc.nextLine();
+				Subject.editSubject(id);
+				break;
+			case 2:
+				System.out.println("Entrer le numéro de l'étudiant que vous voulez supprimer\n"
+						+ ">> ");
+				id = sc.nextInt();
+				sc.nextLine();
+				Subject.deleteSubject(id);
+				break;
+			case 3:
+				Subject sub = new Subject();
+				sub.addSubject();
+				break;
+			case 4:
+				System.out.println("Entrer le numéro de l'étudiant que vous voulez visualiser\n"
+						+ ">> ");
+				id = sc.nextInt();
+				sc.nextLine();
+				Subject.showSubject(id);
+				break;
+			case 5:
+				break;
+			default:
+				choiceNumber = -1;
+		}
 		
 		return false;
 	}

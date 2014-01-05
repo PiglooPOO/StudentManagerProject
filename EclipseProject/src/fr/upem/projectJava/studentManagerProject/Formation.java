@@ -1,4 +1,5 @@
 package fr.upem.projectJava.studentManagerProject;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -93,8 +94,63 @@ public class Formation {
 		this.studentList.add(etudiant);
 	}
 	
-	public static boolean searchByFormation(String answerFormation){
-		
+	public static boolean showFormation(int id){
+		int choiceNumber = 0;
+		Statement state;
+		Scanner sc = null;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE id = "+id);
+			if(result.next()){
+				System.out.println(
+						"\nGestion du " + result.getString("diploma")+ " " + result.getString("name")+ result.getInt("curYear") +"ème année.\n");
+				
+				System.out.println("Que voulez-vous faire ?\n"
+						+ "1 Editer\n"
+						+ "2 Supprimer\n"
+						+ "3 Ajouter des matières\n"
+						+ "4 Visualiser les étudiants suivant cette formation\n"
+						+ "5 Quitter\n");
+				
+				System.out.print(">> ");
+				choiceNumber = sc.nextInt();
+				sc = new Scanner(System.in);
+				sc.nextLine();
+				
+				switch(choiceNumber){
+					case 1:
+						//TODO
+						Formation.editFormation(id);
+						break;
+					case 2:
+						//TODO
+						Formation.deleteFormation(id);
+						break;
+					case 3:
+						//TODO
+						Formation.addSubjectToFormation(id);
+						break;
+					case 4:
+						Student.showStudentsByFormation(id);
+						break;
+					case 5:
+						break;
+					default:
+						break;
+				}
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean addSubjectToFormation(int id){
+		return false;
+	}
+	public static boolean searchFormationByName(String answerFormation){
 		return false;
 	}
 	
@@ -113,10 +169,5 @@ public class Formation {
 	
 	public static void editFormation(int id){
 		
-	}
-	
-	public static boolean showFormation(int id){
-		
-		return false;
 	}
 }

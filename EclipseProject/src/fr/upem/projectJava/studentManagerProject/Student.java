@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Student {
@@ -244,5 +245,44 @@ public class Student {
 				+ "Email : " +mail+ "\n"
 				+ "Date de naissance : " +birthday+"\n"
 				+ "Sexe : " +gender;
+	}
+
+	public static void showStudentsByFormation(int id) {
+		Statement state;
+		Scanner sc = null;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,formation,year_formation_student WHERE formation.id = "+id+" AND formation.id = idFormation AND student.number = idStudent ORDER BY year");
+			int year = 0;
+			while(result.next()){
+				if(year<result.getInt("year")){
+					year = result.getInt("year");
+					System.out.println("\n"
+							+ "\t####################################\n"
+							+ "\t################# "+year+" #############\n"
+							+ "\t####################################\n"
+							+ "");
+				}
+				System.out.println(result.getInt("student.number")+"\t"
+						+ result.getString("name")
+						+ " " + result.getString("firstName"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
+		int idStudent = -1;
+		sc = new Scanner(System.in);
+		do {
+			try {
+				idStudent = sc.nextInt();
+				sc.nextLine();
+			} catch (InputMismatchException e) {
+				// TODO: handle exception
+			}
+		} while (idStudent<0);
+		showStudent(idStudent);
 	}
 }
