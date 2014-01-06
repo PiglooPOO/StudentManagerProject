@@ -69,11 +69,11 @@ public class Main {
 				+ "3 Ajouter une filière\n"
 				+ "4 Rechercher une filière ou une matière\n"
 		        + "5 Ajouter une matière\n"
-		        + "8 Ajouter une année\n"
-		        + "10 Editer les diplômes\n"
-				+ "11 Charger une base de données\n"
-				+ "12 Enregistrer une base de données\n"
-				+ "13 Modifier la configuration\n"
+		        + "6 Ajouter une année\n"
+		        + "7 Editer les diplômes\n"
+				+ "8 Charger une base de données\n"
+				+ "9 Enregistrer une base de données\n"
+				+ "10 Modifier la configuration\n"
 				+ "0 Quitter");
 	}
 	
@@ -97,20 +97,20 @@ public class Main {
 				Subject m = new Subject();
 				m.addSubject();
 				break;
+			case 6:
+				//TODO  Ajouter une année
+				break;
+			case 7:
+				//TODO  Editer les diplômes
+				break;
 			case 8:
-				// Ajouter une année
+				//TODO Charger une base de données
 				break;
-			case 10:
-				// Editer les diplômes
-				break;
-			case 11:
-				// Charger une bade de données
-				break;
-			case 12:
+			case 9:
 				DBConnection.saveDB();
 				break;
-			case 13:
-				// Modifier la configuration
+			case 10:
+				//TODO Modifier la configuration
 				break;
 			default:;
 		}
@@ -287,9 +287,7 @@ public class Main {
 				System.out.println("Ce choix est invalide, ");
 				choiceNumber = -2;
 		    }
-			/**
-			 * start submenu
-			 */
+
 			switch(choiceNumber){
 			case 1:
 				String answerFormation = "";
@@ -339,9 +337,7 @@ public class Main {
 				break;
 			default:
 			}
-			/**
-			 * end submenu
-			 */
+
 			if(choiceNumber != 0 && choiceNumber != -2)
 				choiceNumber = 1;
 			//clearConsole();
