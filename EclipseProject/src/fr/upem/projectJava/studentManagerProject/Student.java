@@ -200,6 +200,7 @@ public class Student {
 	public static boolean showStudent(int number){
 		Statement state;
 		Scanner sc = null;
+<<<<<<< HEAD
 		try {
 			state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE number = "+number);
@@ -273,6 +274,64 @@ public class Student {
 			e.printStackTrace();
 			return false;
 		}
+=======
+		int choiceNumber = 0;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM student WHERE number = "+number);
+			if(result.next()){
+				System.out.println(
+						"\nNom :\t\t" + result.getString("name")+
+						"\nPrénom :\t" + result.getString("firstName")+
+						"\nAdresse :\t" + result.getString("adress")+
+						"\nTel :\t\t" + result.getString("phoneNumber")+
+						"\nMail :\t\t" + result.getString("mail")+
+						"\nDate de naissance :\t" + result.getDate("birthday").toString()+
+						"\nSexe :\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"));
+				
+				System.out.println(""
+						+ "\n1 Inscrire un élève dans une filière et année"
+						+ "\n2 Modifier des informations"
+						+ "\n3 Attribuer des notes"
+						+ "\n4 Afficher ses moyennes"
+						+ "\n5 Editer attestation de réussite"
+						+ "\n0 Revenir au menu précédent");
+				
+				sc = new Scanner(System.in);
+				while((choiceNumber = sc.nextInt()) < 0 || choiceNumber > 5){
+					System.out.println("Mauvais choix.");
+				}
+				
+				switch (choiceNumber) {
+				case 1 :
+					//TODO
+					break;
+				case 2 :
+					//TODO
+					break;
+				case 3 :
+					//TODO
+					break;
+				case 4 :
+					//TODO
+					break;
+				case 5 :
+					//TODO
+					Diplome.editDiplome(number);
+					break;
+				default:
+					break;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return false;
+		
+>>>>>>> 3095401cd3baf2a090e50810be343d4a14e48c4f
 	}
 
 	public String toString() {
@@ -330,6 +389,7 @@ public class Student {
 		Scanner sc = null;
 		try {
 			state = DBConnection.getInstance().createStatement();
+<<<<<<< HEAD
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.name LIKE \"%"+st+"%\" ORDER BY number");
 			if(!result.next())
 				return false;
@@ -367,6 +427,21 @@ public class Student {
 			if(!result.next())
 				return false;
 			do{
+=======
+			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.name IS LIKE \"%"+st+"%\" ORDER BY number");
+			int year = 0;
+			if(!result.next())
+				return false;
+			do{
+				if(year<result.getInt("year")){
+					year = result.getInt("year");
+					System.out.println("\n"
+							+ "\t####################################\n"
+							+ "\t################# "+year+" #############\n"
+							+ "\t####################################\n"
+							+ "");
+				}
+>>>>>>> 3095401cd3baf2a090e50810be343d4a14e48c4f
 				System.out.println(result.getInt("student.number")+"\t"
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
