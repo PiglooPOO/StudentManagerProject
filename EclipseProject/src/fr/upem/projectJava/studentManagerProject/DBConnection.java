@@ -53,14 +53,14 @@ public class DBConnection {
 				os.write(caracteres.getBytes());
 				while(result.next()){	
 				caracteres = "\t<Student>\n"
-								+ "\t\t<number>" + result.getInt(1) + "</number>"
-								+ "\n\t\t<name>" + result.getString(2) + "</name>"
-								+ "\n\t\t<firstName>" + result.getString(3) + "</firstName>"
-								+ "\n\t\t<adress>" + result.getString(4) + "</adress>"
-								+ "\n\t\t<phoneNumber>" + result.getString(5) + "</phoneNumber>"
-								+ "\n\t\t<mail>" + result.getString(6) + "</mail>"
-								+ "\n\t\t<birthday>" + result.getDate(7) + "</birthday>"
-								+ "\n\t\t<gender>" + result.getInt(8) + "</gender>\n"
+								+ "\t\t<number>" + result.getInt("number") + "</number>"
+								+ "\n\t\t<name>" + result.getString("name") + "</name>"
+								+ "\n\t\t<firstName>" + result.getString("firstname") + "</firstName>"
+								+ "\n\t\t<adress>" + result.getString("adress") + "</adress>"
+								+ "\n\t\t<phoneNumber>" + result.getString("phoneNumber") + "</phoneNumber>"
+								+ "\n\t\t<mail>" + result.getString("mail") + "</mail>"
+								+ "\n\t\t<birthday>" + result.getDate("birthday") + "</birthday>"
+								+ "\n\t\t<gender>" + result.getInt("gender") + "</gender>\n"
 							+ "\t</Student>\n";
 				os.write(caracteres.getBytes());
 				}
@@ -72,9 +72,9 @@ public class DBConnection {
 				os.write(caracteres.getBytes());
 				while(result.next()){	
 				caracteres = "\t<Subject>\n"
-								+ "\t\t<id>" + result.getInt(1) + "</id>"
-								+ "\n\t\t<name>" + result.getString(2) + "</name>"
-								+ "\n\t\t<isAvaible>"+ result.getInt(3) + "</isAvailable>\n"
+								+ "\t\t<id>" + result.getInt("id") + "</id>"
+								+ "\n\t\t<name>" + result.getString("name") + "</name>"
+								+ "\n\t\t<isAvailable>"+ result.getInt("isAvailable") + "</isAvailable>\n"
 							+ "\t</Subject>\n";
 				os.write(caracteres.getBytes());
 				}
@@ -86,11 +86,11 @@ public class DBConnection {
 				os.write(caracteres.getBytes());
 				while(result.next()){	
 				caracteres = "\t<Formation>\n"
-								+ "\t\t<id>" + result.getInt(1) + "</id>"
-								+ "\n\t\t<name>" + result.getString(2) + "</name>"
-								+ "\n\t\t<nbYear>" + result.getInt(3) + "</nbYear>"
-								+ "\n\t\t<curYear>" + result.getInt(4) + "</curYear>"
-								+ "\n\t\t<isAvaible>"+ result.getInt(5) + "</isAvailable>\n"
+								+ "\t\t<id>" + result.getInt("id") + "</id>"
+								+ "\n\t\t<name>" + result.getString("name") + "</name>"
+								+ "\n\t\t<nbYear>" + result.getInt("nbYear") + "</nbYear>"
+								+ "\n\t\t<curYear>" + result.getInt("curYear") + "</curYear>"
+								+ "\n\t\t<isAvailable>"+ result.getInt("isAvailable") + "</isAvailable>\n"
 							+ "\t</Formation>\n";
 				os.write(caracteres.getBytes());
 				}
@@ -102,9 +102,9 @@ public class DBConnection {
 				os.write(caracteres.getBytes());
 				while(result.next()){	
 				caracteres = "\t<year_formation_student>\n"
-								+ "\t\t<year>" + result.getInt(1) + "</year>"
-								+ "\n\t\t<idFormation>" + result.getInt(2) + "</idFormation>"
-								+ "\n\t\t<idStudent>" + result.getInt(3) + "</idStudent>\n"
+								+ "\t\t<year>" + result.getInt("year") + "</year>"
+								+ "\n\t\t<idFormation>" + result.getInt("idFormation") + "</idFormation>"
+								+ "\n\t\t<idStudent>" + result.getInt("idStudent") + "</idStudent>\n"
 							+ "\t</year_formation_student>\n";
 				os.write(caracteres.getBytes());
 				}
@@ -116,9 +116,9 @@ public class DBConnection {
 				os.write(caracteres.getBytes());
 				while(result.next()){	
 				caracteres = "\t<year_formation_subject>\n"
-								+ "\t\t<year>" + result.getInt(1) + "</year>"
-								+ "\n\t\t<idFormation>" + result.getInt(2) + "</idFormation>"
-								+ "\n\t\t<idSubject>" + result.getInt(3) + "</idSubject>\n"
+								+ "\t\t<year>" + result.getInt("year") + "</year>"
+								+ "\n\t\t<idFormation>" + result.getInt("idFormation") + "</idFormation>"
+								+ "\n\t\t<idSubject>" + result.getInt("idSubject") + "</idSubject>\n"
 							+ "\t</year_formation_subject>\n";
 				os.write(caracteres.getBytes());
 				}
@@ -130,10 +130,10 @@ public class DBConnection {
 				os.write(caracteres.getBytes());
 				while(result.next()){	
 				caracteres = "\t<year_student_subject_note>\n"
-								+ "\t\t<year>" + result.getInt(1) + "</year>"
-								+ "\n\t\t<idStudent>" + result.getInt(2) + "</idStudent>"
-								+ "\n\t\t<idSubject>" + result.getInt(3) + "</idSubject>"
-								+ "\n\t\t<note>" + result.getInt(4) + "</note>\n"
+								+ "\t\t<year>" + result.getInt("year") + "</year>"
+								+ "\n\t\t<idStudent>" + result.getInt("idStudent") + "</idStudent>"
+								+ "\n\t\t<idSubject>" + result.getInt("idSubject") + "</idSubject>"
+								+ "\n\t\t<note>" + result.getInt("note") + "</note>\n"
 							+ "\t</year_student_subject_note>\n";
 				os.write(caracteres.getBytes());
 				}
@@ -143,9 +143,9 @@ public class DBConnection {
 				result = state.executeQuery("SELECT * FROM settings");
 				result.next();
 				caracteres = "\n<settings>\n"
-								+"\t<name>" + result.getString(1) + "</name>"
-								+ "\n\t<directorName>" + result.getString(2) + "</directorName>"
-								+ "\n\t<directorFirstName>" + result.getString(3) + "</directorFirstName>\n"
+								+"\t<name>" + result.getString("name") + "</name>"
+								+ "\n\t<directorName>" + result.getString("directorName") + "</directorName>"
+								+ "\n\t<directorFirstName>" + result.getString("directorFirstName") + "</directorFirstName>\n"
 							+ "</settings>\n";
 				os.write(caracteres.getBytes());
 				
