@@ -10,16 +10,14 @@ import java.util.Scanner;
 public class Formation {
 
 	private String name;
-	private String diploma;
 	private int nbYear;
 	private int curYear;
 	private	int isAvailable;
 	private List<Subject> subjectList = new ArrayList<Subject>();
 	private List<Student> studentList = new ArrayList<Student>();
 	
-	public Formation(String name, String diploma, int nbYear, int curYear) {
+	public Formation(String name, int nbYear, int curYear) {
 		this.name = name;
-		this.diploma = diploma;
 		this.nbYear = nbYear;
 		this.curYear = curYear;
 	}
@@ -31,13 +29,6 @@ public class Formation {
 			this.name=sc.nextLine();
 			if(this.name.length()>50)
 				System.out.println("Le nom de la filière entré est trop long");
-		}
-		while(this.name.length()>50);
-		do{
-		System.out.print("Nom du diplôme remis par la filière : ");
-		this.diploma=sc.nextLine();
-		if(this.name.length()>50)
-			System.out.println("Le nom de la filière entré est trop long");
 		}
 		while(this.name.length()>50);
 		System.out.print("Nombre d'année total de la filière : ");
@@ -74,14 +65,6 @@ public class Formation {
 	public void addSubject(Subject subject) {
 		this.subjectList.add(subject);
 	}
-
-	public String getDiploma() {
-		return diploma;
-	}
-
-	public void setDiploma(String diploma) {
-		this.diploma = diploma;
-	}
 	
 	public List<Student> getStudentList() {
 		return studentList;
@@ -104,7 +87,7 @@ public class Formation {
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE id = "+id);
 			if(result.next()){
 				System.out.println(
-						"\nGestion du " + result.getString("diploma")+ " " + result.getString("name") +" "+ result.getInt("curYear") +"ème année.\n");
+						"\nGestion du Diplome d'ingénieur " + result.getString("name") +" "+ result.getInt("curYear") +"ème année.\n");
 				
 				System.out.println("Que voulez-vous faire ?\n"
 						+ "1 Editer\n"
@@ -156,9 +139,9 @@ public class Formation {
 		Statement state;
 		try {
 			state = DBConnection.getInstance().createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+answerFormation+"%\" OR diploma LIKE \"%"+answerFormation+"%\"");
+			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+answerFormation+"%\"");
 			while(result.next()){
-				System.out.println(result.getInt("id")+" "+result.getString("diploma")+" "+result.getString("name"));
+				System.out.println(result.getInt("id")+" Diplome d'Ingénieur "+result.getString("name"));
 			}
 			Scanner sc = new Scanner(System.in);
 			int id = sc.nextInt();
@@ -175,7 +158,7 @@ public class Formation {
 	public void addFormation(){
 		try {
 			Statement state = DBConnection.getInstance().createStatement();
-			state.executeUpdate("INSERT INTO `formation`(`name`, `diploma`, `nbYear`, `curYear`) VALUES ('"+this.getName()+"','"+this.getDiploma()+"','"+this.getNbYear()+"','"+this.getCurYear()+"')");
+			state.executeUpdate("INSERT INTO `formation`(`name`, `nbYear`, `curYear`) VALUES ('"+this.getName()+"','"+this.getNbYear()+"','"+this.getCurYear()+"')");
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

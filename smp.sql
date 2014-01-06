@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 06 Janvier 2014 à 09:00
--- Version du serveur: 5.5.24-log
--- Version de PHP: 5.3.13
+-- Généré le: Lun 06 Janvier 2014 à 15:39
+-- Version du serveur: 5.6.12-log
+-- Version de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -31,7 +31,6 @@ USE `smp`;
 CREATE TABLE IF NOT EXISTS `formation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `diploma` varchar(50) CHARACTER SET utf8 NOT NULL,
   `nbYear` int(11) NOT NULL,
   `curYear` int(11) NOT NULL,
   `isAvailable` tinyint(1) NOT NULL DEFAULT '1',
@@ -42,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `formation` (
 -- Contenu de la table `formation`
 --
 
-INSERT INTO `formation` (`id`, `name`, `diploma`, `nbYear`, `curYear`, `isAvailable`) VALUES
-(1, 'informatique', 'Diplôme Universitaire et Technologique', 2, 2, 1);
+INSERT INTO `formation` (`id`, `name`, `nbYear`, `curYear`, `isAvailable`) VALUES
+(1, 'informatique', 2, 2, 1);
 
 -- --------------------------------------------------------
 
