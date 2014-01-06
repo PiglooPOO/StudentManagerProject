@@ -1,0 +1,393 @@
+package fr.upem.projectJava.studentManagerProject;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Student {
+	
+	private String name;
+	private String firstName;
+	private String adress;
+	private String phoneNumber;
+	private String mail;
+	private String birthday;
+	private int gender;
+	private int number;
+	
+	public Student(String name, String firstName, String adress, String phoneNumber, String mail, String birthday, int gender) {
+		this.name = name;
+		this.firstName = firstName;
+		this.adress = adress;
+		this.phoneNumber = phoneNumber;
+		this.mail = mail;
+		this.birthday = birthday;
+		this.gender = gender;
+	}
+	
+	public Student(){
+		Scanner sc = new Scanner(System.in);
+		do
+		{
+			System.out.print("Prénom:");
+			this.firstName = sc.next();
+			if(this.firstName.length()>30)
+				System.out.println("Erreur, le prénom que vous avez entrer est trop long");
+		}
+		while(this.firstName.length()>30);
+		do
+		{
+			System.out.print("Nom:");
+			this.name = sc.next();
+			if(this.name.length()>30)
+				System.out.println("Erreur, le nom que vous avez entrer est trop long");
+		}
+		while(this.name.length()>30);
+		
+		this.adress=sc.nextLine();
+		System.out.print("Adresse:");
+		adress=sc.nextLine();
+		
+		do
+		{
+			System.out.print("Numéro de Téléphone:");
+			this.phoneNumber = sc.next();
+			if(this.phoneNumber.length()!=10)
+				System.out.println("Erreur, entrer le numéro de téléphone sans espace");
+		}
+		while(this.phoneNumber.length()!=10);
+		
+		System.out.print("E-mail:");
+		this.mail = sc.next();
+		
+		Date date = null;
+		while(date==null)
+		{
+			System.out.print("Date de naissance (dd/mm/yyyy):");
+			String birthday = sc.next();
+			DateFormat format= new SimpleDateFormat("dd/mm/yyyy");
+			
+			try{
+				date=format.parse(birthday);
+				String[] verif=birthday.split("/");
+				int day=Integer.parseInt(verif[0]);
+				int month=Integer.parseInt(verif[1]);
+				int year=Integer.parseInt(verif[2]);
+				if(day>31 || day<1 || month<1 || month>12 || year<1900 || year>Calendar.getInstance().get(Calendar.YEAR))
+				{
+					date=null;
+					System.out.println("La date saisie est invalide");
+				}
+				else
+				{
+					if(day<10 && month<10)
+						this.birthday=year+"-0"+month+"-0"+day;
+					if(day>9 && month<10)
+						this.birthday=year+"-0"+month+"-"+day;
+					if(day<10 && month>9)
+						this.birthday=year+"-"+month+"-0"+day;
+					else
+						this.birthday=year+"-"+month+"-"+day;
+				}
+			}
+			catch(ParseException e){
+				System.out.println("Erreur dans le format de la date");
+			}
+		}
+		
+		boolean bon=false;
+		String gender=null;
+		while(bon==false)
+		{
+			System.out.print("Sexe (homme ou femme):");
+			gender=sc.next();
+			gender=gender.toLowerCase();
+			if(gender.equalsIgnoreCase("femme") || gender.equalsIgnoreCase("homme"))
+				bon=true;
+		}
+		if(gender.equalsIgnoreCase("homme")){
+			this.gender = 1;
+		}
+		if(gender.equalsIgnoreCase("femme")){
+			this.gender = 2;
+		}
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public int getGender() {
+		return gender;
+	}
+
+	public void setGender(int gender) {
+		this.gender = gender;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+	
+	public void addStudent(){
+		System.out.println(this.toString());
+		Scanner sc = new Scanner(System.in);
+		String valid=null;
+		do{
+			System.out.println("\nValidez-vous cet étudiant? (O/N)");
+			valid = sc.next();
+		}
+		while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
+		
+		if(valid.equalsIgnoreCase("o") || valid.equalsIgnoreCase("oui")){
+			try {
+				Statement state = DBConnection.getInstance().createStatement();
+				state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
+				System.out.println("Etudiant bien ajouté.");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	public static boolean showStudent(int number){
+		Statement state;
+		Scanner sc = null;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM student WHERE number = "+number);
+			
+			int choiceNumber = 1;
+			if(result.next()){
+				while(choiceNumber!=0){
+					if(choiceNumber == 1){
+						System.out.println(
+								"\nNom :\t\t" + result.getString("name")+
+								"\nPrénom :\t" + result.getString("firstName")+
+								"\nAdresse :\t" + result.getString("adress")+
+								"\nTel :\t\t" + result.getString("phoneNumber")+
+								"\nMail :\t\t" + result.getString("mail")+
+								"\nDate de naissance :\t" + result.getDate("birthday").toString()+
+								"\nSexe :\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"));
+						
+						System.out.println(""
+								+ "\n1 Inscrire un élève dans une filière et année"
+								+ "\n2 Modifier des informations"
+								+ "\n3 Attribuer des notes"
+								+ "\n4 Afficher ses moyennes"
+								+ "\n5 Editer attestation de réussite"
+								+ "\n0 Revenir au menu précédent");
+						
+					}
+					System.out.print("Entrer le chiffre correspondant à votre choix : ");
+					try {
+						sc = new Scanner(System.in);
+						
+						while((choiceNumber = sc.nextInt())<0 || choiceNumber>14){
+							sc.nextLine();
+							System.out.print("Ce choix est invalide, recommencez : ");
+						}
+						sc.nextLine();
+					} catch(InputMismatchException e){
+						System.out.println("Ce choix est invalide, ");
+						choiceNumber = -2;
+				    }
+					switch (choiceNumber) {
+					case 1 :
+						//TODO
+						break;
+					case 2 :
+						//TODO
+						break;
+					case 3 :
+						//TODO
+						break;
+					case 4 :
+						//TODO
+						break;
+					case 5 :
+						//TODO
+						Diplome.editDiplome(number);
+						break;
+					default:
+						break;
+					}
+					if(choiceNumber != 0 && choiceNumber != -2)
+						choiceNumber = 1;
+					//clearConsole();
+				}
+				return true;
+			}
+			else
+				return false;
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public String toString() {
+		String gender = (this.gender==2)?"Femme":"Homme";
+		return "Nom : " +name+"\n"
+				+ "Prénom : " +firstName+"\n"
+				+ "Adress : " +adress+"\n"
+				+ "Numéro de Téléphone : " +phoneNumber+"\n"
+				+ "Email : " +mail+ "\n"
+				+ "Date de naissance : " +birthday+"\n"
+				+ "Sexe : " +gender;
+	}
+
+	public static void showStudentsByFormation(int id) {
+		Statement state;
+		Scanner sc = null;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,formation,year_formation_student WHERE formation.id = "+id+" AND formation.id = idFormation AND student.number = idStudent ORDER BY year");
+			int year = 0;
+			while(result.next()){
+				if(year<result.getInt("year")){
+					year = result.getInt("year");
+					System.out.println("\n"
+							+ "\t####################################\n"
+							+ "\t################# "+year+" #############\n"
+							+ "\t####################################\n"
+							+ "");
+				}
+				System.out.println(result.getInt("student.number")+"\t"
+						+ result.getString("name")
+						+ " " + result.getString("firstName"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
+		int idStudent = -1;
+		sc = new Scanner(System.in);
+		do {
+			try {
+				idStudent = sc.nextInt();
+				sc.nextLine();
+			} catch (InputMismatchException e) {
+				// TODO: handle exception
+			}
+		} while (idStudent<0);
+		showStudent(idStudent);
+	}
+	
+	public static boolean showStudentsByName(String st) {
+		Statement state;
+		Scanner sc = null;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.name LIKE \"%"+st+"%\" ORDER BY number");
+			if(!result.next())
+				return false;
+			do{
+				System.out.println(result.getInt("student.number")+"\t"
+						+ result.getString("name")
+						+ " " + result.getString("firstName"));
+			}while(result.next());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
+		int idStudent = -1;
+		sc = new Scanner(System.in);
+		do {
+			try {
+				idStudent = sc.nextInt();
+				sc.nextLine();
+			} catch (InputMismatchException e) {
+				// TODO: handle exception
+			}
+		} while (idStudent<0);
+		showStudent(idStudent);
+		return true;
+	}
+	
+	public static boolean showStudentsByFirstName(String st) {
+		Statement state;
+		Scanner sc = null;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.firstName LIKE \"%"+st+"%\" ORDER BY number");
+			if(!result.next())
+				return false;
+			do{
+				System.out.println(result.getInt("student.number")+"\t"
+						+ result.getString("name")
+						+ " " + result.getString("firstName"));
+			}while(result.next());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
+		int idStudent = -1;
+		sc = new Scanner(System.in);
+		do {
+			try {
+				idStudent = sc.nextInt();
+				sc.nextLine();
+			} catch (InputMismatchException e) {
+				// TODO: handle exception
+			}
+		} while (idStudent<0);
+		showStudent(idStudent);
+		return true;
+	}
+}
