@@ -28,7 +28,6 @@
 	<Formation>
 		<id>1</id>
 		<name>informatique</name>
-		<diploma>Diplôme Universitaire et Technologique</diploma>
 		<nbYear>2</nbYear>
 		<curYear>2</curYear>
 		<isAvaible>1</isAvailable>

@@ -88,10 +88,9 @@ public class DBConnection {
 				caracteres = "\t<Formation>\n"
 								+ "\t\t<id>" + result.getInt(1) + "</id>"
 								+ "\n\t\t<name>" + result.getString(2) + "</name>"
-								+ "\n\t\t<diploma>" + result.getString(3) + "</diploma>"
-								+ "\n\t\t<nbYear>" + result.getInt(4) + "</nbYear>"
-								+ "\n\t\t<curYear>" + result.getInt(5) + "</curYear>"
-								+ "\n\t\t<isAvaible>"+ result.getInt(6) + "</isAvailable>\n"
+								+ "\n\t\t<nbYear>" + result.getInt(3) + "</nbYear>"
+								+ "\n\t\t<curYear>" + result.getInt(4) + "</curYear>"
+								+ "\n\t\t<isAvaible>"+ result.getInt(5) + "</isAvailable>\n"
 							+ "\t</Formation>\n";
 				os.write(caracteres.getBytes());
 				}
