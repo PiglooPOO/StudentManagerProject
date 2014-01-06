@@ -285,7 +285,40 @@ public class Student {
 				+ "Date de naissance : " +birthday+"\n"
 				+ "Sexe : " +gender;
 	}
-
+	
+	public static boolean showStudentsByFormationName(String st) {
+		Statement state;
+		Scanner sc = null;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+st+"%\" ORDER BY id");
+			if(!result.next())
+				return false;
+			do{
+				System.out.println(result.getInt("id")+"\t"
+						+ " " + result.getString("name")
+						+ " " + result.getInt("curYear") + "e année");
+			}while(result.next());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.print("Entrer le numéro de la formation dont vous voulez visualiser les étudiants : ");
+		int id = -1;
+		sc = new Scanner(System.in);
+		do {
+			try {
+				id = sc.nextInt();
+				sc.nextLine();
+			} catch (InputMismatchException e) {
+				// TODO: handle exception
+			}
+		} while (id<0);
+		showStudentsByFormation(id);
+		return true;
+	}
+	
 	public static void showStudentsByFormation(int id) {
 		Statement state;
 		Scanner sc = null;
@@ -323,6 +356,48 @@ public class Student {
 			}
 		} while (idStudent<0);
 		showStudent(idStudent);
+	}
+	
+	public static boolean showStudentsByYear(int year) {
+		Statement state;
+		Scanner sc = null;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,year_formation_student WHERE year = "+year+" AND student.number = idStudent ORDER BY number");
+			if(!result.next())
+				return false;
+			do{
+				if(year<result.getInt("year")){
+					year = result.getInt("year");
+					System.out.println("\n"
+							+ "\t####################################\n"
+							+ "\t################# "+year+" #############\n"
+							+ "\t####################################\n"
+							+ "");
+				}
+				System.out.println(result.getInt("student.number")+"\t"
+						+ result.getString("name")
+						+ " " + result.getString("firstName"));
+			}while(result.next());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
+		int idStudent = -1;
+		sc = new Scanner(System.in);
+		do {
+			try {
+				idStudent = sc.nextInt();
+				sc.nextLine();
+			} catch (InputMismatchException e) {
+				// TODO: handle exception
+				return false;
+			}
+		} while (idStudent<0);
+		showStudent(idStudent);
+		return true;
 	}
 	
 	public static boolean showStudentsByName(String st) {

@@ -97,17 +97,8 @@ public class Main {
 				Subject m = new Subject();
 				m.addSubject();
 				break;
-			case 6:
-				// Ajouter des notes
-				break;
-			case 7:
-				// Rechercher des notes
-				break;
 			case 8:
 				// Ajouter une année
-				break;
-			case 9:
-				// Inscrire un élève dans une filière et année.
 				break;
 			case 10:
 				// Editer les diplômes
@@ -120,11 +111,6 @@ public class Main {
 				break;
 			case 13:
 				// Modifier la configuration
-				break;
-			case 14:
-				// Editer une attestation de réussite
-				break;
-			case 15:
 				break;
 			default:;
 		}
@@ -223,14 +209,51 @@ public class Main {
 					}
 					break;
 				case 4:
+					//TODO
 					break;
 				case 5:
+					System.out.print("Entrez le nom de la filière : ");
+					try {
+						str = sc.nextLine();
+						if(!Student.showStudentsByFormationName(str)){
+							System.out.println("La filière "+str+" n'éxiste pas.");
+							System.out.println("Appuyez sur Entrer pour continuer.");
+							sc.nextLine();
+						}
+						if(str == ""){
+							System.out.println("Ceci n'est pas un nom de filière.");
+							System.out.println("Appuyez sur Entrer pour continuer.");
+							sc.nextLine();
+						}
+					} catch (InputMismatchException e) {
+						System.out.println("Ceci n'est pas un nom de filière.");
+						System.out.println("Appuyez sur Entrer pour continuer.");
+						sc.nextLine();
+					}
 					break;
 				case 6:
+					System.out.print("Entrez le numéro étudiant de l'étudiant : ");
+					try {
+						number = sc.nextInt();
+						if(!Student.showStudentsByYear(number)){
+							System.out.println("Pas d'étudiant inscrit pour l'année "+number+".");
+							System.out.println("Appuyez sur Entrer pour continuer.");
+							sc.nextLine();
+						}
+						if(number<0){
+							System.out.println("Cette année n'est pas prise en charge.");
+							System.out.println("Appuyez sur Entrer pour continuer.");
+							sc.nextLine();
+						}
+						
+					} catch (InputMismatchException e) {
+						System.out.println("Ceci n'est pas une année.");
+						System.out.println("Appuyez sur Entrer pour continuer.");
+						sc.nextLine();
+					}
 					break;
 				case 7:
-					break;
-				case 8:
+					//TODO
 					break;
 				default:
 			}

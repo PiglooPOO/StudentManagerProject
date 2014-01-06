@@ -7,17 +7,18 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 
 - Ajouter un étudiant \[done\]
 
-- Rechercher un étudiant (par no étudiant, nom, prenom, matière, filiaire, année, année+filiaire)
+- Rechercher un étudiant (par no étudiant \[done\], nom \[done\], prenom \[done\], matière, filiaire \[done\], année, année+filiaire)
+> - l'afficher (manque la formation en cours)
 > - Inscrire un élève dans une filière et année
 > - Modifier des informations
 > - Attribuer des notes
 > - Afficher ses moyennes
-> - Editer attestation de réussite
+> - Editer attestation de réussite \[done\]
 
-- Créer une filière
-- Rechercher une filière
+- Créer une filière \[done\]
+- Rechercher une filière \[done\]
 > - Ajouter une matière, des élèves
-> - Afficher ses éleves par année (pouvoir y acceder)
+> - Afficher ses éleves par année (pouvoir y acceder) \[done\]
 - Rechercher une matière
 > - Ajouter à une filiaire pour une année
 
