@@ -34,11 +34,11 @@ public class Diplome {
 			PdfWriter e = PdfWriter.getInstance(document, new FileOutputStream(number+".pdf"));
 			document.open();
 			addMetaData(document);
-			addTitlePage(document,result.getString(7));
+			addTitlePage(document,result.getString("settings.name"));
 			addImage(document,"logo.png");
-			addContent(document,result.getString(1),result.getInt(2));
-			addInfo(document, result.getString(3), result.getString(4), result.getString(5), result.getDate(6), result.getString(1));
-			addSignature(document,result.getString(8),result.getString(9));
+			addContent(document,result.getString("formation.name"),result.getInt("year"));
+			addInfo(document, result.getString("student.name"), result.getString("student.firstName"), result.getString("student.adress"), result.getDate("student.birthday"), result.getString("formation.name"));
+			addSignature(document,result.getString("directorName"),result.getString("directorFirstName"));
 			document.close();
 			e.close();
     } catch (Exception e) {
