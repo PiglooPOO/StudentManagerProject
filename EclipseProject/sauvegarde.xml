@@ -9,26 +9,18 @@
 		<birthday>1994-09-07</birthday>
 		<gender>1</gender>
 	</Student>
-	<Student>
-		<number>2</number>
-		<name>GERBER</name>
-		<firstName>Xavier</firstName>
-		<adress>6 rue des bleuets</adress>
-		<phoneNumber>0000000000</phoneNumber>
-		<mail>xavier1.gerber@gmail.com</mail>
-		<birthday>1994-10-05</birthday>
-		<gender>1</gender>
-	</Student>
 </Students>
 
 <Subjects>
 	<Subject>
 		<id>1</id>
 		<name>gestion</name>
+		<isAvaible>1</isAvailable>
 	</Subject>
 	<Subject>
 		<id>2</id>
 		<name>automate</name>
+		<isAvaible>1</isAvailable>
 	</Subject>
 </Subjects>
 
@@ -39,6 +31,7 @@
 		<diploma>Diplôme Universitaire et Technologique</diploma>
 		<nbYear>2</nbYear>
 		<curYear>2</curYear>
+		<isAvaible>1</isAvailable>
 	</Formation>
 </Formations>
 
@@ -65,3 +58,8 @@
 
 <years_students_subjects_notes>
 </years_students_subjects_notes>
+
+<settings>
+	<name>Pigloo</name>
+	<directorName>GOUIN</directorName>
+	<directorFirstName>Pain</directorFirstName></settings>

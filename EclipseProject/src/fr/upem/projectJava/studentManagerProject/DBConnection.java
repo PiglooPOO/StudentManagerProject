@@ -90,7 +90,7 @@ public class DBConnection {
 								+ "\n\t\t<name>" + result.getString(2) + "</name>"
 								+ "\n\t\t<diploma>" + result.getString(3) + "</diploma>"
 								+ "\n\t\t<nbYear>" + result.getInt(4) + "</nbYear>"
-								+ "\n\t\t<curYear>" + result.getInt(5) + "</curYear>\n"
+								+ "\n\t\t<curYear>" + result.getInt(5) + "</curYear>"
 								+ "\n\t\t<isAvaible>"+ result.getInt(6) + "</isAvailable>\n"
 							+ "\t</Formation>\n";
 				os.write(caracteres.getBytes());
@@ -142,6 +142,7 @@ public class DBConnection {
 				os.write(caracteres.getBytes());
 				
 				result = state.executeQuery("SELECT * FROM settings");
+				result.next();
 				caracteres = "\n<settings>\n"
 								+"\t<name>" + result.getString(1) + "</name>"
 								+ "\n\t<directorName>" + result.getString(2) + "</directorName>"
