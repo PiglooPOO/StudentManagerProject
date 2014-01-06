@@ -1,12 +1,5 @@
 package fr.upem.projectJava.studentManagerProject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

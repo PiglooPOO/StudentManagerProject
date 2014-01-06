@@ -71,6 +71,7 @@ public class Subject {
 				Subject.showSubject(id);
 				break;
 			case 5:
+				// TODO
 				break;
 			default:
 				choiceNumber = -1;
@@ -89,15 +90,15 @@ public class Subject {
 	}
 
 	public static void deleteSubject(int id){
-		
+		// TODO
 	}
 	
 	public static void editSubject(int id){
-		
+		// TODO
 	}
 	
 	public static boolean showSubject(int id){
-		
+		// TODO
 		return false;
 	}
 
