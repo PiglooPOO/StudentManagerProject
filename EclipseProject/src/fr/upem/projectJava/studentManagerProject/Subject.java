@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Subject {
 
 	private String name;
-
+	private	int isAvailable;
 	
 	public Subject(String name, int coefficient) {
 		this.name=name;
@@ -99,6 +99,14 @@ public class Subject {
 	public static boolean showSubject(int id){
 		
 		return false;
+	}
+
+	public int getIsAvailable() {
+		return isAvailable;
+	}
+
+	public void setIsAvailable(int isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 
 }

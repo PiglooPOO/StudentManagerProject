@@ -27,17 +27,18 @@ public class Diplome {
   public static void editDiplome(int number) {
     try {
 	    	Statement state = DBConnection.getInstance().createStatement();
-			ResultSet result = state.executeQuery("SELECT formation.name,year,student.name,student.firstName,student.adress,student.birthday FROM student,formation,year_formation_student WHERE number="+number+" AND idStudent="+number+" AND year_formation_student.idFormation=formation.id AND number=idStudent AND nbYear=curYear");
+			ResultSet result = state.executeQuery("SELECT formation.name,year,student.name,student.firstName,student.adress,student.birthday,settings.name,directorName,directorFirstName FROM student,formation,year_formation_student,settings WHERE number="+number+" AND idStudent="+number+" AND year_formation_student.idFormation=formation.id AND number=idStudent AND nbYear=curYear");
 			result.next();
+
 			Document document = new Document();
 			PdfWriter e = PdfWriter.getInstance(document, new FileOutputStream(number+".pdf"));
 			document.open();
 			addMetaData(document);
-			addTitlePage(document);
+			addTitlePage(document,result.getString(7));
 			addImage(document,"logo.png");
 			addContent(document,result.getString(1),result.getInt(2));
 			addInfo(document, result.getString(3), result.getString(4), result.getString(5), result.getDate(6), result.getString(1));
-			addSignature(document);
+			addSignature(document,result.getString(8),result.getString(9));
 			document.close();
 			e.close();
     } catch (Exception e) {
@@ -53,9 +54,9 @@ public class Diplome {
     document.addCreator("");
   }
 
-  private static void addTitlePage(Document document)
+  private static void addTitlePage(Document document, String name)
       throws DocumentException{
-    Paragraph titleFile = new Paragraph("Ecole d'ingénieur Pigloo", title);
+    Paragraph titleFile = new Paragraph("Ecole d'ingénieur " +name.toUpperCase(), title);
     titleFile.setAlignment(Element.ALIGN_CENTER);
     addEmptyLine(titleFile,1);
     document.add(titleFile);
@@ -90,8 +91,8 @@ public class Diplome {
 	  document.add(textInfo);
   }
   
-  private static void addSignature(Document document) throws DocumentException, MalformedURLException, IOException {
-	  Paragraph textInfo = new Paragraph("Le directeur de l'école", normalFont10);
+  private static void addSignature(Document document,String directorName, String directorFirstName) throws DocumentException, MalformedURLException, IOException {
+	  Paragraph textInfo = new Paragraph(directorFirstName.toUpperCase() + " " +directorName.toUpperCase(), normalFont10);
 	  textInfo.setAlignment(Element.ALIGN_RIGHT);
 	  document.add(textInfo);
 	  Image image1 = Image.getInstance("signature.png");

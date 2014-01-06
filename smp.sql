@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 05 Janvier 2014 à 21:26
--- Version du serveur: 5.6.12-log
--- Version de PHP: 5.4.12
+-- Généré le: Lun 06 Janvier 2014 à 09:00
+-- Version du serveur: 5.5.24-log
+-- Version de PHP: 5.3.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -98,6 +98,7 @@ INSERT INTO `student` (`number`, `name`, `firstName`, `adress`, `phoneNumber`, `
 CREATE TABLE IF NOT EXISTS `subject` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `isAvailable` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
@@ -105,9 +106,9 @@ CREATE TABLE IF NOT EXISTS `subject` (
 -- Contenu de la table `subject`
 --
 
-INSERT INTO `subject` (`id`, `name`) VALUES
-(1, 'gestion'),
-(2, 'automate');
+INSERT INTO `subject` (`id`, `name`, `isAvailable`) VALUES
+(1, 'gestion', 1),
+(2, 'automate', 1);
 
 -- --------------------------------------------------------
 

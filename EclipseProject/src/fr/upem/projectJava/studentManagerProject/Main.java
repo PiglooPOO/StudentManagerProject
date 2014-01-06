@@ -116,7 +116,7 @@ public class Main {
 				// Charger une bade de données
 				break;
 			case 12:
-				saveDB();
+				DBConnection.saveDB();
 				break;
 			case 13:
 				// Modifier la configuration
@@ -306,133 +306,6 @@ public class Main {
 			//clearConsole();
 		}
 	}	
-
-	private static void saveDB() {
-		File file = new File("sauvegarde.xml");
-		FileOutputStream os = null;
-		
-		try{
-			os = new FileOutputStream(file);
-			try {
-				Statement state = DBConnection.getInstance().createStatement();
-				ResultSet result = state.executeQuery("SELECT * FROM student");
-				
-				String caracteres = "<Students>\n";
-				os.write(caracteres.getBytes());
-				while(result.next()){	
-				caracteres = "\t<Student>\n"
-								+ "\t\t<number>" + result.getInt(1) + "</number>"
-								+ "\n\t\t<name>" + result.getString(2) + "</name>"
-								+ "\n\t\t<firstName>" + result.getString(3) + "</firstName>"
-								+ "\n\t\t<adress>" + result.getString(4) + "</adress>"
-								+ "\n\t\t<phoneNumber>" + result.getString(5) + "</phoneNumber>"
-								+ "\n\t\t<mail>" + result.getString(6) + "</mail>"
-								+ "\n\t\t<birthday>" + result.getDate(7) + "</birthday>"
-								+ "\n\t\t<gender>" + result.getInt(8) + "</gender>\n"
-							+ "\t</Student>\n";
-				os.write(caracteres.getBytes());
-				}
-				caracteres = "</Students>\n";
-				os.write(caracteres.getBytes());
-				
-				result = state.executeQuery("SELECT * FROM subject");
-				caracteres = "\n<Subjects>\n";
-				os.write(caracteres.getBytes());
-				while(result.next()){	
-				caracteres = "\t<Subject>\n"
-								+ "\t\t<id>" + result.getInt(1) + "</id>"
-								+ "\n\t\t<name>" + result.getString(2) + "</name>\n"
-							+ "\t</Subject>\n";
-				os.write(caracteres.getBytes());
-				}
-				caracteres = "</Subjects>\n";
-				os.write(caracteres.getBytes());
-				
-				result = state.executeQuery("SELECT * FROM formation");
-				caracteres = "\n<Formations>\n";
-				os.write(caracteres.getBytes());
-				while(result.next()){	
-				caracteres = "\t<Formation>\n"
-								+ "\t\t<id>" + result.getInt(1) + "</id>"
-								+ "\n\t\t<name>" + result.getString(2) + "</name>"
-								+ "\n\t\t<diploma>" + result.getString(3) + "</diploma>"
-								+ "\n\t\t<nbYear>" + result.getInt(4) + "</nbYear>"
-								+ "\n\t\t<curYear>" + result.getInt(5) + "</curYear>\n"
-							+ "\t</Formation>\n";
-				os.write(caracteres.getBytes());
-				}
-				caracteres = "</Formations>\n";
-				os.write(caracteres.getBytes());
-				
-				result = state.executeQuery("SELECT * FROM year_formation_student");
-				caracteres = "\n<years_formations_students>\n";
-				os.write(caracteres.getBytes());
-				while(result.next()){	
-				caracteres = "\t<year_formation_student>\n"
-								+ "\t\t<year>" + result.getInt(1) + "</year>"
-								+ "\n\t\t<idFormation>" + result.getInt(2) + "</idFormation>"
-								+ "\n\t\t<idStudent>" + result.getInt(3) + "</idStudent>\n"
-							+ "\t</year_formation_student>\n";
-				os.write(caracteres.getBytes());
-				}
-				caracteres = "</years_formations_students>\n";
-				os.write(caracteres.getBytes());
-				
-				result = state.executeQuery("SELECT * FROM year_formation_subject");
-				caracteres = "\n<years_formations_subjects>\n";
-				os.write(caracteres.getBytes());
-				while(result.next()){	
-				caracteres = "\t<year_formation_subject>\n"
-								+ "\t\t<year>" + result.getInt(1) + "</year>"
-								+ "\n\t\t<idFormation>" + result.getInt(2) + "</idFormation>"
-								+ "\n\t\t<idSubject>" + result.getInt(3) + "</idSubject>\n"
-							+ "\t</year_formation_subject>\n";
-				os.write(caracteres.getBytes());
-				}
-				caracteres = "</years_formations_subjects>\n";
-				os.write(caracteres.getBytes());
-				
-				result = state.executeQuery("SELECT * FROM year_student_subject_note");
-				caracteres = "\n<years_students_subjects_notes>\n";
-				os.write(caracteres.getBytes());
-				while(result.next()){	
-				caracteres = "\t<year_student_subject_note>\n"
-								+ "\t\t<year>" + result.getInt(1) + "</year>"
-								+ "\n\t\t<idStudent>" + result.getInt(2) + "</idStudent>"
-								+ "\n\t\t<idSubject>" + result.getInt(3) + "</idSubject>"
-								+ "\n\t\t<note>" + result.getInt(4) + "</note>\n"
-							+ "\t</year_student_subject_note>\n";
-				os.write(caracteres.getBytes());
-				}
-				caracteres = "</years_students_subjects_notes>\n";
-				os.write(caracteres.getBytes());
-				
-				os.close();
-				result.close();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		}
-		catch(FileNotFoundException e){
-			e.printStackTrace();
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-		finally{
-			if(os!=null)
-			{
-				try{
-					os.close();
-				}
-				catch(IOException e)
-				{
-					e.printStackTrace();
-				}
-			}	
-		}	
-	}
-
 
 	private static void clearConsole()
 	{

@@ -3,7 +3,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,6 +13,7 @@ public class Formation {
 	private String diploma;
 	private int nbYear;
 	private int curYear;
+	private	int isAvailable;
 	private List<Subject> subjectList = new ArrayList<Subject>();
 	private List<Student> studentList = new ArrayList<Student>();
 	
@@ -187,5 +187,13 @@ public class Formation {
 	
 	public static void editFormation(int id){
 		
+	}
+
+	public int getIsAvailable() {
+		return isAvailable;
+	}
+
+	public void setIsAvailable(int isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 }
