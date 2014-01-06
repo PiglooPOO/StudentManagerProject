@@ -146,7 +146,7 @@ public class DBConnection {
 				caracteres = "\n<settings>\n"
 								+"\t<name>" + result.getString(1) + "</name>"
 								+ "\n\t<directorName>" + result.getString(2) + "</directorName>"
-								+ "\n\t<directorFirstName>" + result.getString(3) + "</directorFirstName>"
+								+ "\n\t<directorFirstName>" + result.getString(3) + "</directorFirstName>\n"
 							+ "</settings>\n";
 				os.write(caracteres.getBytes());
 				
