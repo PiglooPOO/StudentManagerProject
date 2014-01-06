@@ -167,30 +167,18 @@ public class Main {
 						if(!Student.showStudent(number)){
 							System.out.println("L'étudiant "+number+" n'éxiste pas.");
 							System.out.println("Appuyez sur Entrer pour continuer.");
-<<<<<<< HEAD
 							sc.nextLine();
-=======
-							sc.nextLine();sc.nextLine();
->>>>>>> 3095401cd3baf2a090e50810be343d4a14e48c4f
 						}
 						if(number<0){
 							System.out.println("Ceci n'est pas un numéro étudiant.");
 							System.out.println("Appuyez sur Entrer pour continuer.");
-<<<<<<< HEAD
 							sc.nextLine();
-=======
-							sc.nextLine();sc.nextLine();
->>>>>>> 3095401cd3baf2a090e50810be343d4a14e48c4f
 						}
 						
 					} catch (InputMismatchException e) {
 						System.out.println("Ceci n'est pas un numéro étudiant.");
 						System.out.println("Appuyez sur Entrer pour continuer.");
-<<<<<<< HEAD
 						sc.nextLine();
-=======
-						sc.nextLine();sc.nextLine();
->>>>>>> 3095401cd3baf2a090e50810be343d4a14e48c4f
 					}
 					
 					break;
@@ -201,25 +189,16 @@ public class Main {
 						if(!Student.showStudentsByName(str)){
 							System.out.println("L'étudiant "+str+" n'éxiste pas.");
 							System.out.println("Appuyez sur Entrer pour continuer.");
-<<<<<<< HEAD
 							sc.nextLine();
-=======
-							sc.nextLine();sc.nextLine();
->>>>>>> 3095401cd3baf2a090e50810be343d4a14e48c4f
 						}
 						if(str == ""){
 							System.out.println("Ceci n'est pas un nom.");
 							System.out.println("Appuyez sur Entrer pour continuer.");
-<<<<<<< HEAD
 							sc.nextLine();
-=======
-							sc.nextLine();sc.nextLine();
->>>>>>> 3095401cd3baf2a090e50810be343d4a14e48c4f
 						}
 					} catch (InputMismatchException e) {
 						System.out.println("Ceci n'est pas un nom.");
 						System.out.println("Appuyez sur Entrer pour continuer.");
-<<<<<<< HEAD
 						sc.nextLine();
 					}
 					break;
@@ -242,12 +221,6 @@ public class Main {
 						System.out.println("Appuyez sur Entrer pour continuer.");
 						sc.nextLine();
 					}
-=======
-						sc.nextLine();sc.nextLine();
-					}
-					break;
-				case 3:
->>>>>>> 3095401cd3baf2a090e50810be343d4a14e48c4f
 					break;
 				case 4:
 					break;
