@@ -13,9 +13,9 @@ import java.sql.Statement;
 public class DBConnection {
 	
 	private static Connection conn;
-	private String url = "jdbc:mysql://localhost/smp";
-	private String user = "root";
-	private String passwd = "";
+	private String url = "jdbc:mysql://mysql1.alwaysdata.com:3306/pigloopoo_db";
+	private String user = "pigloopoo";
+	private String passwd = "Minions77";
 	
 	private DBConnection(){
 		try {

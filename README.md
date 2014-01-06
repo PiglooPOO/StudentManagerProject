@@ -5,6 +5,10 @@
 Verbes en ER
 Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -2 pour erreur)
 
+Création d'une base de donnée héberger : accès a PhpMyAdmin : https://phpmyadmin.alwaysdata.com 
+id: pigloopoo
+mdp: Minions77
+
 - Ajouter un étudiant \[done\]
 
 - Rechercher un étudiant (par no étudiant \[done\], nom \[done\], prenom \[done\], matière, filiaire \[done\], année \[done\], année+filiaire)

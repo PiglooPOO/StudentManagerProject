@@ -253,7 +253,6 @@ public class Student {
 						//TODO
 						break;
 					case 5 :
-						//TODO
 						Diplome.editDiplome(number);
 						break;
 					default:
@@ -269,7 +268,6 @@ public class Student {
 				return false;
 				
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -300,7 +298,6 @@ public class Student {
 						+ " " + result.getInt("curYear") + "e année");
 			}while(result.next());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -340,7 +337,6 @@ public class Student {
 						+ " " + result.getString("firstName"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -380,7 +376,6 @@ public class Student {
 						+ " " + result.getString("firstName"));
 			}while(result.next());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -414,7 +409,6 @@ public class Student {
 						+ " " + result.getString("firstName"));
 			}while(result.next());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -447,7 +441,6 @@ public class Student {
 						+ " " + result.getString("firstName"));
 			}while(result.next());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
