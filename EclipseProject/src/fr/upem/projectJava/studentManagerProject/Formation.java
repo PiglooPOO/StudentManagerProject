@@ -135,8 +135,10 @@ public class Formation {
 						Student.showStudentsByFormation(id);
 						break;
 					case 5:
+						// TODO
 						break;
 					default:
+						// TODO
 						break;
 				}
 				return true;
@@ -149,9 +151,10 @@ public class Formation {
 	}
 	
 	public static boolean addSubjectToFormation(int id){
-		
+		// TODO
 		return false;
 	}
+	
 	public static boolean searchFormationsByName(String answerFormation){
 		Statement state;
 		try {
@@ -182,11 +185,11 @@ public class Formation {
 	}
 	
 	public static void deleteFormation(int id){
-		
+		// TODO
 	}
 	
 	public static void editFormation(int id){
-		
+		// TODO
 	}
 
 	public int getIsAvailable() {
