@@ -17,10 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `smp`
+-- Base de données: `pigloopoo_db`
 --
-CREATE DATABASE IF NOT EXISTS `smp` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `smp`;
+CREATE DATABASE IF NOT EXISTS `pigloopoo_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `pigloopoo_db`;
 
 -- --------------------------------------------------------
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `formation` (
   `curYear` int(11) NOT NULL,
   `isAvailable` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf16 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `formation`
