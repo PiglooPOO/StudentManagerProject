@@ -241,6 +241,7 @@ public class Student {
 						System.out.println("Ce choix est invalide, ");
 						choiceNumber = -2;
 				    }
+					
 					switch (choiceNumber) {
 					case 1 :
 						//TODO
@@ -300,12 +301,6 @@ public class Student {
 				sc.nextLine();
 				return false;
 				}
-			if(answerSubject.length()==0){
-				System.out.println("Ceci n'est pas un nom de filière.");
-				System.out.println("Appuyez sur Entrer pour revenir à la fiche étudiant.");
-				sc.nextLine();
-				return false;
-			}
 		}catch(InputMismatchException e){
 			System.out.println("Ceci n'est pas une filière.");
 			System.out.println("Appuyez sur Entrer pour revenir à la fiche étudiant.");

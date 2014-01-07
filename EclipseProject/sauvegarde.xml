@@ -9,6 +9,16 @@
 		<birthday>1994-09-07</birthday>
 		<gender>1</gender>
 	</Student>
+	<Student>
+		<number>2</number>
+		<name>Gerber</name>
+		<firstName>Xavier</firstName>
+		<adress>6 rue des bleuets</adress>
+		<phoneNumber>0625450907</phoneNumber>
+		<mail>xavier1.gerber@gmail.com</mail>
+		<birthday>1994-10-05</birthday>
+		<gender>1</gender>
+	</Student>
 </Students>
 
 <Subjects>
@@ -56,12 +66,6 @@
 </years_formations_subjects>
 
 <years_students_subjects_notes>
-	<year_student_subject_note>
-		<year>2013</year>
-		<idStudent>1</idStudent>
-		<idSubject>2</idSubject>
-		<note>14</note>
-	</year_student_subject_note>
 </years_students_subjects_notes>
 
 <settings>
