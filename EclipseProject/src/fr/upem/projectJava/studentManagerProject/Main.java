@@ -288,13 +288,13 @@ public class Main {
 				try{
 					answerFormation = sc.nextLine();
 					//TODO
-					if(!Formation.searchFormationsByName(answerFormation)){
-						System.out.println("La filière "+answerFormation+" n'éxiste pas.");
+					if(!Formation.showFormation(Formation.searchFormationsByName(answerFormation))){
+						System.out.println("Cettr filière n'éxiste pas.");
 						System.out.println("Appuyez sur Entrer pour continuer.");
 						sc.nextLine();
 						}
 					if(answerFormation.length()<0){
-						System.out.println("Ceci n'est pas un nom de filière.");
+						System.out.println("Cettr filière n'éxiste pas.");
 						System.out.println("Appuyez sur Entrer pour continuer.");
 						sc.nextLine();
 					}
@@ -306,10 +306,10 @@ public class Main {
 				break;
 			case 2:
 				String answerSubject = "";
-				System.out.println("Entrer le nom de la filière : ");
+				System.out.println("Entrer le nom de la matière : ");
 				try{
 					answerSubject = sc.nextLine();
-					if(!Subject.searchSubjectsByName(answerSubject)){
+					if(!Subject.showSubject(Subject.searchSubjectsByName(answerSubject))){
 						System.out.println("La matière "+answerSubject+" n'éxiste pas.");
 						System.out.println("Appuyez sur Entrer pour continuer.");
 						sc.nextLine();

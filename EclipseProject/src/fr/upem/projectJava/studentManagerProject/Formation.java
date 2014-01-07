@@ -138,10 +138,9 @@ public class Formation {
 		return false;
 	}
 	
-	public static boolean searchFormationsByName(String answerFormation){
-		Statement state;
+	public static int searchFormationsByName(String answerFormation){
 		try {
-			state = DBConnection.getInstance().createStatement();
+			Statement state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+answerFormation+"%\"");
 			while(result.next()){
 				System.out.println(result.getInt("id")+" Diplome d'Ingénieur "+result.getString("name"));
@@ -149,13 +148,13 @@ public class Formation {
 			Scanner sc = new Scanner(System.in);
 			int id = sc.nextInt();
 			sc.nextLine();
-			showFormation(id);
+			return id;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return false;
+		return -1;
 	}
 	
 	public void addFormation(){

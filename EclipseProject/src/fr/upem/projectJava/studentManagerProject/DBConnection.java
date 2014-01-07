@@ -84,7 +84,7 @@ public class DBConnection {
 				result = state.executeQuery("SELECT * FROM formation");
 				caracteres = "\n<Formations>\n";
 				os.write(caracteres.getBytes());
-				while(result.next()){	
+				while(result.next()){
 				caracteres = "\t<Formation>\n"
 								+ "\t\t<id>" + result.getInt("id") + "</id>"
 								+ "\n\t\t<name>" + result.getString("name") + "</name>"

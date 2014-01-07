@@ -6,9 +6,11 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Student {
@@ -247,13 +249,19 @@ public class Student {
 						//TODO
 						break;
 					case 3 :
-						//TODO
+						//TODO en cours Quentin
+						Student.attributeMarkByStudentId(number);
 						break;
 					case 4 :
-						//TODO
+						//TODO en cours Quentin
+						
+						if(!Student.printMarksForStudent(number)){
+							System.out.println("Cet étudiant n'a aucune note.");
+							System.out.println("Appuyez sur Entrer pour revenir à la fiche étudiant.");
+							sc.nextLine();
+						}
 						break;
 					case 5 :
-						//TODO
 						Diplome.editDiplome(number);
 						break;
 					default:
@@ -273,6 +281,112 @@ public class Student {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	private static boolean attributeMarkByStudentId(int id) {
+		Scanner sc = new Scanner(System.in);
+		
+		/**
+		 * cherchons la matière à noter
+		 */
+		String answerSubject = "";
+		int idSubject = 0;
+		System.out.println("Entrer le nom de la matière à noter : ");
+		try{
+			answerSubject = sc.nextLine();
+			//TODO
+			if((idSubject = Subject.searchSubjectsByName(answerSubject)) == -1){
+				System.out.println("La filière "+answerSubject+" n'éxiste pas.");
+				System.out.println("Appuyez sur Entrer pour revenir à la fiche étudiant.");
+				sc.nextLine();
+				return false;
+				}
+			if(answerSubject.length()==0){
+				System.out.println("Ceci n'est pas un nom de filière.");
+				System.out.println("Appuyez sur Entrer pour revenir à la fiche étudiant.");
+				sc.nextLine();
+				return false;
+			}
+		}catch(InputMismatchException e){
+			System.out.println("Ceci n'est pas une filière.");
+			System.out.println("Appuyez sur Entrer pour revenir à la fiche étudiant.");
+			sc.nextLine();
+			return false;
+		}
+		
+		/**
+		 * récupérons l'année actuelle
+		 */
+		int year;
+		if(Calendar.getInstance().get(Calendar.MONTH)<=Calendar.SEPTEMBER)
+			year = Calendar.getInstance().get(Calendar.YEAR)-1;
+		else
+			year = Calendar.getInstance().get(Calendar.YEAR);
+		
+		/**
+		 * on regarde si la note n'existe pas encore
+		 */
+		try {
+			Statement state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM year_student_subject_note WHERE year = "+year+" AND idStudent = "+id+" AND idSubject = "+idSubject);
+			if(result.next()){
+				System.out.println(""
+						+ "Une note est déjà attribuée à cet étudiant pour cette matière, vous pouvez la modifier dans son relevé de notes,\n"
+						+ "Appuyez sur Entrer pour revenir à la fiche étudiant.");
+				sc.nextLine();
+				return false;
+			}
+			/**
+			 * on note, lets go
+			 */
+			System.out.print("Entrez la note : ");
+			int note = sc.nextInt();
+			sc.nextLine();
+			String st1 = "INSERT INTO year_student_subject_note VALUES ("+year+","+id+","+idSubject+","+note+")";
+			System.out.println(st1);
+			state.executeQuery(st1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(""
+					+ "Une erreur s'est produise lors de l'accès à la base de donnée, veuillez appeller le support,\n"
+					+ "Appuyez sur Entrer pour revenir à la fiche étudiant.");
+			sc.nextLine();
+			return false;
+		}
+
+		System.out.println("Note bien attribuée, appuyez sur entrer pour continuer.");
+		sc.nextLine();
+		return true;
+	}
+
+	private static boolean printMarksForStudent(int id) {
+		Statement state;
+		Scanner sc = null;
+		List l = new ArrayList();
+		int[] tmpArray = new int[3];
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT year_student_subject_note.note, subject.name, idStudent, idSubject, year FROM student, subject, year_student_subject_note WHERE student.number = "+id+" AND student.number = idStudent AND subject.id = idSubject AND ((year = EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM NOW()) >= 9) OR (year = EXTRACT(YEAR FROM NOW())-1 AND EXTRACT(MONTH FROM NOW()) < 9))");
+			if(!result.next())
+				return false;
+			do{
+				/**
+				 * Ne pas supprimer, pour pouvoir lancer une modification.
+				 */
+				tmpArray[0] = result.getInt("idStudent");
+				tmpArray[1] = result.getInt("idSubject");
+				tmpArray[2] = result.getInt("year");
+				l.add(tmpArray);
+				
+				System.out.println(l.size()+"\t"
+						+ " " + result.getString("subject.name")
+						+ " " + result.getInt("year_student_subject_note.note"));
+			}while(result.next());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	public String toString() {
@@ -464,5 +578,10 @@ public class Student {
 		} while (idStudent<0);
 		showStudent(idStudent);
 		return true;
+	}
+
+	public static void showStudentsBySubject(int id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

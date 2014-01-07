@@ -1,5 +1,6 @@
 package fr.upem.projectJava.studentManagerProject;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -28,56 +29,25 @@ public class Subject {
 		return name;
 	}
 	
-	public static boolean searchSubjectsByName(String answerSubject){	
-		Scanner sc = new Scanner(System.in);
-		int choiceNumber = 0;
-		int id = 0;
-		System.out.println("Que voulez-vous faire ?\n"
-				+ "1 Editer\n"
-				+ "2 Supprimer\n"
-				+ "3 Ajouter à une formation\n"
-				+ "4 Visualiser\n"
-				+ "5 Quitter\n");
-		
-		System.out.print(">> ");
-		choiceNumber = sc.nextInt();
-		sc.nextLine();
-		
-		
-		switch(choiceNumber){
-			case 1:
-				System.out.println("Entrer le numéro de l'étudiant que vous voulez éditer\n"
-						+ ">> ");
-				id = sc.nextInt();
-				sc.nextLine();
-				Subject.editSubject(id);
-				break;
-			case 2:
-				System.out.println("Entrer le numéro de l'étudiant que vous voulez supprimer\n"
-						+ ">> ");
-				id = sc.nextInt();
-				sc.nextLine();
-				Subject.deleteSubject(id);
-				break;
-			case 3:
-				Subject sub = new Subject();
-				sub.addSubject();
-				break;
-			case 4:
-				System.out.println("Entrer le numéro de l'étudiant que vous voulez visualiser\n"
-						+ ">> ");
-				id = sc.nextInt();
-				sc.nextLine();
-				Subject.showSubject(id);
-				break;
-			case 5:
-				// TODO
-				break;
-			default:
-				choiceNumber = -1;
+	public static int searchSubjectsByName(String answerSubject){	
+		Statement state;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM subject WHERE name LIKE \"%"+answerSubject+"%\"");
+			if(!result.next())
+				return -1;
+			do{
+				System.out.println(result.getInt("id")+" "+result.getString("name"));
+			}while(result.next());
+			Scanner sc = new Scanner(System.in);
+			int id = sc.nextInt();
+			sc.nextLine();
+			return id;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		return false;
+		return -1;
 	}
 	
 	public void addSubject(){
@@ -99,7 +69,66 @@ public class Subject {
 	
 	public static boolean showSubject(int id){
 		// TODO
+		
+		int choiceNumber = 0;
+		Statement state;
+		Scanner sc = null;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM subject WHERE id = "+id);
+			if(result.next()){
+				System.out.println(
+						"\nGestion de la matière " + result.getString("name") +" :");
+				
+				System.out.println("Que voulez-vous faire ?\n"
+						+ "1 Editer\n"
+						+ "2 Supprimer\n"
+						+ "3 Ajouter à une formation\n"
+						+ "4 Visualiser les étudiants suivant cette matière.\n"
+						+ "0 Quitter\n");
+				
+				System.out.print(">> ");
+				sc = new Scanner(System.in);
+				choiceNumber = sc.nextInt();
+				sc.nextLine();
+				
+				switch(choiceNumber){
+					case 1:
+						//TODO
+						Subject.editSubject(id);
+						break;
+					case 2:
+						//TODO
+						Subject.deleteFormation(id);
+						break;
+					case 3:
+						//TODO
+						Subject.addSubjectToFormation(id);
+						break;
+					case 4:
+						Student.showStudentsBySubject(id);
+						break;
+					default:
+						// TODO
+						break;
+				}
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
+	}
+
+	private static void addSubjectToFormation(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void deleteFormation(int id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public int getIsAvailable() {

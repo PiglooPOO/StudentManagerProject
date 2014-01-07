@@ -15,12 +15,12 @@
 	<Subject>
 		<id>1</id>
 		<name>gestion</name>
-		<isAvaible>1</isAvailable>
+		<isAvailable>1</isAvailable>
 	</Subject>
 	<Subject>
 		<id>2</id>
 		<name>automate</name>
-		<isAvaible>1</isAvailable>
+		<isAvailable>1</isAvailable>
 	</Subject>
 </Subjects>
 
@@ -30,7 +30,7 @@
 		<name>informatique</name>
 		<nbYear>2</nbYear>
 		<curYear>2</curYear>
-		<isAvaible>1</isAvailable>
+		<isAvailable>1</isAvailable>
 	</Formation>
 </Formations>
 
@@ -56,6 +56,12 @@
 </years_formations_subjects>
 
 <years_students_subjects_notes>
+	<year_student_subject_note>
+		<year>2013</year>
+		<idStudent>1</idStudent>
+		<idSubject>2</idSubject>
+		<note>14</note>
+	</year_student_subject_note>
 </years_students_subjects_notes>
 
 <settings>
