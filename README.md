@@ -5,25 +5,21 @@
 Verbes en ER
 Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -2 pour erreur)
 
-Création d'une base de donnée héberger : accès a PhpMyAdmin : https://phpmyadmin.alwaysdata.com 
-id: pigloopoo
-mdp: Minions77
-
 - Ajouter un étudiant \[done\]
 
-- Rechercher un étudiant (par no étudiant \[done\], nom \[done\], prenom \[done\], matière, filiaire \[done\], année \[done\], année+filiaire)
+- Rechercher un étudiant (par no étudiant \[done\], nom \[done\], prenom \[done\], matière \[done\], filiaire \[done\], année \[done\], année+filiaire)
 > - l'afficher (manque la formation en cours)
 > - Inscrire un élève dans une filière et année
 > - Modifier des informations
-> - Attribuer des notes
-> - Afficher ses moyennes
-> - Editer attestation de réussite \[done\]
+> - Attribuer des notes \[done\] MAIS BUG WTF
+> - Afficher ses moyennes \[done\]
+> - Editer attestation de réussite \[done\] MAIS PAS EN ODT
 
 - Créer une filière \[done\]
 - Rechercher une filière \[done\]
 > - Ajouter une matière, des élèves
 > - Afficher ses éleves par année (pouvoir y acceder) \[done\]
-- Rechercher une matière
+- Rechercher une matière \[done\]
 > - Ajouter à une filiaire pour une année
 
 - Ajouter des notes
@@ -36,7 +32,7 @@ mdp: Minions77
 > - Editer une attestation de réussite
 
 - Charger une base de données?
-- Enregistrer la base de données?
+- Enregistrer la base de données? \[done\]
 - Modifier la configuration?
 
 
@@ -53,6 +49,10 @@ mdp: Minions77
 - "Finish"
 
 ##[/!\ SQL FILE IN /](https://github.com/PiglooPOO/StudentManagerProject/blob/master/smp.sql)
+
+Création d'une base de donnée héberger : accès a PhpMyAdmin : [https://phpmyadmin.alwaysdata.com](https://phpmyadmin.alwaysdata.com)
+id: pigloopoo
+mdp: Minions77
 
 ### Work
 
