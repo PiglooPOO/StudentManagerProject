@@ -338,7 +338,14 @@ public class Main {
 
 	private static void clearConsole()
 	{
-	    for(int i = 0; i < 25; i++)
-	    	System.out.println();
+		try {
+			  if(System.getProperty("os.name" ).startsWith("Windows" ))
+			    Runtime.getRuntime().exec("cls");
+			  else
+			    Runtime.getRuntime().exec("clear");
+			} catch(Exception excpt) {
+			  for(int i=0;i<100;i++)
+			    System.out.println();
+			}
 	}
 }
