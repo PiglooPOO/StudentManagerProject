@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 public class DBConnection {
 	
-    private String DBPath = "../db.db";
+    private String DBPath = "smp.db";
     private Connection connection = null;
     private Statement statement = null;	
     
@@ -20,6 +20,7 @@ public class DBConnection {
         DBPath = dBPath;
     }
     public DBConnection() {
+    	this.connect();
     }
  
     public void connect() {
@@ -50,6 +51,18 @@ public class DBConnection {
     	return this.statement;
     }
     
+    public ResultSet query(String requet) {
+        ResultSet resultat = null;
+        try {
+            resultat = statement.executeQuery(requet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erreur dans la requet : " + requet);
+        }
+        return resultat;
+  
+    }
+
 	static void saveDB() {
 		File file = new File("sauvegarde.xml");
 		FileOutputStream os = null;

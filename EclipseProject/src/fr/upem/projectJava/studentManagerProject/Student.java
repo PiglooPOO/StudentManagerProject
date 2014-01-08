@@ -190,7 +190,8 @@ public class Student {
 		
 		if(valid.equalsIgnoreCase("o") || valid.equalsIgnoreCase("oui")){
 			try {
-				Statement state = new DBConnection().createStatement();				state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
+				Statement state = new DBConnection().createStatement();				
+				state.executeUpdate("INSERT INTO `student`(`number`,`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('null','"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
 				System.out.println("Etudiant bien ajouté.");
 			} catch (SQLException e1) {
 				e1.printStackTrace();

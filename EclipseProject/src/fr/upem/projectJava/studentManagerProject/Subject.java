@@ -53,7 +53,7 @@ public class Subject {
 	public void addSubject(){
 		try {
 			Statement state = new DBConnection().createStatement();
-			state.executeUpdate("INSERT INTO `subject`(`name`) VALUES ('"+this.getName()+"')");
+			state.executeUpdate("INSERT INTO `subject`(`id`,`name`) VALUES ('null','"+this.getName()+"')");
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

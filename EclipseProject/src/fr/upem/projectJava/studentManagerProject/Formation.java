@@ -160,7 +160,7 @@ public class Formation {
 	public void addFormation(){
 		try {
 			Statement state = new DBConnection().createStatement();
-			state.executeUpdate("INSERT INTO `formation`(`name`, `nbYear`, `curYear`) VALUES ('"+this.getName()+"','"+this.getNbYear()+"','"+this.getCurYear()+"')");
+			state.executeUpdate("INSERT INTO `formation`(`id`, `name`, `nbYear`, `curYear`) VALUES ('null','"+this.getName()+"','"+this.getNbYear()+"','"+this.getCurYear()+"')");
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

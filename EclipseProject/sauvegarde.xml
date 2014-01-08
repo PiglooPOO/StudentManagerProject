@@ -5,8 +5,8 @@
 		<firstName>Quentin</firstName>
 		<adress>23 boulevard Aristide BRIAND</adress>
 		<phoneNumber>0610101010</phoneNumber>
-		<mail>qbouic@etudiant.univ-mlv.fr</mail>
-		<birthday>1994-09-07</birthday>
+		<mail>qboulic@etudiant.univ-mlv.fr</mail>
+		<birthday>1970-01-01</birthday>
 		<gender>1</gender>
 	</Student>
 	<Student>
@@ -16,7 +16,37 @@
 		<adress>6 rue des bleuets</adress>
 		<phoneNumber>0625450907</phoneNumber>
 		<mail>xavier1.gerber@gmail.com</mail>
-		<birthday>1994-10-05</birthday>
+		<birthday>1970-01-01</birthday>
+		<gender>1</gender>
+	</Student>
+	<Student>
+		<number>100</number>
+		<name>BOULIC</name>
+		<firstName>Quentin</firstName>
+		<adress>23 boulevard Aristide BRIAND</adress>
+		<phoneNumber>0610101010</phoneNumber>
+		<mail>qboulic@etudiant.univ-mlv.fr</mail>
+		<birthday>1970-01-01</birthday>
+		<gender>1</gender>
+	</Student>
+	<Student>
+		<number>101</number>
+		<name>Gerber</name>
+		<firstName>Xavier</firstName>
+		<adress>6 rue des bleuets</adress>
+		<phoneNumber>0625450907</phoneNumber>
+		<mail>xavier1.gerber@gmail.com</mail>
+		<birthday>1970-01-01</birthday>
+		<gender>1</gender>
+	</Student>
+	<Student>
+		<number>0</number>
+		<name>x</name>
+		<firstName>x</firstName>
+		<adress>x</adress>
+		<phoneNumber>0000000000</phoneNumber>
+		<mail>x</mail>
+		<birthday>1970-01-01</birthday>
 		<gender>1</gender>
 	</Student>
 </Students>
@@ -32,12 +62,36 @@
 		<name>automate</name>
 		<isAvailable>1</isAvailable>
 	</Subject>
+	<Subject>
+		<id>100</id>
+		<name>gestion</name>
+		<isAvailable>1</isAvailable>
+	</Subject>
+	<Subject>
+		<id>101</id>
+		<name>automate</name>
+		<isAvailable>1</isAvailable>
+	</Subject>
 </Subjects>
 
 <Formations>
 	<Formation>
 		<id>1</id>
 		<name>informatique</name>
+		<nbYear>2</nbYear>
+		<curYear>2</curYear>
+		<isAvailable>1</isAvailable>
+	</Formation>
+	<Formation>
+		<id>100</id>
+		<name>informatique</name>
+		<nbYear>2</nbYear>
+		<curYear>2</curYear>
+		<isAvailable>1</isAvailable>
+	</Formation>
+	<Formation>
+		<id>101</id>
+		<name>security</name>
 		<nbYear>2</nbYear>
 		<curYear>2</curYear>
 		<isAvailable>1</isAvailable>
@@ -63,9 +117,25 @@
 		<idFormation>1</idFormation>
 		<idSubject>2</idSubject>
 	</year_formation_subject>
+	<year_formation_subject>
+		<year>2013</year>
+		<idFormation>1</idFormation>
+		<idSubject>1</idSubject>
+	</year_formation_subject>
+	<year_formation_subject>
+		<year>2013</year>
+		<idFormation>1</idFormation>
+		<idSubject>1</idSubject>
+	</year_formation_subject>
 </years_formations_subjects>
 
 <years_students_subjects_notes>
+	<year_student_subject_note>
+		<year>2013</year>
+		<idStudent>1</idStudent>
+		<idSubject>1</idSubject>
+		<note>12</note>
+	</year_student_subject_note>
 </years_students_subjects_notes>
 
 <settings>
