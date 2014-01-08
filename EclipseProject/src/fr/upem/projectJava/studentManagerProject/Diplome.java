@@ -22,12 +22,9 @@ public class Diplome {
 			
 			File templateFile = new File("template/Attestation.odt");
 			File file = new File(number+".odt");
-			  // Load the template.
-			  // Java 5 users will have to use RhinoFileTemplate instead
 			JavaScriptFileTemplate template = new JavaScriptFileTemplate(templateFile);
 			
 			template.setField("Titre", result.getString("settings.name").toUpperCase());
-			template.setField("logo","logo");
 			template.setField("formationName",result.getString("formation.name").toUpperCase());
 			template.setField("annee",result.getString("year")+"/"+(result.getString("year")+1));
 			template.setField("name",result.getString("student.name").toUpperCase());
@@ -42,7 +39,6 @@ public class Diplome {
 			template.setField("formationName",result.getString("formation.name").toUpperCase());
 			template.setField("DirectorFirstName",result.getString("directorFirstName"));
 			template.setField("directorName",result.getString("directorName").toUpperCase());
-			template.setField("signature","signature");
 			
 			template.createDocument().saveToPackageAs(file);
 			

@@ -31,6 +31,7 @@ public class DBConnection {
 			e.printStackTrace();
 		}
 	}
+	
 	public static Connection getInstance(){
 		if(conn == null){
 			new DBConnection();
@@ -118,7 +119,8 @@ public class DBConnection {
 				caracteres = "\t<year_formation_subject>\n"
 								+ "\t\t<year>" + result.getInt("year") + "</year>"
 								+ "\n\t\t<idFormation>" + result.getInt("idFormation") + "</idFormation>"
-								+ "\n\t\t<idSubject>" + result.getInt("idSubject") + "</idSubject>\n"
+								+ "\n\t\t<idSubject>" + result.getInt("idSubject") + "</idSubject>"
+								+ "\n\t\t<coef>" + result.getString("coef") + "</coef>\n"
 							+ "\t</year_formation_subject>\n";
 				os.write(caracteres.getBytes());
 				}
