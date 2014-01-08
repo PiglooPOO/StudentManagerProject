@@ -38,7 +38,7 @@ public class Main {
 	
 	
 	public static void checkConnection(){
-		for (int i = 1; (DBConnection.getInstance()==null); i++) {
+		for (int i = 1; (new DBConnection()==null); i++) {
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {

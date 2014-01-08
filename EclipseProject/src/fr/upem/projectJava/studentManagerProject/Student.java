@@ -190,8 +190,7 @@ public class Student {
 		
 		if(valid.equalsIgnoreCase("o") || valid.equalsIgnoreCase("oui")){
 			try {
-				Statement state = DBConnection.getInstance().createStatement();
-				state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
+				Statement state = new DBConnection().createStatement();				state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
 				System.out.println("Etudiant bien ajouté.");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -203,7 +202,7 @@ public class Student {
 		Statement state;
 		Scanner sc = null;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE number = "+number);
 			
 			int choiceNumber = 1;
@@ -321,7 +320,7 @@ public class Student {
 		 * on regarde si la note n'existe pas encore
 		 */
 		try {
-			Statement state = DBConnection.getInstance().createStatement();
+			Statement state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM year_student_subject_note WHERE year = "+year+" AND idStudent = "+id+" AND idSubject = "+idSubject);
 			if(result.next()){
 				System.out.println(""
@@ -336,9 +335,7 @@ public class Student {
 			System.out.print("Entrez la note : ");
 			int note = sc.nextInt();
 			sc.nextLine();
-			String st1 = "INSERT INTO year_student_subject_note VALUES ("+year+","+id+","+idSubject+","+note+")";
-			System.out.println(st1);
-			state.executeQuery(st1);
+			state.executeUpdate("INSERT INTO year_student_subject_note VALUES ("+year+","+id+","+idSubject+","+note+")");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(""
@@ -359,7 +356,8 @@ public class Student {
 		List l = new ArrayList();
 		int[] tmpArray = new int[3];
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
+
 			ResultSet result = state.executeQuery("SELECT year_student_subject_note.note, subject.name, idStudent, idSubject, year FROM student, subject, year_student_subject_note WHERE student.number = "+id+" AND student.number = idStudent AND subject.id = idSubject AND ((year = EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM NOW()) >= 9) OR (year = EXTRACT(YEAR FROM NOW())-1 AND EXTRACT(MONTH FROM NOW()) < 9))");
 			if(!result.next())
 				return false;
@@ -398,7 +396,7 @@ public class Student {
 		Statement state;
 		Scanner sc = null;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+st+"%\" ORDER BY id");
 			if(!result.next())
 				return false;
@@ -430,7 +428,7 @@ public class Student {
 		Statement state;
 		Scanner sc = null;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,formation,year_formation_student WHERE formation.id = "+id+" AND formation.id = idFormation AND student.number = idStudent ORDER BY year");
 			int year = 0;
 			while(result.next()){
@@ -468,7 +466,7 @@ public class Student {
 		Statement state;
 		Scanner sc = null;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,year_formation_student WHERE year = "+year+" AND student.number = idStudent ORDER BY number");
 			if(!result.next())
 				return false;
@@ -509,7 +507,7 @@ public class Student {
 		Statement state;
 		Scanner sc = null;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.name LIKE \"%"+st+"%\" ORDER BY number");
 			if(!result.next())
 				return false;
@@ -541,7 +539,7 @@ public class Student {
 		Statement state;
 		Scanner sc = null;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.firstName LIKE \"%"+st+"%\" ORDER BY number");
 			if(!result.next())
 				return false;

@@ -18,7 +18,7 @@ public class Diplome {
   
   public static void editDiplome(int number) {
     try {
-	    	Statement state = DBConnection.getInstance().createStatement();
+	    	Statement state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT formation.name,year,student.name,student.firstName,student.adress,student.birthday,settings.name,directorName,directorFirstName FROM student,formation,year_formation_student,settings WHERE number="+number+" AND idStudent="+number+" AND year_formation_student.idFormation=formation.id AND number=idStudent AND nbYear=curYear");
 			result.next();
 			
