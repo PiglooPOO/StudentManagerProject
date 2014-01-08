@@ -5,7 +5,7 @@
 		<firstName>Quentin</firstName>
 		<adress>23 boulevard Aristide BRIAND</adress>
 		<phoneNumber>0610101010</phoneNumber>
-		<mail>qboulic@etudiant.univ-mlv.fr</mail>
+		<mail>qbouic@etudiant.univ-mlv.fr</mail>
 		<birthday>1994-09-07</birthday>
 		<gender>1</gender>
 	</Student>
