@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class Formation {
@@ -23,21 +22,20 @@ public class Formation {
 	}
 	
 	public Formation(){
-		Scanner sc = new Scanner(System.in);
 		do{
 			System.out.print("Nom de la filière : ");
-			this.name=sc.nextLine();
+			this.name = Main.sc.nextLine();
 			if(this.name.length()>50)
 				System.out.println("Le nom de la filière entré est trop long");
 		}
 		while(this.name.length()>50);
 		System.out.print("Nombre d'année total de la filière : ");
-		this.nbYear=sc.nextInt();
+		this.nbYear = Main.sc.nextInt();
 		do{
 		System.out.print("Année de la filière :");
-		this.curYear=sc.nextInt();
+		this.curYear = Main.sc.nextInt();
 		if(curYear>nbYear)
-			System.out.println("L'année entré n'est pas disponible pour cette filière");
+			System.out.println("L'année entrée n'est pas disponible pour cette filière");
 		}
 		while(curYear>nbYear);
 	}
@@ -81,7 +79,6 @@ public class Formation {
 	public static boolean showFormation(int id){
 		int choiceNumber = 0;
 		Statement state;
-		Scanner sc = null;
 		try {
 			state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE id = "+id);
@@ -97,9 +94,8 @@ public class Formation {
 						+ "5 Quitter\n");
 				
 				System.out.print(">> ");
-				sc = new Scanner(System.in);
-				choiceNumber = sc.nextInt();
-				sc.nextLine();
+				choiceNumber = Main.sc.nextInt();
+				Main.sc.nextLine();
 				
 				switch(choiceNumber){
 					case 1:
@@ -160,9 +156,8 @@ public class Formation {
 			while(result.next()){
 				System.out.println(result.getInt("id")+" Diplome d'Ingénieur "+result.getString("name"));
 			}
-			Scanner sc = new Scanner(System.in);
-			int id = sc.nextInt();
-			sc.nextLine();
+			int id = Main.sc.nextInt();
+			Main.sc.nextLine();
 			return id;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
