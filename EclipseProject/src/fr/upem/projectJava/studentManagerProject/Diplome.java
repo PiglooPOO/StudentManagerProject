@@ -1,69 +1,59 @@
 package fr.upem.projectJava.studentManagerProject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.jopendocument.dom.ODPackage;
-import org.jopendocument.dom.ODSingleXMLDocument;
-import org.jopendocument.dom.text.Heading;
-import org.jopendocument.dom.text.Paragraph;
+import org.jdom.JDOMException;
+import org.jopendocument.dom.OOUtils;
+import org.jopendocument.dom.template.JavaScriptFileTemplate;
+import org.jopendocument.dom.template.TemplateException;
 
 public class Diplome {
 
   
-  public static void editDiplome(int number) {
+  public static void editDiplome(int number) throws IOException, TemplateException, JDOMException {
     try {
 	    	Statement state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT formation.name,year,student.name,student.firstName,student.adress,student.birthday,settings.name,directorName,directorFirstName FROM student,formation,year_formation_student,settings WHERE number="+number+" AND idStudent="+number+" AND year_formation_student.idFormation=formation.id AND number=idStudent AND nbYear=curYear");
 			result.next();
 			
-			ODPackage p = new ODPackage(new File("styles.odt"));
-			ODSingleXMLDocument document = p.toSingle();
-			addTitlePage(document,result.getString("settings.name"));
-			addImage(document,"logo.png");
-			addContent(document,result.getString("formation.name"),result.getInt("year"));
-			addInfo(document, result.getString("student.name"), result.getString("student.firstName"), result.getString("student.adress"), result.getDate("student.birthday"), result.getString("formation.name"));
-			addSignature(document,result.getString("directorName"),result.getString("directorFirstName"));
-
-    } catch (Exception e) {
-      e.printStackTrace();
+			File templateFile = new File("template/Attestation.odt");
+			File file = new File(number+".odt");
+			  // Load the template.
+			  // Java 5 users will have to use RhinoFileTemplate instead
+			JavaScriptFileTemplate template = new JavaScriptFileTemplate(templateFile);
+			
+			template.setField("Titre", result.getString("settings.name").toUpperCase());
+			template.setField("logo","logo");
+			template.setField("formationName",result.getString("formation.name").toUpperCase());
+			template.setField("annee",result.getString("year")+"/"+(result.getString("year")+1));
+			template.setField("name",result.getString("student.name").toUpperCase());
+			template.setField("firstName",result.getString("student.firstName"));
+			template.setField("adress",result.getString("student.adress"));
+			String date = result.getDate("student.birthday").toString();
+			String[] recup=date.split("-");
+			int day=Integer.parseInt(recup[2]);
+			int month=Integer.parseInt(recup[1]);
+			int year=Integer.parseInt(recup[0]);
+			template.setField("birthday",day+"/"+month+"/"+year);
+			template.setField("formationName",result.getString("formation.name").toUpperCase());
+			template.setField("DirectorFirstName",result.getString("directorFirstName"));
+			template.setField("directorName",result.getString("directorName").toUpperCase());
+			template.setField("signature","signature");
+			
+			template.createDocument().saveToPackageAs(file);
+			
+			OOUtils.open(file);
+			result.close();
+			state.close();
+    	}
+    	catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+    	}
     }
-  }
-
-
-  private static void addTitlePage(ODSingleXMLDocument document, String name){
-	 
-  }
-  
-  private static void addImage(ODSingleXMLDocument document,String image)
-	      throws MalformedURLException, IOException {
-	  	
-	  
-	  }
-
-  private static void addContent(ODSingleXMLDocument document, String formation,int année){
-
-   
-  }
-
-  private static void addInfo(ODSingleXMLDocument document, String name, String firstName, String adress, Date birthday, String formation){
-	  
-  }
-  
-  private static void addSignature(ODSingleXMLDocument document,String directorName, String directorFirstName) throws MalformedURLException, IOException {
-	  
-	  
-  }
-  
-  private static void addEmptyLine(Paragraph paragraph, int number) {
-    for (int i = 0; i < number; i++) {
-      paragraph.addContent(" ");
-    }
-  } 
-} 
-
+}
+    

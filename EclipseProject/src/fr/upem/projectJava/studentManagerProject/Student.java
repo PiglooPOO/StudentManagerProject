@@ -1,5 +1,6 @@
 package fr.upem.projectJava.studentManagerProject;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,6 +13,9 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+
+import org.jdom.JDOMException;
+import org.jopendocument.dom.template.TemplateException;
 
 public class Student {
 	
@@ -263,7 +267,18 @@ public class Student {
 						}
 						break;
 					case 5 :
-						Diplome.editDiplome(number);
+						try {
+							Diplome.editDiplome(number);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (TemplateException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (JDOMException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						break;
 					default:
 						break;
