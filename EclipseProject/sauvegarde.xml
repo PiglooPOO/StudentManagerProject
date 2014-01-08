@@ -66,6 +66,12 @@
 </years_formations_subjects>
 
 <years_students_subjects_notes>
+	<year_student_subject_note>
+		<year>2013</year>
+		<idStudent>1</idStudent>
+		<idSubject>1</idSubject>
+		<note>12</note>
+	</year_student_subject_note>
 </years_students_subjects_notes>
 
 <settings>

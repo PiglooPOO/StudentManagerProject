@@ -133,6 +133,21 @@ public class Formation {
 		return false;
 	}
 	
+	public static String FormationNameByStudentId(int id){
+		Statement state;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE id = "+id);
+			if(result.next()){
+				return result.getString("name") +" "+ result.getInt("curYear") +"ème année.\n";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static boolean addSubjectToFormation(int id){
 		// TODO
 		return false;
