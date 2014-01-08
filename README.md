@@ -7,12 +7,12 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 
 - Ajouter un étudiant \[done\]
 
-- Rechercher un étudiant (par no étudiant \[done\], nom \[done\], prenom \[done\], matière \[done\], filiaire \[done\], année \[done\], année+filiaire)
-> - l'afficher (manque la formation en cours)
+- Rechercher un étudiant (par no étudiant \[done\], nom \[done\], prenom \[done\], matière \[done\], filiaire \[done\], année \[done\])
+> - l'afficher \[done\]
 > - Inscrire un élève dans une filière et année
 > - Modifier des informations
-> - Attribuer des notes \[done\] MAIS BUG WTF
-> - Afficher ses moyennes \[done\]
+> - Attribuer des notes \[done\] mais ne vérifie pas si la matière est dans la formation suivie
+> - Afficher ses moyennes \[done\] mais moyenne générale ne prend pas en compte coef pour l'instant, j'attend de finir les conditions d'ajouts de notes.
 > - Editer attestation de réussite \[done\] MAIS PAS EN ODT
 
 - Créer une filière \[done\]
@@ -37,6 +37,19 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 
 
 ## HOW TO
+
+### COMMENT
+Example :
+```
+/**
+* Description about the foo function
+* @param <id> is student id to blabla
+* @param <str> a fucking string to bla.
+* @see <testMeToo>()
+* @return <boolean> explainations
+*/
+public boolean foo(int id, String str)
+```
 
 ### Import Project
 

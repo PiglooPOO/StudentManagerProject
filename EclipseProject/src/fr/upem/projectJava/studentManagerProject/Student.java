@@ -215,13 +215,14 @@ public class Student {
 				while(choiceNumber!=0){
 					if(choiceNumber == 1){
 						System.out.println(
-								"\nNom :\t\t" + result.getString("name")+
-								"\nPrénom :\t" + result.getString("firstName")+
-								"\nAdresse :\t" + result.getString("adress")+
-								"\nTel :\t\t" + result.getString("phoneNumber")+
-								"\nMail :\t\t" + result.getString("mail")+
+								"\nNom :\t\t\t" + result.getString("name")+
+								"\nPrénom :\t\t" + result.getString("firstName")+
+								"\nAdresse :\t\t" + result.getString("adress")+
+								"\nTel :\t\t\t" + result.getString("phoneNumber")+
+								"\nMail :\t\t\t" + result.getString("mail")+
 								"\nDate de naissance :\t" + result.getDate("birthday").toString()+
-								"\nSexe :\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"));
+								"\nSexe :\t\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"+ 
+								"\nFormation : \t\t"+Formation.FormationNameByStudentId(Student.followFormation(number))));
 						
 						System.out.println(""
 								+ "\n1 Inscrire un élève dans une filière et année"
@@ -297,7 +298,27 @@ public class Student {
 			return false;
 		}
 	}
-
+	
+	public static int followFormation(int idStudent){
+		int year;
+		if(Calendar.getInstance().get(Calendar.MONTH)<=Calendar.SEPTEMBER)
+			year = Calendar.getInstance().get(Calendar.YEAR)-1;
+		else
+			year = Calendar.getInstance().get(Calendar.YEAR);
+		Statement state;
+		
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT idFormation FROM student, year_formation_student WHERE number = idStudent AND year = "+year+" AND idStudent = "+idStudent);
+			if(result.next())
+				return result.getInt("idFormation");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 	private static boolean attributeMarkByStudentId(int id) {
 		Scanner sc = new Scanner(System.in);
 		
@@ -351,9 +372,7 @@ public class Student {
 			System.out.print("Entrez la note : ");
 			int note = sc.nextInt();
 			sc.nextLine();
-			String st1 = "INSERT INTO year_student_subject_note VALUES ("+year+","+id+","+idSubject+","+note+")";
-			System.out.println(st1);
-			state.executeQuery(st1);
+			state.executeUpdate("INSERT INTO year_student_subject_note VALUES ("+year+","+id+","+idSubject+","+note+")");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(""
@@ -372,7 +391,9 @@ public class Student {
 		Statement state;
 		Scanner sc = null;
 		List l = new ArrayList();
+		int[] averageNote = {0,0};
 		int[] tmpArray = new int[3];
+		
 		try {
 			state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT year_student_subject_note.note, subject.name, idStudent, idSubject, year FROM student, subject, year_student_subject_note WHERE student.number = "+id+" AND student.number = idStudent AND subject.id = idSubject AND ((year = EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM NOW()) >= 9) OR (year = EXTRACT(YEAR FROM NOW())-1 AND EXTRACT(MONTH FROM NOW()) < 9))");
@@ -385,12 +406,18 @@ public class Student {
 				tmpArray[0] = result.getInt("idStudent");
 				tmpArray[1] = result.getInt("idSubject");
 				tmpArray[2] = result.getInt("year");
-				l.add(tmpArray);
 				
+				l.add(tmpArray);
+				averageNote[0] += result.getInt("year_student_subject_note.note");
+				averageNote[1] += 1;
 				System.out.println(l.size()+"\t"
 						+ " " + result.getString("subject.name")
 						+ " " + result.getInt("year_student_subject_note.note"));
 			}while(result.next());
+			averageNote[0] /= averageNote[1];
+			System.out.println(l.size()+"\t"
+					+ " Moyenne : "
+					+ averageNote[0]);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
