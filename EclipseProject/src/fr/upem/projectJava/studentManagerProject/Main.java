@@ -339,7 +339,7 @@ public class Main {
 	private static void clearConsole()
 	{
 		try {
-			  if(System.getProperty("os.name" ).startsWith("Windows" ))
+			  if(System.getProperty("os.name").startsWith("Windows" ))
 			    Runtime.getRuntime().exec("cls");
 			  else
 			    Runtime.getRuntime().exec("clear");
