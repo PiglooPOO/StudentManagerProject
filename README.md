@@ -11,13 +11,13 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 > - l'afficher \[done\]
 > - Inscrire un élève dans une filière et année
 > - Modifier des informations
-> - Attribuer des notes \[done\] mais ne vérifie pas si la matière est dans la formation suivie
-> - Afficher ses moyennes \[done\] mais moyenne générale ne prend pas en compte coef pour l'instant, j'attend de finir les conditions d'ajouts de notes.
-> - Editer attestation de réussite \[done\] MAIS PAS EN ODT
+> - Attribuer des notes \[EN COURS\] mais ne vérifie pas si la matière est dans la formation suivie
+> - Afficher ses moyennes \[EN COURS\] mais moyenne générale ne prend pas en compte coef pour l'instant, j'attend de finir les conditions d'ajouts de notes.
+> - Editer attestation de réussite \[done\]
 
 - Créer une filière \[done\]
 - Rechercher une filière \[done\]
-> - Ajouter une matière, des élèves
+> - Ajouter une matière\[EN COURS\], des élèves \[EN COURS\]
 > - Afficher ses éleves par année (pouvoir y acceder) \[done\]
 - Rechercher une matière \[done\]
 > - Ajouter à une filiaire pour une année

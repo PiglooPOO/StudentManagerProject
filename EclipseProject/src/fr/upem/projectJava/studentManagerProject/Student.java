@@ -222,7 +222,7 @@ public class Student {
 								"\nMail :\t\t\t" + result.getString("mail")+
 								"\nDate de naissance :\t" + result.getDate("birthday").toString()+
 								"\nSexe :\t\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"+ 
-								"\nFormation : \t\t"+Formation.FormationNameByStudentId(Student.followFormation(number))));
+								"\nFilière : \t\t"+Formation.FormationNameByStudentId(Student.followFormation(number))));
 						
 						System.out.println(""
 								+ "\n1 Inscrire un élève dans une filière et année"
@@ -332,7 +332,7 @@ public class Student {
 			answerSubject = sc.nextLine();
 			//TODO
 			if((idSubject = Subject.searchSubjectsByName(answerSubject)) == -1){
-				System.out.println("La filière "+answerSubject+" n'éxiste pas.");
+				System.out.println("La filière "+answerSubject+" n'éxiste pas dans cette filière.");
 				System.out.println("Appuyez sur Entrer pour revenir à la fiche étudiant.");
 				sc.nextLine();
 				return false;
