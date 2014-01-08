@@ -31,6 +31,7 @@ public class DBConnection {
 			e.printStackTrace();
 		}
 	}
+	
 	public static Connection getInstance(){
 		if(conn == null){
 			new DBConnection();

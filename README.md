@@ -38,6 +38,17 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 
 ## HOW TO
 
+### COMMENT
+Example :
+` /**
+* Description about the foo function
+* @param <id> is student id to blabla
+* @param <str> a fucking string to bla.
+* @see <testMeToo>()
+* @return <boolean> explainations
+*/
+public boolean foo(int id, String str)`
+
 ### Import Project
 
 - Open Eclipse
