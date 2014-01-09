@@ -422,11 +422,8 @@ public class Student {
 				tmpArray[2] = result.getInt("year");
 				
 				l.add(tmpArray);
-<<<<<<< HEAD
+				
 				averageNote[0] += result.getInt("note")*result.getInt("coef");
-=======
-				averageNote[0] += result.getInt("note") * result.getInt("coef");
->>>>>>> 39a61a2a958b73f16c41bdb8f46760dfbf676f25
 				averageNote[1] += result.getInt("coef");
 				System.out.println(l.size()
 						+ "\t" + result.getString("name")
