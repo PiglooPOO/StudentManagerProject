@@ -36,17 +36,25 @@ public class Main {
 	
 	
 	public static void checkConnection(){
-		for (int i = 1; (new DBConnection()==null); i++) {
+		
+		DBConnection a;
+		for (int i = 1; ; i++) {
+			a = new DBConnection();
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if(i>10){
+			System.out.println(i+")\tErreur de la connection avec la BDD, nouvel essaie dans 3 secondes.");
+
+			if(i==10){
 				System.out.println("\n\tErreur de la connection avec la BDD");
 				return;
 			}
-			System.out.println(i+")\tErreur de la connection avec la BDD, nouvel essaie dans 3 secondes.");
+			if(a != null){
+				a.close();
+				break;
+			}
 		}
 	}
 	
@@ -311,9 +319,6 @@ public class Main {
 					System.out.println("Appuyez sur Entrée pour continuer.");
 					Main.sc.nextLine();
 				}
-				break;
-				
-			case 3:
 				break;
 			default:
 			}

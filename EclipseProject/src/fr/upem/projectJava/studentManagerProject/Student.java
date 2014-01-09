@@ -183,6 +183,8 @@ public class Student {
 	public void addStudent(){
 		System.out.println(this.toString());
 		String valid=null;
+		DBConnection c = null;
+		
 		do{
 			System.out.println("\nValidez-vous cet étudiant? (Oui/Non)");
 			valid = Main.sc.next();
@@ -191,10 +193,14 @@ public class Student {
 		
 		if(valid.equalsIgnoreCase("o") || valid.equalsIgnoreCase("oui")){
 			try {
-				Statement state = new DBConnection().createStatement();				
+				c = new DBConnection();
+				Statement state = c.createStatement();				
 				state.executeUpdate("INSERT INTO `student`(`number`,`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('null','"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
 				System.out.println("Etudiant bien ajouté.");
+				c.close();
 			} catch (SQLException e1) {
+				if(c!=null)
+					c.close();
 				e1.printStackTrace();
 			}
 		}
@@ -202,9 +208,10 @@ public class Student {
 	}
 	
 	public static boolean showStudent(int number){
-		Statement state;
+		DBConnection c = null;
 		try {
-			state = new DBConnection().createStatement();
+			c = new DBConnection();
+			Statement state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE number = "+number);
 			
 			int choiceNumber = 1;
@@ -283,13 +290,17 @@ public class Student {
 						choiceNumber = 1;
 					//clearConsole();
 				}
+				c.close();
 				return true;
 			}
 			else{
+				c.close();
 				return false;
 			}
 				
 		} catch (SQLException e) {
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 			return false;
 		}
@@ -297,15 +308,19 @@ public class Student {
 	
 	public static int followFormation(int idStudent){
 		int year = Year.getActualCurrentYear();
-		Statement state;
+		DBConnection c = null;
 		
 		try {
-			state = new DBConnection().createStatement();
+			c=new DBConnection();
+			Statement state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT idFormation FROM student, year_formation_student WHERE number = idStudent AND year = "+year+" AND idStudent = "+idStudent);
+			c.close();
 			if(result.next())
 				return result.getInt("idFormation");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 		}
 		return -1;
@@ -326,7 +341,7 @@ public class Student {
 				System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
 				Main.sc.nextLine();
 				return false;
-				}
+			}
 
 		}catch(InputMismatchException e){
 			System.out.println("Ceci n'est pas une filière.");
@@ -343,14 +358,17 @@ public class Student {
 		/**
 		 * on regarde si la note n'existe pas encore
 		 */
+		DBConnection c = null;
 		try {
-			Statement state = new DBConnection().createStatement();
+			c = new DBConnection();
+			Statement state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM year_student_subject_note WHERE year = "+year+" AND idStudent = "+id+" AND idSubject = "+idSubject);
 			if(result.next()){
 				System.out.println(""
 						+ "Une note est déjà attribuée à cet étudiant pour cette matière, vous pouvez la modifier dans son relevé de notes,\n"
 						+ "Appuyez sur Entrée pour revenir à la fiche étudiant.");
 				Main.sc.nextLine();
+				c.close();
 				return false;
 			}
 			/**
@@ -360,12 +378,15 @@ public class Student {
 			int note = Main.sc.nextInt();
 			Main.sc.nextLine();
 			state.executeUpdate("INSERT INTO year_student_subject_note VALUES ("+year+","+id+","+idSubject+","+note+")");
+			c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(""
 					+ "Une erreur s'est produite lors de l'accès à la base de donnée, veuillez appeller le support,\n"
 					+ "Appuyez sur Entrée pour revenir à la fiche étudiant.");
 			Main.sc.nextLine();
+			if(c!=null)
+				c.close();
 			return false;
 		}
 
@@ -375,14 +396,14 @@ public class Student {
 	}
 
 	private static boolean printMarksForStudent(int id) {
-		Statement state;
+		DBConnection c = null;
 		List<int[]> l = new ArrayList<int[]>();
 		int[] averageNote = {0,0};
 		int[] tmpArray = new int[3];
 		
 		try {
-
-			state = new DBConnection().createStatement();
+			c = new DBConnection();
+			Statement state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT year_student_subject_note.note, subject.name, idStudent, idSubject, year FROM student, subject, year_student_subject_note WHERE student.number = "+id+" AND student.number = idStudent AND subject.id = idSubject AND ((year = EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM NOW()) >= 9) OR (year = EXTRACT(YEAR FROM NOW())-1 AND EXTRACT(MONTH FROM NOW()) < 9))");
 
 			if(!result.next())
@@ -406,8 +427,11 @@ public class Student {
 			System.out.println(l.size()+"\t"
 					+ " Moyenne : "
 					+ averageNote[0]);
+			c.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 		}
 		return true;
@@ -425,18 +449,24 @@ public class Student {
 	}
 	
 	public static boolean showStudentsByFormationName(String st) {
-		Statement state;
+		DBConnection c = null;
 		try {
-			state = new DBConnection().createStatement();
+			c = new DBConnection();
+			Statement state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+st+"%\" ORDER BY id");
-			if(!result.next())
+			if(!result.next()){
+				c.close();
 				return false;
+			}
 			do{
 				System.out.println(result.getInt("id")+"\t"
 						+ " " + result.getString("name")
 						+ " " + result.getInt("curYear") + "e année");
 			}while(result.next());
+			c.close();
 		} catch (SQLException e) {
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 		}
 		
@@ -455,9 +485,10 @@ public class Student {
 	}
 	
 	public static void showStudentsByFormation(int id) {
-		Statement state;
+		DBConnection c = null;
 		try {
-			state = new DBConnection().createStatement();
+			c = new DBConnection();
+			Statement state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,formation,year_formation_student WHERE formation.id = "+id+" AND formation.id = idFormation AND student.number = idStudent ORDER BY year");
 			int year = 0;
 			while(result.next()){
@@ -473,7 +504,10 @@ public class Student {
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
 			}
+			c.close();
 		} catch (SQLException e) {
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 		}
 		
@@ -491,12 +525,16 @@ public class Student {
 	}
 	
 	public static boolean showStudentsByYear(int year) {
-		Statement state;
+		DBConnection c = null;
 		try {
-			state = new DBConnection().createStatement();
+			c = new DBConnection();
+			Statement state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,year_formation_student WHERE year = "+year+" AND student.number = idStudent ORDER BY number");
-			if(!result.next())
+			if(!result.next()){
+				c.close();
 				return false;
+			}
+				
 			do{
 				if(year<result.getInt("year")){
 					year = result.getInt("year");
@@ -510,7 +548,10 @@ public class Student {
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
 			}while(result.next());
+			c.close();
 		} catch (SQLException e) {
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 		}
 		
@@ -530,18 +571,25 @@ public class Student {
 	}
 	
 	public static boolean showStudentsByName(String st) {
-		Statement state;
+		DBConnection c = null;
 		try {
-			state = new DBConnection().createStatement();
+			c = new DBConnection();
+			Statement state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.name LIKE \"%"+st+"%\" ORDER BY number");
-			if(!result.next())
+			if(!result.next()){
+				c.close();
 				return false;
+			}
+			
 			do{
 				System.out.println(result.getInt("student.number")+"\t"
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
 			}while(result.next());
+			c.close();
 		} catch (SQLException e) {
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 		}
 		
@@ -560,18 +608,24 @@ public class Student {
 	}
 	
 	public static boolean showStudentsByFirstName(String st) {
-		Statement state;
+		DBConnection c = null;
 		try {
-			state = new DBConnection().createStatement();
+			c = new DBConnection();
+			Statement state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.firstName LIKE \"%"+st+"%\" ORDER BY number");
-			if(!result.next())
+			if(!result.next()){
+				c.close();
 				return false;
+			}
+				
 			do{
 				System.out.println(result.getInt("student.number")+"\t"
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
 			}while(result.next());
 		} catch (SQLException e) {
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 		}
 		
