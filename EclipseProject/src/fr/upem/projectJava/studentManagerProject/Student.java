@@ -341,38 +341,16 @@ public class Student {
 	* @return <boolean> return true if it works, else false.
 	*/
 	private static boolean addToFormation(int idStudent, int idFormation) {
-		/**
-		 * cherchons la matière à ajouter
-		 */
-		String answerSubject = "";
-		int idSubject = 0;
-		System.out.println("Entrez le nom de la formation à laquelle l'ajouter : ");
-		try{
-			answerSubject = Main.sc.nextLine();
-			//TODO
-			if((idSubject = Subject.searchSubjectsByName(answerSubject)) == -1){
-				System.out.println("La filière n'éxiste pas dans cette filière.");
-				System.out.println("Appuyez sur Entrée pour revenir à la fiche.");
-				Main.sc.nextLine();
-				return false;
-			}
-
-		}catch(InputMismatchException e){
-			System.out.println("Ceci n'est pas une filière.");
-			System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
-			Main.sc.nextLine();
-			return false;
-		}
-		
-		/**
-		 * récupérons l'année actuelle
-		 */
 		int year;
 		while((year = Main.sc.nextInt())<Year.getActualCurrentYear()){
 			Main.sc.nextLine();
 			System.out.println("Vous ne pouvez pas ajouter un étudiant à une année déjà terminée,\n"
 					+ "Veuillez entrer une nouvelle année");
 		}
+		DBConnection c = null;
+		c = new DBConnection();
+		c.executeQuery("SELECT * FROM year_formation_student WHERE year = "+year+" AND idFormation = "+idFormation+" AND idStudent = "+idStudent);
+		
 		return false;
 	}
 
