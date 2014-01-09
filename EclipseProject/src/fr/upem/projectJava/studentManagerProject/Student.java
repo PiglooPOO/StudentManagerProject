@@ -422,7 +422,11 @@ public class Student {
 				tmpArray[2] = result.getInt("year");
 				
 				l.add(tmpArray);
+<<<<<<< HEAD
 				averageNote[0] += result.getInt("note")*result.getInt("coef");
+=======
+				averageNote[0] += result.getInt("note") * result.getInt("coef");
+>>>>>>> 39a61a2a958b73f16c41bdb8f46760dfbf676f25
 				averageNote[1] += result.getInt("coef");
 				System.out.println(l.size()
 						+ "\t" + result.getString("name")
@@ -493,7 +497,10 @@ public class Student {
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
-			ResultSet result = c.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,formation,year_formation_student WHERE formation.id = "+id+" AND formation.id = idFormation AND student.number = idStudent ORDER BY year");
+			ResultSet result = c.executeQuery("SELECT year,student.number,student.name,student.firstName "
+					+ "FROM student,formation,year_formation_student "
+					+ "WHERE formation.id = "+id+" AND formation.id = idFormation "
+					+ "AND student.number = idStudent ORDER BY year");
 			int year = 0;
 			while(result.next()){
 				if(year<result.getInt("year")){
@@ -532,7 +539,10 @@ public class Student {
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
-			ResultSet result = c.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,year_formation_student WHERE year = "+year+" AND student.number = idStudent ORDER BY number");
+			ResultSet result = c.executeQuery("SELECT year,student.number,student.name,student.firstName "
+					+ "FROM student,year_formation_student "
+					+ "WHERE year = "+year+" "
+					+ "AND student.number = idStudent ORDER BY number");
 			if(!result.next()){
 				c.close();
 				return false;
@@ -706,7 +716,48 @@ public class Student {
 	}
 
 	public static void showStudentsBySubject(int id) {
-		// TODO Auto-generated method stub
+		DBConnection c = null;
+		try {
+			c = new DBConnection();
+			ResultSet result = c.executeQuery("SELECT * "
+					+ "FROM subject, year_formation_student, year_formation_subject "
+					+ "WHERE subject.isAvailable = 1 AND subject.id = "+id
+					+ " AND year_formation_student.year = year_formation_subject.year"
+					+ " AND year_formation_student.year = "+Year.getActualCurrentYear()
+					+ " AND year_formation_student.idFormation = year_formation_subject.idFormation"
+					+ " AND subject.id = year_formation_subject.idSubject"
+					+ " ORDER BY year_formation_subject.year");
+			int year = 0;
+			while(result.next()){
+				if(year<result.getInt("year")){
+					year = result.getInt("year");
+					System.out.println("\n"
+							+ "\t####################################\n"
+							+ "\t################# "+year+" #############\n"
+							+ "\t####################################\n"
+							+ "");
+				}
+				System.out.println(result.getInt("student.number")+"\t"
+						+ result.getString("name")
+						+ " " + result.getString("firstName"));
+			}
+			c.close();
+		} catch (SQLException e) {
+			if(c!=null)
+				c.close();
+			e.printStackTrace();
+		}
 		
+		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
+		int idStudent = -1;
+		do {
+			try {
+				idStudent = Main.sc.nextInt();
+				Main.sc.nextLine();
+			} catch (InputMismatchException e) {
+				// TODO: handle exception
+			}
+		} while (idStudent<0);
+		showStudent(idStudent);
 	}
 }
