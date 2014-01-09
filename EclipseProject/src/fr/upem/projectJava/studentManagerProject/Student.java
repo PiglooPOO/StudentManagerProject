@@ -478,7 +478,8 @@ public class Student {
 				tmpArray[2] = result.getInt("year");
 				
 				l.add(tmpArray);
-				averageNote[0] += result.getInt("note") * result.getInt("coef");
+				
+				averageNote[0] += result.getInt("note")*result.getInt("coef");
 				averageNote[1] += result.getInt("coef");
 				System.out.println(l.size()
 						+ "\t" + result.getString("name")
@@ -710,6 +711,67 @@ public class Student {
 			}
 		} while (idStudent<0);
 		showStudent(idStudent);
+		return true;
+	}
+	
+	public static boolean showStudentGraduate(){
+		DBConnection c = null;
+		int[] averageNote = {0,0};
+		try {
+			c = new DBConnection();
+			ResultSet result=c.executeQuery("SELECT number FROM student, year_formation_student, formation "
+						+ "WHERE student.number=year_formation_student.idStudent "
+						+ "AND year_formation_student.idFormation = formation.id "
+						+ "AND formation.curYear=formation.nbYear");
+			
+				while(result.next()){
+					averageNote[0]=0;
+					averageNote[1]=0;
+					ResultSet result2= c.executeQuery("SELECT note, coef, student.number, student.name, student.firstName" 
+							+" FROM student, subject, year_student_subject_note, year_formation_subject, year_formation_student"
+							//étudiant
+							+" WHERE student.number = "+result.getInt("number")
+							+ "AND student.number = year_student_subject_note.idStudent"
+							+" AND student.number = year_formation_student.idStudent"
+							//Matière
+							+" AND year_student_subject_note.idSubject = year_formation_subject.idSubject"
+							+" AND subject.id = year_student_subject_note.idSubject"
+							+" AND subject.id = year_formation_subject.idSubject"
+							//année
+							+" AND year_student_subject_note.year = year_formation_subject.year"
+							+" AND year_student_subject_note.year = year_formation_student.year"
+							+" AND year_student_subject_note.year = "+Year.getActualCurrentYear());
+					averageNote[0] += result.getInt("note")*result.getInt("coef");
+					averageNote[1] += result.getInt("coef");
+					averageNote[0] /= averageNote[1];
+					result2.next();
+					if(averageNote[0]>=10)
+						System.out.println(result2.getInt("number") + " " + result2.getString("name") + " " + result2.getString("firstName"));
+					}
+					try {
+						int number=0;
+						do{
+							System.out.print("Entrez le numéro de l'étudiant pour lequel vous voulez crée le diplôme : ");
+							number= Main.sc.nextInt();
+							if(number<1)
+								System.out.println("L'étudiant sélectionner n'éxiste pas");
+							else{
+								Diplome.editDiplome(number);
+							}
+						}while(number<1);
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (TemplateException e) {
+						e.printStackTrace();
+					} catch (JDOMException e) {
+						e.printStackTrace();
+					}
+			} catch (SQLException e) {
+			if(c!=null)
+				c.close();
+			e.printStackTrace();
+		}
 		return true;
 	}
 
