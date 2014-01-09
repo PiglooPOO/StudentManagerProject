@@ -1,9 +1,13 @@
 package fr.upem.projectJava.studentManagerProject;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+
+import org.jdom.JDOMException;
+import org.jopendocument.dom.template.TemplateException;
 
 
 public class Formation {
@@ -78,14 +82,14 @@ public class Formation {
 	
 	public static boolean showFormation(int id){
 		DBConnection c = null;
+		ResultSet result = null;
 		try {
 			int choiceNumber = 1;
-			
 			while(choiceNumber!=0){
-				if(choiceNumber == 1){
-					c = new DBConnection();
-					ResultSet result = c.executeQuery("SELECT * FROM formation WHERE isAvailable = 1 AND id = "+id);
-					if(result.next()){
+				c = new DBConnection();
+				result = c.executeQuery("SELECT * FROM formation WHERE isAvailable = 1 AND id = "+id);					
+				if(result.next()){
+					if(choiceNumber == 1){
 						System.out.println(
 								"\nGestion du Diplome d'ingénieur " + result.getString("name") +" "+ result.getInt("curYear") +"ème année.\n"
 								+ "Que voulez-vous faire ?\n"
@@ -94,33 +98,33 @@ public class Formation {
 								+ "3 Ajouter des matières\n"
 								+ "4 Visualiser les étudiants suivant cette formation\n"
 								+ "0 Quitter\n");
+					}
 						
-						System.out.print(">> ");
-						try {				
-								while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>4){
-									choiceNumber = Main.sc.nextInt();
-									System.out.print("Ce choix est invalide, recommencez : ");
-								}
-								Main.sc.nextLine();
-							}catch(InputMismatchException e){
-								System.out.println("Ce choix est invalide, ");
-								choiceNumber = -2;
-						    }
-						}
-					else{
-						c.close();
-						return false;
-					}
-					c.close();
-					}
 				}
+				else{
+					c.close();
+					return false;
+				}
+				
+				System.out.print("Entrez le chiffre correspondant à votre choix : ");
+				try {
+					while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>4){
+						Main.sc.nextLine();
+						System.out.print("Ce choix est invalide, recommencez : ");
+					}
+					Main.sc.nextLine();
+				} catch(InputMismatchException e){
+					System.out.println("Ce choix est invalide, ");
+					Main.sc.nextLine();
+					choiceNumber = -2;
+			    }
+				
 				switch(choiceNumber){
 					case 1:
 						//TODO
 						Formation.editFormation(id);
 						break;
 					case 2:
-						//TODO
 						Formation.deleteFormation(id);
 						break;
 					case 3:
@@ -155,15 +159,18 @@ public class Formation {
 						// TODO
 						break;
 				}
-				c.close();
-				return true;
+				if(choiceNumber != 0 && choiceNumber != -2)
+					choiceNumber = 1;
+				//clearConsole();
 			}
-			catch (SQLException e) {
+			
+			return true;
+		} catch (SQLException e) {
 			if(c!=null)
 				c.close();
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 	
 	public static String FormationNameByStudentId(int id){
@@ -251,9 +258,11 @@ public class Formation {
 		try {
 			c = new DBConnection();
 			ResultSet result = c.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+answerFormation+"%\"");
-			while(result.next()){
+			if(!result.next())
+				return -1;
+			do{
 				System.out.println(result.getInt("id")+"\t"+result.getString("name")+" "+result.getInt("curYear")+"e année");
-			}
+			}while(result.next());
 			System.out.print("Entrez le chiffre correspondant à votre choix : ");
 			int id = Main.sc.nextInt();
 			Main.sc.nextLine();

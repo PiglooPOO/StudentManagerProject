@@ -14,7 +14,7 @@ public class Main {
 			if(choiceNumber == 1)
 				drawMenu();
 			System.out.print("Entrez le chiffre correspondant à votre choix : ");
-			try {				
+			try {
 				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>14){
 					Main.sc.nextLine();
 					System.out.print("Ce choix est invalide, recommencez : ");
@@ -22,8 +22,10 @@ public class Main {
 				Main.sc.nextLine();
 			} catch(InputMismatchException e){
 				System.out.println("Ce choix est invalide, ");
+				Main.sc.nextLine();
 				choiceNumber = -2;
 		    }
+			
 			startSubMenu(choiceNumber);
 			if(choiceNumber != 0 && choiceNumber != -2)
 				choiceNumber = 1;
