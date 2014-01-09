@@ -51,7 +51,7 @@ public class School {
 		DBConnection c = null;
 		String name= Main.sc.nextLine();
 		c = new DBConnection();
-		c.executeUpdate("UPDATE settings SET directorName = "+name+" AND directorFirstName = "+firstName);
+		c.executeUpdate("UPDATE settings SET directorName = '"+name+"',directorFirstName = '"+firstName+"'");
 		System.out.println("Nom changé avec succès");
 		c.close();
 	}
