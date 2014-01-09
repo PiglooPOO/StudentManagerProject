@@ -1,13 +1,10 @@
 package fr.upem.projectJava.studentManagerProject;
-import java.io.IOException;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-
-import org.jdom.JDOMException;
-import org.jopendocument.dom.template.TemplateException;
 
 
 public class Formation {
@@ -99,7 +96,7 @@ public class Formation {
 								+ "4 Visualiser les étudiants suivant cette formation\n"
 								+ "0 Quitter\n");
 					}
-						
+					c.close();	
 				}
 				else{
 					c.close();
@@ -152,12 +149,7 @@ public class Formation {
 					case 4:
 						Student.showStudentsByFormation(id);
 						break;
-					case 5:
-						// TODO
-						break;
 					default:
-						// TODO
-						break;
 				}
 				if(choiceNumber != 0 && choiceNumber != -2)
 					choiceNumber = 1;
@@ -223,7 +215,6 @@ public class Formation {
 				}while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
 				
 				if(valid.equalsIgnoreCase("non") || valid.equalsIgnoreCase("n")){
-					c.close();
 					return false;
 				}
 				else {
@@ -235,14 +226,13 @@ public class Formation {
 						coef = Main.sc.nextInt();
 					}
 					c.executeUpdate("UPDATE year_formation_subject SET coef = "+coef+" WHERE year = "+year+" AND idFormation = "+idFormation+" AND idSubject = "+idSubject);
-					c.close();
 					return true;
 				}
 			}
-			System.out.print("Choisissez coefficient à appliquer à cette matière : ");
+			System.out.print("Choisissez le coefficient à appliquer à cette matière : ");
 			coef = Main.sc.nextInt();
 			Main.sc.nextLine();
-			c.executeUpdate("INSERT INTO year_formation_subject VALUES("+year+","+idFormation+","+idSubject+","+coef+")");
+			c.executeUpdate("INSERT INTO year_formation_subject VALUES('"+year+"','"+idFormation+"','"+idSubject+"','"+coef+"')");
 			c.close();
 			return true;
 		} catch (SQLException e) {
@@ -292,7 +282,7 @@ public class Formation {
 	}
 	
 	public static void editFormation(int id){
-		// TODO
+		//TODO Quentin si possible
 	}
 
 	public int getIsAvailable() {

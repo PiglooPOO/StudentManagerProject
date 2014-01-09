@@ -56,7 +56,10 @@ public class Subject {
 	}
 
 	public static void deleteSubject(int id){
-		// TODO
+		DBConnection c = null;
+		c = new DBConnection();
+        c.executeUpdate("UPDATE subject SET isAvailable = 0");
+        c.close();
 	}
 	
 	public static void editSubject(int id){
@@ -93,7 +96,7 @@ public class Subject {
 						break;
 					case 2:
 						//TODO
-						Subject.deleteFormation(id);
+						Subject.deleteSubject(id);
 						break;
 					case 3:
 						//TODO
@@ -117,11 +120,6 @@ public class Subject {
 	}
 
 	private static void addSubjectToFormation(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private static void deleteFormation(int id) {
 		// TODO Auto-generated method stub
 		
 	}
