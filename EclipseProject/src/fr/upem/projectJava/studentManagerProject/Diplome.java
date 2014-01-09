@@ -47,7 +47,7 @@ public class Diplome {
 			template.createDocument().saveToPackageAs(file);
 			
 			OOUtils.open(file);
-			result.close();
+			
 			c.close();
     	}
     	catch (SQLException e) {

@@ -39,7 +39,7 @@ public class School {
 		System.out.print("Entrer le nouveau nom de l'école : ");
 		String name= Main.sc.nextLine();
 		DBConnection c =new DBConnection();
-		c.executeUpdate("UPDATE settings SET name = "+name);
+		c.executeUpdate("UPDATE settings SET name = '"+name+"'");
 		System.out.println("Nom changé avec succès");
 		c.close();
 	}

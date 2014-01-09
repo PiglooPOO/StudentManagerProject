@@ -41,6 +41,18 @@ public class Student {
 		this.adress = adress;
 		this.phoneNumber = phoneNumber;
 		this.mail = mail;
+		String[] verif=birthday.split("/");
+		int day=Integer.parseInt(verif[0]);
+		int month=Integer.parseInt(verif[1]);
+		int year=Integer.parseInt(verif[2]);
+		if(day<10 && month<10)
+			this.birthday=year+"-0"+month+"-0"+day;
+		if(day>9 && month<10)
+			this.birthday=year+"-0"+month+"-"+day;
+		if(day<10 && month>9)
+			this.birthday=year+"-"+month+"-0"+day;
+		else
+			this.birthday=year+"-"+month+"-"+day;
 		this.birthday = birthday;
 		this.gender = gender;
 		DBConnection c = new DBConnection();
