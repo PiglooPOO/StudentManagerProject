@@ -47,7 +47,8 @@ public class Main {
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
-				a.close();
+				if(a!=null)
+					a.close();
 				return;
 			}
 			a = new DBConnection();
