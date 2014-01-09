@@ -3,7 +3,6 @@ package fr.upem.projectJava.studentManagerProject;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +41,18 @@ public class Student {
 		this.adress = adress;
 		this.phoneNumber = phoneNumber;
 		this.mail = mail;
+		String[] verif=birthday.split("/");
+		int day=Integer.parseInt(verif[0]);
+		int month=Integer.parseInt(verif[1]);
+		int year=Integer.parseInt(verif[2]);
+		if(day<10 && month<10)
+			this.birthday=year+"-0"+month+"-0"+day;
+		if(day>9 && month<10)
+			this.birthday=year+"-0"+month+"-"+day;
+		if(day<10 && month>9)
+			this.birthday=year+"-"+month+"-0"+day;
+		else
+			this.birthday=year+"-"+month+"-"+day;
 		this.birthday = birthday;
 		this.gender = gender;
 		DBConnection c = new DBConnection();
@@ -904,5 +915,69 @@ public class Student {
 			}
 		} while (idStudent<0);
 		showStudent(idStudent);
+	}
+	
+	/**
+	* Description about the editStudent function :
+	* This function allows to edit a student.
+	* @param <id> is student id to identify a student (primary key).
+	*/
+	public static void editStudent(int id){
+		
+		DBConnection c = null;
+		c = new DBConnection();
+		
+		int choiceNumber = 1;
+		while(choiceNumber!=0){
+            if(choiceNumber == 1){
+                System.out.println("\nQue voulez-vous modifier ?\n"
+                		+ "1 Modifier le nom\n"
+                		+ "2 Modifier l'adresse\n"
+                		+ "3 Modifier le téléphone\n"
+                		+ "4 Modifier le mail\n"
+                		+ "0 Quitter\n");
+            }
+            System.out.print("Entrez le chiffre correspondant à votre choix : ");
+            try {
+                while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>14){
+                    Main.sc.nextLine();
+                    System.out.print("Ce choix est invalide, recommencez : ");
+                }
+                Main.sc.nextLine();
+            } catch(InputMismatchException e){
+                System.out.println("Ce choix est invalide, ");
+                Main.sc.nextLine();
+                choiceNumber = -2;
+            }
+            
+            switch(choiceNumber){
+            case 1:
+            	System.out.println("Nouveau nom : ");
+            	String newName = Main.sc.nextLine();
+            	c.executeUpdate("UPDATE student SET name="+newName+" WHERE id="+id+"");
+            	break;
+            case 2:
+            	System.out.println("Nouvelle adresse : ");
+            	String newAdress = Main.sc.nextLine();
+            	c.executeUpdate("UPDATE student SET adress="+newAdress+" WHERE id="+id+"");
+            	break;
+            case 3:
+            	System.out.println("Nouveau numéro de téléphone : ");
+            	String newPhoneNumber = Main.sc.nextLine();
+            	c.executeUpdate("UPDATE student SET phoneNumber="+newPhoneNumber+" WHERE id="+id+"");
+            	break;
+            case 4:
+            	System.out.println("Nouveau mail : ");
+            	String newMail = Main.sc.nextLine();
+            	c.executeUpdate("UPDATE student SET mail="+newMail+" WHERE id="+id+"");
+            	break;
+            default:;
+            }
+            if(choiceNumber != 0 && choiceNumber != -2)
+                choiceNumber = 1;
+            
+            c.close();
+            //clearConsole();
+        }
 	}
 }

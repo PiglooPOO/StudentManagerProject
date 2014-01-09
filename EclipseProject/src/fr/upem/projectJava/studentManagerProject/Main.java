@@ -40,17 +40,15 @@ public class Main {
 	public static void checkConnection(){
 		
 		DBConnection a= new DBConnection();
-		for (int i = 1; a == null; i++) {
-			System.out.println(i+")\tErreur de la connexion avec la BDD, nouvel essaie dans 3 secondes.");
-			if(i==10){
-				System.out.println("\n\tErreur de la connexion avec la BDD");
+		for (int i = 1; i>10; i++) {
+			if(a!=null){
+				a.close();
 				return;
 			}
+			System.out.println(i+")\tErreur de la connexion avec la BDD, nouvel essaie dans 3 secondes.");
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
-				if(a!=null)
-					a.close();
 				return;
 			}
 			a = new DBConnection();
@@ -72,7 +70,7 @@ public class Main {
 				+ "8 Charger une base de données\n"
 				+ "9 Enregistrer une base de données\n"
 				+ "10 Modifier la configuration\n"
-				+ "0 Quitter");
+				+ "0 Quitter\n");
 	}
 	
 	public static int startSubMenu(int choiceNumber){
@@ -227,7 +225,11 @@ public class Main {
 					}
 					break;
 				case 6:
+<<<<<<< HEAD
 					System.out.print("Entrez l'année à afficher : ");
+=======
+					System.out.print("Entrez l'année que vous souhaitez rechercher : ");
+>>>>>>> 708e955dda23daa7c162781c8724870f0e3fb641
 					try {
 						number = Main.sc.nextInt();
 						if(!Student.showStudentsByYear(number)){
