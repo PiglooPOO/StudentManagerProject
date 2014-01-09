@@ -227,7 +227,7 @@ public class Main {
 					}
 					break;
 				case 6:
-					System.out.print("Entrez le numéro étudiant de l'étudiant : ");
+					System.out.print("Entrez l'année à afficher : ");
 					try {
 						number = Main.sc.nextInt();
 						if(!Student.showStudentsByYear(number)){
