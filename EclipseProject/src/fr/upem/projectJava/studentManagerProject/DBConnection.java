@@ -40,6 +40,7 @@ public class DBConnection {
     
     public void close() {
         try {
+        	System.out.println("Déconnection");
         	if(connection!=null)
         		connection.close();
         	if(statement!=null)
@@ -59,7 +60,6 @@ public class DBConnection {
             resultat = statement.executeQuery(request);
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Erreur dans la requete : " + request);
         }
         return resultat;
   
@@ -69,7 +69,6 @@ public class DBConnection {
         	statement.executeUpdate(request);
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Erreur dans la requete : " + request);
         }  
     }
 
