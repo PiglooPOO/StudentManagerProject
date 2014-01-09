@@ -108,7 +108,7 @@ public class Main {
 				DBConnection.saveDB();
 				break;
 			case 10:
-				//TODO Modifier la configuration
+				startMenuConfig();
 				break;
 			default:;
 		}
@@ -328,6 +328,41 @@ public class Main {
 			//clearConsole();
 		}
 	}	
+	
+	public static void startMenuConfig(){
+		int choiceNumber = 1;
+		
+		while(choiceNumber!=0){
+			if(choiceNumber == 1)
+				System.out.println(">> Modifier la configuration de l'école\n"
+						+ "1 Changer le nom de l'école\n"
+						+ "2 Changer le directeur de l'école\n"
+						+ "0 Retour au Menu\n\n");
+			System.out.print("Entrez le chiffre correspondant à votre choix : ");
+			try {				
+				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>14){
+					Main.sc.nextLine();
+					System.out.print("Ce choix est invalide, recommencez : ");
+				}
+				Main.sc.nextLine();
+			} catch(InputMismatchException e){
+				System.out.println("Ce choix est invalide, ");
+				choiceNumber = -2;
+		    }
+			switch(choiceNumber){
+			case 1:
+				School.changeName();
+				break;
+			case 2:
+				School.changeDirector();
+				break;
+			default:
+			}
+			if(choiceNumber != 0 && choiceNumber != -2)
+				choiceNumber = 1;
+			//clearConsole();
+		}
+	}
 
 	private static void clearConsole()
 	{
