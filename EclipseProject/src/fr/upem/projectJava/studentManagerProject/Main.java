@@ -137,11 +137,10 @@ public class Main {
 						+ "4 Rechercher par Matière\n"
 						+ "5 Rechercher par Filière\n"
 						+ "6 Rechercher par Année\n"
-						+ "7 Rechercher par Année et Filière\n"
 						+ "0 Retour au Menu principal\n");
 			System.out.print("Entrez le chiffre correspondant à votre choix : ");
 			try {				
-				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>7){
+				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>6){
 					Main.sc.nextLine();
 					System.out.print("Ce choix est invalide, recommencez : ");
 				}
@@ -256,9 +255,6 @@ public class Main {
 						System.out.println("Appuyez sur Entrée pour continuer.");
 						Main.sc.nextLine();
 					}
-					break;
-				case 7:
-					//TODO
 					break;
 				default:
 			}
