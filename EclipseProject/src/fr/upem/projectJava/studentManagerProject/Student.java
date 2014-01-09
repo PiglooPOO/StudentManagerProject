@@ -178,6 +178,10 @@ public class Student {
 		return number;
 	}
 	
+	/**
+	* Description about the addStudent function :
+	* This function allows to add a student in the database.
+	*/
 	public void addStudent(){
 		System.out.println(this.toString());
 		String valid=null;
@@ -197,6 +201,12 @@ public class Student {
 		}
 	}
 	
+	/**
+	* Description about the showStudent function :
+	* This function allows to show the characteristics of a student.
+	* @param <number> is student number to identify a student (primary key).
+	* @return <boolean> the function return true if the student exist, else false.
+	*/
 	public static boolean showStudent(int number){
 		DBConnection c = null;
 		ResultSet result = null;
@@ -224,9 +234,7 @@ public class Student {
 								+ "\n4 Afficher ses moyennes"
 								+ "\n5 Editer attestation de réussite"
 								+ "\n0 Revenir au menu précédent");
-						
 					}
-						
 				}
 				else{
 					c.close();
@@ -296,6 +304,12 @@ public class Student {
 		}
 	}
 	
+	/**
+	* Description about the followFormation function :
+	* This function allows to know which formation the student follows.
+	* @param <idStudent> is student identification (Stranger Key).
+	* @return <Integer> the function return the idFormation, or -1 if there is a problem.
+	*/
 	public static int followFormation(int idStudent){
 		int year = Year.getActualCurrentYear();
 		DBConnection c = null;
@@ -318,6 +332,12 @@ public class Student {
 		return -1;
 	}
 	
+	/**
+	* Description about the attributeMarkByStudentId function :
+	* This function allows to attribute a mark to student with his id.
+	* @param <id> is student number to identify a student (primary key).
+	* @return <boolean> The function return false if there is a problem, else true.
+	*/
 	private static boolean attributeMarkByStudentId(int id) {
 		/**
 		 * cherchons la matière à noter
@@ -386,6 +406,12 @@ public class Student {
 		return true;
 	}
 
+	/**
+	* Description about the printMarkForStudent function :
+	* This function allows to print a mark for a student with his id.
+	* @param <id> is student number to identify a student (primary key).
+	* @return <boolean> The function return false if there is a problem, else true.
+	*/
 	private static boolean printMarksForStudent(int id) {
 		DBConnection c = null;
 		List<int[]> l = new ArrayList<int[]>();
@@ -454,6 +480,12 @@ public class Student {
 				+ "Sexe : " +gender;
 	}
 	
+	/**
+	* Description about the showStudentsByFormationName function :
+	* This function allows to show the students sorted by the FormationName.
+	* @param <st> is the string searched (here the FormationName) by the user.
+	* @return <boolean> The function return false if there is a problem, else true.
+	*/
 	public static boolean showStudentsByFormationName(String st) {
 		DBConnection c = null;
 		try {
@@ -489,6 +521,11 @@ public class Student {
 		return true;
 	}
 	
+	/**
+	* Description about the showStudentsByFormation function :
+	* This function allows to show all the students sorted by Formation.
+	* @param <id> is student number to identify a student (primary key).
+	*/
 	public static void showStudentsByFormation(int id) {
 		DBConnection c = null;
 		try {
@@ -528,6 +565,12 @@ public class Student {
 		showStudent(idStudent);
 	}
 	
+	/**
+	* Description about the showStudentsByYear function :
+	* This function allows to show all the students sorted by year.
+	* @param <year> is the year of the formation.
+	* @return <boolean> The function return false if there is a problem, else true.
+	*/
 	public static boolean showStudentsByYear(int year) {
 		DBConnection c = null;
 		try {
@@ -572,6 +615,12 @@ public class Student {
 		return true;
 	}
 	
+	/**
+	* Description about the showStudentsByName function :
+	* This function allows to show all the students sorted by name.
+	* @param <st> is the string (here the name of the student) searched by the user.
+	* @return <boolean> The function return false if there is a problem, else true.
+	*/
 	public static boolean showStudentsByName(String st) {
 		DBConnection c = null;
 		try {
@@ -608,6 +657,12 @@ public class Student {
 		return true;
 	}
 	
+	/**
+	* Description about the showStudentsByFirstName function :
+	* This function allows to show all the students sorted by firstName.
+	* @param <st> is the string (here the firstName of the student) searched by the user.
+	* @return <boolean> The function return false if there is a problem, else true.
+	*/
 	public static boolean showStudentsByFirstName(String st) {
 		DBConnection c = null;
 		try {
@@ -643,7 +698,12 @@ public class Student {
 		showStudent(idStudent);
 		return true;
 	}
-
+	
+	/**
+	* Description about the showStudentsBySubject function :
+	* This function allows to show all the students sorted by Subjects.
+	* @param <id> is student number to identify a student (primary key).
+	*/
 	public static void showStudentsBySubject(int id) {
 		// TODO Auto-generated method stub
 		

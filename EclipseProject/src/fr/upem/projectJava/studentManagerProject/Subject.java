@@ -26,6 +26,12 @@ public class Subject {
 		return name;
 	}
 	
+	/**
+	* Description about the searchSubjectsByName function :
+	* This function allows to search the subjects sorted by subjectName.
+	* @param <subjetName> what the user is searching for.
+	* @return <Integer> return the idSubject if it works, else -1.
+	*/
 	public static int searchSubjectsByName(String subjectName){	
 		DBConnection c = null;
 		try {
@@ -48,6 +54,10 @@ public class Subject {
 		return -1;
 	}
 	
+	/**
+	* Description about the addSubject function :
+	* This function allows to add a new subject.
+	*/
 	public void addSubject(){
 		DBConnection c = null;
 		c = new DBConnection();
@@ -55,14 +65,30 @@ public class Subject {
 		c.close();
 	}
 
+	/**
+	* Description about the deleteSubject function :
+	* This function allows to delete a subject.
+	* @param <id> is subject id, to identify a subject (primary key).
+	*/
 	public static void deleteSubject(int id){
 		// TODO
 	}
 	
+	/**
+	* Description about the editSubject function :
+	* This function allows to edit a subject.
+	* @param <id> is subject id, to identify a subject (primary key).
+	*/
 	public static void editSubject(int id){
 		// TODO
 	}
 	
+	/**
+	* Description about the showSubject function :
+	* This function allows to show the characteristics of a subject.
+	* @param <id> is subject id, to identify a subject (primary key).
+	* @return <boolean> the function return true if the student exist, else false.
+	*/
 	public static boolean showSubject(int id){
 		// TODO
 		
@@ -116,6 +142,11 @@ public class Subject {
 		return false;
 	}
 
+	/**
+	* Description about the addSubjectToFormation function :
+	* This function allows to a subject to a formation.
+	* @param <id> is subject id, to identify a subject (primary key).
+	*/
 	private static void addSubjectToFormation(int id) {
 		// TODO Auto-generated method stub
 		
@@ -134,6 +165,13 @@ public class Subject {
 		this.isAvailable = isAvailable;
 	}
 
+	/**
+	* Description about the searchSubjectsByNameAndStudentId function :
+	* This function allows to search a subject sorted by SubjectName and studentId.
+	* @param <subjectName> is the subject name.
+	* @param <studentid> is the student id (Stranger key).
+	* @return <Integer> return the FormationName, else null.
+	*/
 	public static int searchSubjectsByNameAndStudentId(String subjectName, int studentid) {
 		DBConnection c = null;
 		try {
