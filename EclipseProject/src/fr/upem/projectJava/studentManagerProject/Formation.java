@@ -78,26 +78,40 @@ public class Formation {
 	}
 	
 	public static boolean showFormation(int id){
-		int choiceNumber = 0;
+		DBConnection c = null;
 		Statement state;
 		try {
-			state = new DBConnection().createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE id = "+id);
-			if(result.next()){
-				System.out.println(
-						"\nGestion du Diplome d'ingénieur " + result.getString("name") +" "+ result.getInt("curYear") +"ème année.\n");
-				
-				System.out.println("Que voulez-vous faire ?\n"
-						+ "1 Editer\n"
-						+ "2 Supprimer\n"
-						+ "3 Ajouter des matières\n"
-						+ "4 Visualiser les étudiants suivant cette formation\n"
-						+ "5 Quitter\n");
-				
-				System.out.print(">> ");
-				choiceNumber = Main.sc.nextInt();
-				Main.sc.nextLine();
-				
+			c = new DBConnection();
+			state = c.createStatement();
+			int choiceNumber = 1;
+			
+			while(choiceNumber!=0){
+				if(choiceNumber == 1){
+					ResultSet result = state.executeQuery("SELECT * FROM formation WHERE id = "+id);
+					if(result.next()){
+						System.out.println(
+								"\nGestion du Diplome d'ingénieur " + result.getString("name") +" "+ result.getInt("curYear") +"ème année.\n"
+								+ "Que voulez-vous faire ?\n"
+								+ "1 Editer\n"
+								+ "2 Supprimer\n"
+								+ "3 Ajouter des matières\n"
+								+ "4 Visualiser les étudiants suivant cette formation\n"
+								+ "0 Quitter\n");
+						
+						System.out.print(">> ");
+						try {				
+								while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>4){
+									choiceNumber = Main.sc.nextInt();
+									System.out.print("Ce choix est invalide, recommencez : ");
+								}
+								Main.sc.nextLine();
+							}catch(InputMismatchException e){
+								System.out.println("Ce choix est invalide, ");
+								choiceNumber = -2;
+						    }
+						}
+					}
+				}
 				switch(choiceNumber){
 					case 1:
 						//TODO
@@ -139,10 +153,12 @@ public class Formation {
 						// TODO
 						break;
 				}
+				c.close();
 				return true;
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			catch (SQLException e) {
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 		}
 		return false;
@@ -150,14 +166,18 @@ public class Formation {
 	
 	public static String FormationNameByStudentId(int id){
 		Statement state;
+		DBConnection c = null;
 		try {
-			state = new DBConnection().createStatement();
+			c= new DBConnection();
+			state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE id = "+id);
 			if(result.next()){
 				return result.getString("name") +" "+ result.getInt("curYear") +"ème année.\n";
 			}
+			c.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 			return null;
 		}
@@ -176,8 +196,10 @@ public class Formation {
 		int coef = Main.sc.nextInt();
 		Main.sc.nextLine();
 		Statement state;
+		DBConnection c=null;
 		try {
-			state = new DBConnection().createStatement();
+			c = new DBConnection();
+			state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM year_formation_subject WHERE year = "+year+" AND idFormation = "+idFormation+" AND idSubject = "+idSubject);
 			if(result.next()){
 				System.out.println("La matière est déjà attrribuée à cette formation, \n"
@@ -195,26 +217,32 @@ public class Formation {
 				}
 			}
 			state.executeUpdate("INSERT INTO year_formation_subject VALUES("+year+","+idFormation+","+idSubject+","+coef+")");
+			c.close();
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 			return false;
 		}
 	}
 	
 	public static int searchFormationsByName(String answerFormation){
+		DBConnection c = null;
 		try {
-			Statement state = new DBConnection().createStatement();
+			c = new DBConnection();
+			Statement state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+answerFormation+"%\"");
 			while(result.next()){
 				System.out.println(result.getInt("id")+" Diplome d'Ingénieur "+result.getString("name"));
 			}
 			int id = Main.sc.nextInt();
 			Main.sc.nextLine();
+			c.close();
 			return id;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 		}
 
@@ -222,10 +250,14 @@ public class Formation {
 	}
 	
 	public void addFormation(){
+		DBConnection c = null;
 		try {
-			Statement state = new DBConnection().createStatement();
+			c = new DBConnection();
+			Statement state = c.createStatement();
 			state.executeUpdate("INSERT INTO `formation`(`id`, `name`, `nbYear`, `curYear`) VALUES ('null','"+this.getName()+"','"+this.getNbYear()+"','"+this.getCurYear()+"')");
 		} catch (SQLException e1) {
+			if(c!=null)
+				c.close();
 			e1.printStackTrace();
 		}
 	}

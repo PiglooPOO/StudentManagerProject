@@ -15,8 +15,10 @@ public class Diplome {
 
   
   public static void editDiplome(int number) throws IOException, TemplateException, JDOMException {
+	  DBConnection c = null;
     try {
-	    	Statement state = new DBConnection().createStatement();
+    		c=new DBConnection();
+	    	Statement state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT formation.name,year,student.name,student.firstName,student.adress,student.birthday,settings.name,directorName,directorFirstName FROM student,formation,year_formation_student,settings WHERE number="+number+" AND idStudent="+number+" AND year_formation_student.idFormation=formation.id AND number=idStudent AND nbYear=curYear");
 			result.next();
 			
@@ -47,7 +49,8 @@ public class Diplome {
 			state.close();
     	}
     	catch (SQLException e) {
-		// TODO Auto-generated catch block
+    		if(c!=null)
+				c.close();
 		e.printStackTrace();
     	}
     }

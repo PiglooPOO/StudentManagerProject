@@ -335,7 +335,7 @@ public class Main {
 						+ "0 Retour au Menu\n\n");
 			System.out.print("Entrez le chiffre correspondant à votre choix : ");
 			try {				
-				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>14){
+				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>2){
 					Main.sc.nextLine();
 					System.out.print("Ce choix est invalide, recommencez : ");
 				}

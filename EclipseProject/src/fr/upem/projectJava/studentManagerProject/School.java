@@ -41,26 +41,35 @@ public class School {
 	public static void changeName(){
 		System.out.print("Entrer le nouveau nom de l'école : ");
 		String name= Main.sc.nextLine();
+		DBConnection c = null;
 		try {
-			Statement state = new DBConnection().createStatement();				
+			c = new DBConnection();
+			Statement state = c.createStatement();			
 			state.executeUpdate("UPDATE settings SET name = "+name);
 			System.out.println("Nom changé avec succès");
+			c.close();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			c.close();
 		}
 	}
 	
 	public static void changeDirector(){
-			System.out.print("Entrer le prénom du nouveau directeur : ");
-			String firstName= Main.sc.nextLine();
-			System.out.print("Entrer le nom du nouveau directeur : ");
-			String name= Main.sc.nextLine();
-			try {
-				Statement state = new DBConnection().createStatement();				
-				state.executeUpdate("UPDATE settings SET directorName = "+name+" AND directorFirstName = "+firstName);
-				System.out.println("Nom changé avec succès");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+		System.out.print("Entrer le prénom du nouveau directeur : ");
+		String firstName= Main.sc.nextLine();
+		System.out.print("Entrer le nom du nouveau directeur : ");
+		DBConnection c = null;
+		String name= Main.sc.nextLine();
+		try {
+			c = new DBConnection();
+			Statement state = c.createStatement();			
+			state.executeUpdate("UPDATE settings SET directorName = "+name+" AND directorFirstName = "+firstName);
+			System.out.println("Nom changé avec succès");
+			c.close();
+			state.close();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			c.close();
+		}
 	}
 }
