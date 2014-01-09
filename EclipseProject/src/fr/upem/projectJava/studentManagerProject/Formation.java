@@ -151,7 +151,7 @@ public class Formation {
 	public static String FormationNameByStudentId(int id){
 		Statement state;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE id = "+id);
 			if(result.next()){
 				return result.getString("name") +" "+ result.getInt("curYear") +"ème année.\n";
@@ -177,7 +177,7 @@ public class Formation {
 		Main.sc.nextLine();
 		Statement state;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM year_formation_subject WHERE year = "+year+" AND idFormation = "+idFormation+" AND idSubject = "+idSubject);
 			if(result.next()){
 				System.out.println("La matière est déjà attrribuée à cette formation, \n"

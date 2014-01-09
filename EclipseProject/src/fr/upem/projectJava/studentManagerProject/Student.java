@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
+
 import org.jdom.JDOMException;
 import org.jopendocument.dom.template.TemplateException;
 
@@ -299,7 +300,7 @@ public class Student {
 		Statement state;
 		
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT idFormation FROM student, year_formation_student WHERE number = idStudent AND year = "+year+" AND idStudent = "+idStudent);
 			if(result.next())
 				return result.getInt("idFormation");
@@ -356,13 +357,8 @@ public class Student {
 			 * on note, lets go
 			 */
 			System.out.print("Entrez la note : ");
-<<<<<<< HEAD
 			int note = Main.sc.nextInt();
 			Main.sc.nextLine();
-=======
-			int note = sc.nextInt();
-			sc.nextLine();
->>>>>>> origin/NewBDD
 			state.executeUpdate("INSERT INTO year_student_subject_note VALUES ("+year+","+id+","+idSubject+","+note+")");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -385,14 +381,10 @@ public class Student {
 		int[] tmpArray = new int[3];
 		
 		try {
-<<<<<<< HEAD
-			state = DBConnection.getInstance().createStatement();
-			ResultSet result = state.executeQuery("SELECT year_student_subject_note.note, subject.name, idStudent, idSubject, year FROM student, subject, year_student_subject_note WHERE student.number = "+id+" AND student.number = idStudent AND subject.id = idSubject AND year = "+Year.getActualCurrentYear());
-=======
-			state = new DBConnection().createStatement();
 
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT year_student_subject_note.note, subject.name, idStudent, idSubject, year FROM student, subject, year_student_subject_note WHERE student.number = "+id+" AND student.number = idStudent AND subject.id = idSubject AND ((year = EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM NOW()) >= 9) OR (year = EXTRACT(YEAR FROM NOW())-1 AND EXTRACT(MONTH FROM NOW()) < 9))");
->>>>>>> origin/NewBDD
+
 			if(!result.next())
 				return false;
 			do{

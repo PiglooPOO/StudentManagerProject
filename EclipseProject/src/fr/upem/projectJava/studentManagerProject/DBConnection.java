@@ -12,35 +12,6 @@ import java.sql.Statement;
 
 public class DBConnection {
 	
-<<<<<<< HEAD
-	private static Connection conn;
-	private String url = "jdbc:mysql://mysql1.alwaysdata.com:3306/pigloopoo_db";
-	private String user = "pigloopoo";
-	private String passwd = "Minions77";
-	
-	private DBConnection(){
-		try {
-			try{
-				Class.forName("com.mysql.jdbc.Driver");
-			}
-			catch(ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-			conn = DriverManager.getConnection(url, user, passwd);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static Connection getInstance(){
-		if(conn == null){
-			new DBConnection();
-			saveDB();
-		}
-		return conn;	
-	}
-=======
     private String DBPath = "smp.db";
     private Connection connection = null;
     private Statement statement = null;	
@@ -75,7 +46,6 @@ public class DBConnection {
             e.printStackTrace();
         }
     }
->>>>>>> origin/NewBDD
 	
     public Statement createStatement(){
     	return this.statement;
