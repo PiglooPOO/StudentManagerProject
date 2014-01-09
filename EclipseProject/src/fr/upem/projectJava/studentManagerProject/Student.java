@@ -894,9 +894,8 @@ public class Student {
 		int choiceNumber = 1;
 		while(choiceNumber!=0){
             if(choiceNumber == 1){
-                showStudent(id);
                 System.out.println("\nQue voulez-vous modifier ?\n"
-                		+ "1 Modifier le prénom\n"
+                		+ "1 Modifier le nom\n"
                 		+ "2 Modifier l'adresse\n"
                 		+ "3 Modifier le téléphone\n"
                 		+ "4 Modifier le mail\n"

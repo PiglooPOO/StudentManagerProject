@@ -330,7 +330,7 @@ public class Formation {
 	* @param <id> is formation id, to identify a formation (primary key).
 	*/
 	public static void editFormation(int id){
-		//TODO Quentin si possible
+		// TODO louis
 	}
 
 	public int getIsAvailable() {
