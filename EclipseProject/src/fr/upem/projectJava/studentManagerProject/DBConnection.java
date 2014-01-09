@@ -34,7 +34,6 @@ public class DBConnection {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + DBPath);
             statement = connection.createStatement();
-            System.out.println("Connexion a " + DBPath + " avec succès");
         } catch (ClassNotFoundException notFoundException) {
             notFoundException.printStackTrace();
             System.out.println("Erreur de connexion");
@@ -50,7 +49,6 @@ public class DBConnection {
 	*/
     public void close() {
         try {
-        	System.out.println("Déconnection");
         	if(connection!=null)
         		connection.close();
         	if(statement!=null)

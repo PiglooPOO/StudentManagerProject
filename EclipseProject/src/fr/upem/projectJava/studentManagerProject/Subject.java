@@ -102,7 +102,6 @@ public class Subject {
 	* @return <boolean> the function return true if the student exist, else false.
 	*/
 	public static boolean showSubject(int id){
-		// TODO
 		
 		int choiceNumber = 0;
 		DBConnection c=null;
@@ -130,19 +129,15 @@ public class Subject {
 						Subject.editSubject(id);
 						break;
 					case 2:
-						//TODO
 						Subject.deleteSubject(id);
 						break;
 					case 3:
-						//TODO
 						Subject.addSubjectToFormation(id);
 						break;
 					case 4:
 						Student.showStudentsBySubject(id);
 						break;
 					default:
-						// TODO
-						break;
 				}
 				return true;
 			}

@@ -287,7 +287,7 @@ public class Student {
 					}
 					break;
 				case 2 :
-					//TODO
+					Student.editStudent(number);
 					break;
 				case 3 :
 					Student.attributeMarkByStudentId(number);
@@ -415,7 +415,6 @@ public class Student {
 		System.out.println("Entrez le nom de la matière à noter : ");
 		try{
 			answerSubject = Main.sc.nextLine();
-			//TODO
 			if((idSubject = Subject.searchSubjectsByNameAndStudentId(answerSubject, id)) == -1){
 				System.out.println("La filière "+answerSubject+" n'éxiste pas dans cette filière.");
 				System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
@@ -531,7 +530,6 @@ public class Student {
 					+ averageNote[0]);
 			c.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			if(c!=null)
 				c.close();
 			e.printStackTrace();
@@ -584,7 +582,7 @@ public class Student {
 				id = Main.sc.nextInt();
 				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
-				// TODO: handle exception
+				System.out.println("Ceci n'est pas une formation");
 			}
 		} while (id<0);
 		showStudentsByFormation(id);
@@ -639,7 +637,7 @@ public class Student {
 				idStudent = Main.sc.nextInt();
 				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
-				// TODO: handle exception
+				System.out.println("Ceci n'est pas un étudiant");
 			}
 		} while (idStudent<0);
 		showStudent(idStudent);
@@ -899,7 +897,7 @@ public class Student {
 				idStudent = Main.sc.nextInt();
 				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
-				// TODO: handle exception
+				System.out.println("Ceci n'est pas un étudiant");
 			}
 		} while (idStudent<0);
 		showStudent(idStudent);

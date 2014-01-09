@@ -134,13 +134,12 @@ public class Main {
 				System.out.println("1 Rechercher par numéro d'étudiant\n"
 						+ "2 Rechercher par Nom\n"
 						+ "3 Rechercher par Prénom\n"
-						+ "4 Rechercher par Matière\n"
-						+ "5 Rechercher par Filière\n"
-						+ "6 Rechercher par Année\n"
+						+ "4 Rechercher par Filière\n"
+						+ "5 Rechercher par Année\n"
 						+ "0 Retour au Menu principal\n");
 			System.out.print("Entrez le chiffre correspondant à votre choix : ");
 			try {				
-				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>6){
+				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>5){
 					Main.sc.nextLine();
 					System.out.print("Ce choix est invalide, recommencez : ");
 				}
@@ -213,9 +212,6 @@ public class Main {
 					}
 					break;
 				case 4:
-					//TODO
-					break;
-				case 5:
 					System.out.print("Entrez le nom de la filière : ");
 					try {
 						str = Main.sc.nextLine();
@@ -235,7 +231,7 @@ public class Main {
 						Main.sc.nextLine();
 					}
 					break;
-				case 6:
+				case 5:
 					System.out.print("Entrez l'année dont vous voulez parcourir les étudiants : ");
 					try {
 						number = Main.sc.nextInt();
@@ -292,7 +288,6 @@ public class Main {
 				System.out.println("Entrez le nom de la filière : ");
 				try{
 					answerFormation = Main.sc.nextLine();
-					//TODO
 					if(!Formation.showFormation(Formation.searchFormationsByName(answerFormation))){
 						System.out.println("Cette filière n'éxiste pas.");
 						System.out.println("Appuyez sur Entrée pour continuer.");

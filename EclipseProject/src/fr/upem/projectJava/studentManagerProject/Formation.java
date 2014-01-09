@@ -133,14 +133,12 @@ public class Formation {
 				
 				switch(choiceNumber){
 					case 1:
-						//TODO
 						Formation.editFormation(id);
 						break;
 					case 2:
 						Formation.deleteFormation(id);
 						break;
 					case 3:
-						//TODO
 						String answerSubject = "";
 						System.out.println("Entrer le nom de la matière : ");
 						try{
