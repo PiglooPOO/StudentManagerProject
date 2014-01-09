@@ -99,7 +99,7 @@ public class Main {
 				//TODO  Ajouter une année
 				break;
 			case 7:
-				//TODO  Editer les diplômes
+				Student.showStudentGraduate();
 				break;
 			case 8:
 				//TODO Charger une base de données
