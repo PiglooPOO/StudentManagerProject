@@ -26,7 +26,11 @@ public class DBConnection {
     public DBConnection() {
     	this.connect();
     }
- 
+    
+    /**
+	* Description about the connect function :
+	* This function allows to connect the program to the DataBase.
+	*/
     public void connect() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -42,6 +46,10 @@ public class DBConnection {
         }
     }
     
+    /**
+	* Description about the close function :
+	* This function allows to close the DataBase.
+	*/
     public void close() {
         try {
         	System.out.println("Déconnection");
@@ -68,6 +76,7 @@ public class DBConnection {
         return resultat;
   
     }
+    
     public void executeUpdate(String request) {
         try {
         	statement.executeUpdate(request);
@@ -76,6 +85,10 @@ public class DBConnection {
         }  
     }
 
+    /**
+	* Description about the saveDB function :
+	* This function allows to save the DataBase.
+	*/
 	static void saveDB() {
 		File file = new File("sauvegarde.xml");
 		FileOutputStream os = null;

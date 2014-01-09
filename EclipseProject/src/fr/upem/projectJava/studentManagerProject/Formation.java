@@ -87,6 +87,12 @@ public class Formation {
 		this.studentList.add(etudiant);
 	}
 	
+	/**
+	* Description about the showFormation function :
+	* This function allows to show the characteristics of a formation.
+	* @param <id> is formation id, to identify a formation (primary key).
+	* @return <boolean> the function return true if the student exist, else false.
+	*/
 	public static boolean showFormation(int id){
 		DBConnection c = null;
 		ResultSet result = null;
@@ -175,6 +181,12 @@ public class Formation {
 		}
 	}
 	
+	/**
+	* Description about the FormationNameByStudentId function :
+	* This function allows to search a FormationName from studentId.
+	* @param <id> is student number to identify a student (primary key).
+	* @return <String> return the FormationName, else null.
+	*/
 	public static String FormationNameByStudentId(int id){
 		DBConnection c = null;
 		try {
@@ -195,7 +207,14 @@ public class Formation {
 		}
 		
 	}
-	
+
+	/**
+	* Description about the addSubjectToFormation function :
+	* This function allows to add a subject to a formation.
+	* @param <idSubject> is subject number to identify a subject (primary key).
+	* @param <idFormation> is formation number to identify a subject (primary key).
+	* @return <boolean> the function return true if the student exist, else false.
+	*/
 	public static boolean addSubjectToFormation(int idSubject, int idFormation){
 		if(idSubject == -1){
 			System.out.println("La matière n'éxiste pas.");
@@ -253,6 +272,12 @@ public class Formation {
 		}
 	}
 	
+	/**
+	* Description about the searchFormationsByName function :
+	* This function allows to search the formations sorted by formationName.
+	* @param <answerFormation> what the user is searching for.
+	* @return <Integer> return the idFormation if it works, else -1.
+	*/
 	public static int searchFormationsByName(String answerFormation){
 		DBConnection c = null;
 		try {
@@ -277,6 +302,10 @@ public class Formation {
 		return -1;
 	}
 	
+	/**
+	* Description about the addFormation function :
+	* This function allows to add a new formation.
+	*/
 	public void addFormation(){
 		DBConnection c = null;
 		c = new DBConnection();
@@ -284,6 +313,11 @@ public class Formation {
 		c.close();
 	}
 	
+	/**
+	* Description about the deleteFormation function :
+	* This function allows to delete a formation.
+	* @param <id> is formation id, to identify a formation (primary key).
+	*/
 	public static void deleteFormation(int id){
 		DBConnection c = null;
 		c = new DBConnection();
@@ -291,6 +325,11 @@ public class Formation {
         c.close();
 	}
 	
+	/**
+	* Description about the editFormation function :
+	* This function allows to edit a formation.
+	* @param <id> is formation id, to identify a formation (primary key).
+	*/
 	public static void editFormation(int id){
 		//TODO Quentin si possible
 	}
