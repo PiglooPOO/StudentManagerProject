@@ -801,7 +801,7 @@ public class Student {
 							+" FROM student, subject, year_student_subject_note, year_formation_subject, year_formation_student"
 							//étudiant
 							+" WHERE student.number = "+result.getInt("number")
-							+ "AND student.number = year_student_subject_note.idStudent"
+							+ " AND student.number = year_student_subject_note.idStudent"
 							+" AND student.number = year_formation_student.idStudent"
 							//Matière
 							+" AND year_student_subject_note.idSubject = year_formation_subject.idSubject"
@@ -811,8 +811,8 @@ public class Student {
 							+" AND year_student_subject_note.year = year_formation_subject.year"
 							+" AND year_student_subject_note.year = year_formation_student.year"
 							+" AND year_student_subject_note.year = "+Year.getActualCurrentYear());
-					averageNote[0] += result.getInt("note")*result.getInt("coef");
-					averageNote[1] += result.getInt("coef");
+					averageNote[0] += result2.getInt("note")*result2.getInt("coef");
+					averageNote[1] += result2.getInt("coef");
 					averageNote[0] /= averageNote[1];
 					result2.next();
 					if(averageNote[0]>=10)
