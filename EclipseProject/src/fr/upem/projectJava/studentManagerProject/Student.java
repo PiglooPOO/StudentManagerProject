@@ -198,8 +198,8 @@ public class Student {
 		String valid=null;
 		DBConnection c = null;
 		
+		System.out.println("\nValidez-vous cet étudiant? (Oui/Non)");
 		do{
-			System.out.println("\nValidez-vous cet étudiant? (Oui/Non)");
 			valid = Main.sc.next();
 		}
 		while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
@@ -234,7 +234,7 @@ public class Student {
 								"\nAdresse :\t\t" + result.getString("adress")+
 								"\nTel :\t\t\t" + result.getString("phoneNumber")+
 								"\nMail :\t\t\t" + result.getString("mail")+
-								"\nDate de naissance :\t" + result.getDate("birthday").toString()+
+								"\nDate de naissance :\t" + result.getString("birthday").toString()+
 								"\nSexe :\t\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"));
 						c.close();
 						System.out.println("\nFilière : \t\t"+Formation.FormationNameByStudentId(Student.followFormation(number)));
@@ -270,7 +270,6 @@ public class Student {
 					System.out.println("Entrez le nom de la filière : ");
 					try{
 						answerFormation = Main.sc.nextLine();
-						//TODO
 						if(!Student.addToFormation(number,Formation.searchFormationsByName(answerFormation))){
 							System.out.println("Cette filière n'éxiste pas.");
 							System.out.println("Appuyez sur Entrée pour continuer.");
@@ -291,12 +290,9 @@ public class Student {
 					//TODO
 					break;
 				case 3 :
-					//TODO en cours Quentin
 					Student.attributeMarkByStudentId(number);
 					break;
 				case 4 :
-					//TODO en cours Quentin
-					
 					if(!Student.printMarksForStudent(number)){
 						System.out.println("Cet étudiant n'a aucune note.");
 						System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
@@ -307,13 +303,10 @@ public class Student {
 					try {
 						Diplome.editDiplome(number);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (TemplateException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (JDOMException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -334,12 +327,7 @@ public class Student {
 		}
 	}
 	
-	/**
-	* Description about the followFormation function :
-	* This function allows to know which formation the student follows.
-	* @param <idStudent> is student identification (Stranger Key).
-	* @return <boolean> return true if it works, else false.
-	*/
+	
 	private static boolean addToFormation(int idStudent, int idFormation) {
 		int year;
 		while((year = Main.sc.nextInt())<Year.getActualCurrentYear()){
@@ -349,11 +337,47 @@ public class Student {
 		}
 		DBConnection c = null;
 		c = new DBConnection();
-		c.executeQuery("SELECT * FROM year_formation_student WHERE year = "+year+" AND idFormation = "+idFormation+" AND idStudent = "+idStudent);
-		
+		try {
+			ResultSet result = c.executeQuery("SELECT idFormation FROM year_formation_student WHERE year = "+year+" AND idStudent = "+idStudent);
+			if(result.next()){
+				if(result.getInt("idFormation") == idFormation){
+					System.out.println("\nCet étudiant est déjà inscrit dans cette formation.");
+					System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
+					Main.sc.nextLine();
+				}
+				System.out.println("\nCet étudiant est déjà inscrit dans une formation, voulez vous l'en changer et perdre les données relatives à l'ancienne? (Oui/Non)");
+				String valid = null;
+				do{
+					valid = Main.sc.nextLine();
+				}
+				while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
+				
+				if(valid.equalsIgnoreCase("o") || valid.equalsIgnoreCase("oui")){
+					c.executeUpdate("UPDATE year_formation_student SET idFormation = "+idFormation);
+					c.executeUpdate("DELETE * FROM year_student_subject_note WHERE idStudent = "+idStudent+" AND year = "+year);
+					c.close();
+				}
+				else {
+					c.close();
+					return false;
+				}
+			}else{
+				c.executeUpdate("INSERT INTO year_formation_student VALUES("+year+","+idFormation+","+idStudent+")");
+			}
+			c.close();
+		} catch (SQLException e) {
+			c.close();
+			e.printStackTrace();
+		}
 		return false;
 	}
-
+	
+	/**
+	* Description about the followFormation function :
+	* This function allows to know which formation the student follows.
+	* @param <idStudent> is student identification (Stranger Key).
+	* @return <boolean> return true if it works, else false.
+	*/
 	public static int followFormation(int idStudent){
 		int year = Year.getActualCurrentYear();
 		DBConnection c = null;
@@ -597,7 +621,7 @@ public class Student {
 							+ "\t####################################\n"
 							+ "");
 				}
-				System.out.println(result.getInt("student.number")+"\t"
+				System.out.println(result.getInt("number")+"\t"
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
 			}while(result.next());
@@ -649,7 +673,7 @@ public class Student {
 							+ "\t####################################\n"
 							+ "");
 				}
-				System.out.println(result.getInt("student.number")+"\t"
+				System.out.println(result.getInt("number")+"\t"
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
 			}while(result.next());
@@ -691,7 +715,7 @@ public class Student {
 			}
 			
 			do{
-				System.out.println(result.getInt("student.number")+"\t"
+				System.out.println(result.getInt("number")+"\t"
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
 			}while(result.next());
@@ -733,7 +757,7 @@ public class Student {
 			}
 				
 			do{
-				System.out.println(result.getInt("student.number")+"\t"
+				System.out.println(result.getInt("number")+"\t"
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
 			}while(result.next());
@@ -857,7 +881,7 @@ public class Student {
 							+ "\t####################################\n"
 							+ "");
 				}
-				System.out.println(result.getInt("student.number")+"\t"
+				System.out.println(result.getInt("number")+"\t"
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
 			}while(result.next());

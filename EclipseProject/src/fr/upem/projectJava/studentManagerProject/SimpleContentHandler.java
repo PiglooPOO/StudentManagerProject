@@ -316,19 +316,19 @@ public class SimpleContentHandler implements ContentHandler {
 		
 		case "year_formation_student":
 			c = new DBConnection();
-			c.executeUpdate("INSERT INTO `year_formation_student` VALUES ("+Integer.valueOf(year)+", "+Integer.valueOf(idFormation)+", "+Integer.valueOf(idStudent)+")");
+			c.executeUpdate("INSERT INTO `year_formation_student` VALUES ('"+Integer.valueOf(year)+"', '"+Integer.valueOf(idFormation)+"', '"+Integer.valueOf(idStudent)+"')");
 			c.close();
 			break;
 		
 		case "year_formation_subject":
 			c = new DBConnection();
-			c.executeUpdate("INSERT INTO `year_formation_subject` VALUES ("+Integer.valueOf(year)+", "+Integer.valueOf(idFormation)+", "+Integer.valueOf(idSubject)+", "+Integer.valueOf(coef)+")");
+			c.executeUpdate("INSERT INTO `year_formation_subject` VALUES ('"+Integer.valueOf(year)+"', '"+Integer.valueOf(idFormation)+"', '"+Integer.valueOf(idSubject)+"','"+Integer.valueOf(coef)+"')");
 			c.close();
 			break;
 		
 		case "year_student_subject_note":
 			c = new DBConnection();
-			c.executeUpdate("INSERT INTO `year_student_subject_note` VALUES ("+Integer.valueOf(year)+", "+Integer.valueOf(idStudent)+", "+Integer.valueOf(idSubject)+" ,"+Integer.valueOf(note)+")");
+			c.executeUpdate("INSERT INTO `year_student_subject_note` VALUES ('"+Integer.valueOf(year)+"', '"+Integer.valueOf(idStudent)+"', '"+Integer.valueOf(idSubject)+"' ,'"+Integer.valueOf(note)+"')");
 			c.close();
 			break;
 		

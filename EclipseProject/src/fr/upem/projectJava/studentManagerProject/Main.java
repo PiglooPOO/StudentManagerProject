@@ -1,5 +1,7 @@
 package fr.upem.projectJava.studentManagerProject;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -15,7 +17,7 @@ public class Main {
 				drawMenu();
 			System.out.print("Entrez le chiffre correspondant à votre choix : ");
 			try {
-				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>14){
+				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>9){
 					Main.sc.nextLine();
 					System.out.print("Ce choix est invalide, recommencez : ");
 				}
@@ -58,19 +60,32 @@ public class Main {
 	
 	
 	public static void drawMenu(){
-		System.out.println("Bienvenue dans StudentMangager de l'Ecole Pigloo\n");
-		System.out.println("Menu\n");
-		System.out.println("1 Ajouter un élève\n"
-				+ "2 Rechercher un élève\n"
-				+ "3 Ajouter une filière\n"
-				+ "4 Rechercher une filière ou une matière\n"
-		        + "5 Ajouter une matière\n"
-		        + "6 Ajouter une année\n"
-		        + "7 Editer les diplômes\n"
-				+ "8 Charger une base de données\n"
-				+ "9 Enregistrer une base de données\n"
-				+ "10 Modifier la configuration\n"
-				+ "0 Quitter\n");
+		DBConnection c = null;
+		try{
+			c = new DBConnection();
+			ResultSet result=c.executeQuery("SELECT name FROM settings");
+			result.next();
+			System.out.println("Bienvenue dans StudentMangager de l'Ecole "+result.getString("name")+"\n");
+			System.out.println("Menu\n");
+			System.out.println("1 Ajouter un élève\n"
+					+ "2 Rechercher un élève\n"
+					+ "3 Ajouter une filière\n"
+					+ "4 Rechercher une filière ou une matière\n"
+			        + "5 Ajouter une matière\n"
+			        + "6 Editer les diplômes\n"
+					+ "7 Charger une base de données\n"
+					+ "8 Enregistrer une base de données\n"
+					+ "9 Modifier la configuration\n"
+					+ "0 Quitter\n");
+			c.close();
+		}catch (SQLException e) {
+			if(c!=null)
+				c.close();
+			e.printStackTrace();
+			return;
+		}
+		
+		
 	}
 	
 	public static int startSubMenu(int choiceNumber){
@@ -94,18 +109,15 @@ public class Main {
 				m.addSubject();
 				break;
 			case 6:
-				//TODO  Ajouter une année
-				break;
-			case 7:
 				Student.showStudentGraduate();
 				break;
-			case 8:
+			case 7:
 				DBConnection.loadDB();
 				break;
-			case 9:
+			case 8:
 				DBConnection.saveDB();
 				break;
-			case 10:
+			case 9:
 				startMenuConfig();
 				break;
 			default:;
@@ -125,11 +137,10 @@ public class Main {
 						+ "4 Rechercher par Matière\n"
 						+ "5 Rechercher par Filière\n"
 						+ "6 Rechercher par Année\n"
-						+ "7 Rechercher par Année et Filière\n"
 						+ "0 Retour au Menu principal\n");
 			System.out.print("Entrez le chiffre correspondant à votre choix : ");
 			try {				
-				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>7){
+				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>6){
 					Main.sc.nextLine();
 					System.out.print("Ce choix est invalide, recommencez : ");
 				}
@@ -225,7 +236,7 @@ public class Main {
 					}
 					break;
 				case 6:
-					System.out.print("Entrez le numéro étudiant de l'étudiant : ");
+					System.out.print("Entrez l'année dont vous voulez parcourir les étudiants : ");
 					try {
 						number = Main.sc.nextInt();
 						if(!Student.showStudentsByYear(number)){
@@ -244,9 +255,6 @@ public class Main {
 						System.out.println("Appuyez sur Entrée pour continuer.");
 						Main.sc.nextLine();
 					}
-					break;
-				case 7:
-					//TODO
 					break;
 				default:
 			}
