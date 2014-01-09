@@ -328,10 +328,51 @@ public class Formation {
 	* Description about the editFormation function :
 	* This function allows to edit a formation.
 	* @param <id> is formation id, to identify a formation (primary key).
+	* @return boolean, return true if it works, else false. 
 	*/
-	public static void editFormation(int id){
-		// TODO louis
+	public static boolean editFormation(int id){
+
+		DBConnection c = null;
+		c = new DBConnection();
+		ResultSet result = null;
+		
+		System.out.println("Veuillez rentrer le nouveau nom de la formation.");
+		String newFormationName = Main.sc.nextLine();
+		
+		result = c.executeQuery("SELECT curYear, nbYear from formation WHERE id="+id);
+		try {
+			if(result.next()){
+				int oldNbYear = result.getInt("nbYear");
+				int oldCurYear = result.getInt("curYear");
+			
+				
+			    deleteFormation(id);
+				c.executeUpdate("INSERT INTO `formation`(`name`, `nbYear`, `curYear`) VALUES ('"+newFormationName+"','"+oldNbYear+"','"+oldCurYear+"')");
+				result = c.executeQuery("SELECT id FROM formation WHERE name = "+newFormationName+", nbYear = "+oldNbYear+", curYear = "+oldCurYear);
+				int newId = -1;
+				if(result.next())
+					newId = result.getInt("id");
+				
+				//jointures
+				c.executeUpdate("UPDATE year_formation_student SET idFormation = "+newId+" WHERE idFormation = "+id+" AND year >= "+Year.getActualCurrentYear());
+			    c.executeUpdate("UPDATE year_formation_subject SET idFormation = "+newId+" WHERE idFormation = "+id+" AND year >= "+Year.getActualCurrentYear());
+			    c.close();
+			    return true;
+			   }
+			else{
+				c.close();
+				return false;
+			}
+		} catch (SQLException e) {
+			c.close();
+			e.printStackTrace();
+			return false;
+		}
+		
+		//clearConsole();
+        
 	}
+	
 
 	public int getIsAvailable() {
 		return isAvailable;
