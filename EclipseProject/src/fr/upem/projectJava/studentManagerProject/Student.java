@@ -315,7 +315,6 @@ public class Student {
 				}
 				if(choiceNumber != 0 && choiceNumber != -2)
 					choiceNumber = 1;
-				//clearConsole();
 			}
 			
 			return true;
@@ -963,7 +962,6 @@ public class Student {
                 choiceNumber = 1;
             
             c.close();
-            //clearConsole();
         }
 	}
 }

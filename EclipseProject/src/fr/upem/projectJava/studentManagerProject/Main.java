@@ -31,7 +31,6 @@ public class Main {
 			startSubMenu(choiceNumber);
 			if(choiceNumber != 0 && choiceNumber != -2)
 				choiceNumber = 1;
-			//clearConsole();
 		}
 		if(Main.sc != null)
 			Main.sc.close();
@@ -257,7 +256,6 @@ public class Main {
 			
 			if(choiceNumber != 0 && choiceNumber != -2)
 				choiceNumber = 1;
-			//clearConsole();
 		}
 	}
 	
@@ -326,7 +324,6 @@ public class Main {
 
 			if(choiceNumber != 0 && choiceNumber != -2)
 				choiceNumber = 1;
-			//clearConsole();
 		}
 	}	
 	
@@ -361,20 +358,6 @@ public class Main {
 			}
 			if(choiceNumber != 0 && choiceNumber != -2)
 				choiceNumber = 1;
-			//clearConsole();
 		}
-	}
-
-	private static void clearConsole()
-	{
-		try {
-			  if(System.getProperty("os.name").startsWith("Windows" ))
-			    Runtime.getRuntime().exec("cls");
-			  else
-			    Runtime.getRuntime().exec("clear");
-			} catch(Exception excpt) {
-			  for(int i=0;i<100;i++)
-			    System.out.println();
-			}
 	}
 }

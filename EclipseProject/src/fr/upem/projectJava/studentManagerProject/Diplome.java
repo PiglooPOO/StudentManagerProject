@@ -32,8 +32,8 @@ public class Diplome {
 			template.setField("formationName",result.getString("formation.name").toUpperCase());
 			template.setField("annee",result.getString("year")+"/"+(result.getString("year")+1));
 			template.setField("name",result.getString("student.name").toUpperCase());
-			template.setField("firstName",result.getString("student.firstName"));
-			template.setField("adress",result.getString("student.adress"));
+			template.setField("firstName",result.getString("firstName"));
+			template.setField("adress",result.getString("adress"));
 			String date = result.getDate("student.birthday").toString();
 			String[] recup=date.split("-");
 			int day=Integer.parseInt(recup[2]);
