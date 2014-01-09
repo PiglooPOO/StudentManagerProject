@@ -3,6 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -112,7 +113,25 @@ public class Formation {
 						break;
 					case 3:
 						//TODO
-						Formation.addSubjectToFormation(id);
+						String answerSubject = "";
+						System.out.println("Entrer le nom de la matière : ");
+						try{
+							answerSubject = sc.nextLine();
+							if(!Formation.addSubjectToFormation(Subject.searchSubjectsByName(answerSubject),id)){
+								System.out.println("La matière "+answerSubject+" n'éxiste pas.");
+								System.out.println("Appuyez sur Entrer pour continuer.");
+								sc.nextLine();
+								}
+							if(answerSubject.length()<0){
+								System.out.println("Ceci n'est pas un nom de matière.");
+								System.out.println("Appuyez sur Entrer pour continuer.");
+								sc.nextLine();
+							}
+						}catch(InputMismatchException e){
+							System.out.println("Ceci n'est pas une matière.");
+							System.out.println("Appuyez sur Entrer pour continuer.");
+							sc.nextLine();
+						}
 						break;
 					case 4:
 						Student.showStudentsByFormation(id);
@@ -144,13 +163,49 @@ public class Formation {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
 		return null;
 	}
 	
-	public static boolean addSubjectToFormation(int id){
-		// TODO
-		return false;
+	public static boolean addSubjectToFormation(int idSubject, int idFormation){
+		Scanner sc = new Scanner(System.in);
+		if(idSubject == -1){
+			System.out.println("La matière n'éxiste pas.");
+			System.out.println("Appuyez sur Entrer pour continuer.");
+			sc.nextLine();
+			return false;
+		}
+		int year = Year.getActualCurrentYear();
+		System.out.println("Choisissez coefficient à appliquer à cette matière : ");
+		int coef = sc.nextInt();
+		sc.nextLine();
+		Statement state;
+		try {
+			state = DBConnection.getInstance().createStatement();
+			ResultSet result = state.executeQuery("SELECT * FROM year_formation_subject WHERE year = "+year+" AND idFormation = "+idFormation+" AND idSubject = "+idSubject);
+			if(result.next()){
+				System.out.println("La matière est déjà attrribuée à cette formation, \n"
+						+ "Voulez-vous modifier le coefficient? (Oui/Non) ");
+				String valid = sc.nextLine();
+				System.out.println("\nValidez-vous cet étudiant? (Oui/Non)");
+				do{
+					valid = sc.next();
+				}
+				while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
+				if(valid.equalsIgnoreCase("non") || valid.equalsIgnoreCase("n"))
+					return false;
+				else {
+					//return fonction();
+				}
+			}
+			state.executeUpdate("INSERT INTO year_formation_subject VALUES("+year+","+idFormation+","+idSubject+","+coef+")");
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public static int searchFormationsByName(String answerFormation){
