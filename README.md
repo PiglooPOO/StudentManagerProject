@@ -9,31 +9,28 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 
 - Rechercher un étudiant (par no étudiant \[done\], nom \[done\], prenom \[done\], matière \[done\], filiaire \[done\], année \[done\])
 > - l'afficher \[done\]
-> - Inscrire un élève dans une filière et année \[EN COURS\]
-> - Modifier des informations
+> - Inscrire un élève dans une filière et année \[QUENTIN\]
+> - Modifier des informations  \[LOUIS\]
 > - Attribuer des notes \[VERIFIER\] mais ne vérifie pas si la matière est dans la formation suivie
 > - Afficher ses moyennes \[VERIFIER\] 
 > - Editer attestation de réussite \[done\]
 
 - Créer une filière \[done\]
 - Rechercher une filière \[done\]
-> - Ajouter une matière\[DONE\], des élèves \[EN COURS\]
+> - Ajouter une matière\[done\], des élèves \[done\]
 > - Afficher ses éleves par année (pouvoir y acceder) \[done\]
 - Rechercher une matière \[done\]
 > - Ajouter à une filiaire pour une année
 
-- Ajouter des notes
-> - Pour année en cours en recherchant formation puis en choisissant la matière
-
-- Créer une année
+- Créer une année \[QUENTIN APRES\]
 > - Copier une formation de l'année précédente en faisant passer les élèves year_formation_student.nbyear +1 si < formation.nbyear
 
-- Afficher les diplomés\[EN COURS\]
-> - Editer une attestation de réussite
+- Afficher les diplomés\[XAVIER\]
+> - Editer une attestation de réussite \[done\]
 
-- Charger une base de données?
+- Charger une base de données?  \[done\]
 - Enregistrer la base de données? \[done\]
-- Modifier la configuration?
+- Modifier la configuration?  \[FRED\]
 
 
 ## HOW TO
