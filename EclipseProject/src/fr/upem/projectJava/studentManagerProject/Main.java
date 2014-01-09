@@ -100,7 +100,7 @@ public class Main {
 				DBConnection.saveDB();
 				break;
 			case 10:
-				//TODO Modifier la configuration
+				startMenuConfig();
 				break;
 			default:;
 		}
