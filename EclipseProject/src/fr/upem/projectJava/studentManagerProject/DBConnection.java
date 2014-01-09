@@ -108,7 +108,7 @@ public class DBConnection {
 								+ "\n\t\t\t<adress>" + result.getString("adress") + "</adress>"
 								+ "\n\t\t\t<phoneNumber>" + result.getString("phoneNumber") + "</phoneNumber>"
 								+ "\n\t\t\t<mail>" + result.getString("mail") + "</mail>"
-								+ "\n\t\t\t<birthday>" + result.getDate("birthday") + "</birthday>"
+								+ "\n\t\t\t<birthday>" + result.getString("birthday") + "</birthday>"
 								+ "\n\t\t\t<gender>" + result.getInt("gender") + "</gender>\n"
 							+ "\t\t</Student>\n";
 				os.write(caracteres.getBytes());

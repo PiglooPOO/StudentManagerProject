@@ -234,7 +234,7 @@ public class Student {
 								"\nAdresse :\t\t" + result.getString("adress")+
 								"\nTel :\t\t\t" + result.getString("phoneNumber")+
 								"\nMail :\t\t\t" + result.getString("mail")+
-								"\nDate de naissance :\t" + result.getDate("birthday").toString()+
+								"\nDate de naissance :\t" + result.getString("birthday").toString()+
 								"\nSexe :\t\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"));
 						c.close();
 						System.out.println("\nFilière : \t\t"+Formation.FormationNameByStudentId(Student.followFormation(number)));

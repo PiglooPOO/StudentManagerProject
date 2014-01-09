@@ -7,7 +7,7 @@
 			<adress>23 boulevard Aristide BRIAND</adress>
 			<phoneNumber>0610101010</phoneNumber>
 			<mail>qboulic@etudiant.univ-mlv.fr</mail>
-			<birthday>1970-01-01</birthday>
+			<birthday>1994-09-07</birthday>
 			<gender>1</gender>
 		</Student>
 		<Student>
@@ -17,7 +17,7 @@
 			<adress>6 rue des bleuets</adress>
 			<phoneNumber>0625450907</phoneNumber>
 			<mail>xavier1.gerber@gmail.com</mail>
-			<birthday>1970-01-01</birthday>
+			<birthday>1994-10-05</birthday>
 			<gender>1</gender>
 		</Student>
 		<Student>
@@ -27,7 +27,7 @@
 			<adress>23 boulevard Aristide BRIAND</adress>
 			<phoneNumber>0610101010</phoneNumber>
 			<mail>qboulic@etudiant.univ-mlv.fr</mail>
-			<birthday>1970-01-01</birthday>
+			<birthday>1994-09-07</birthday>
 			<gender>1</gender>
 		</Student>
 		<Student>
@@ -37,7 +37,7 @@
 			<adress>6 rue des bleuets</adress>
 			<phoneNumber>0625450907</phoneNumber>
 			<mail>xavier1.gerber@gmail.com</mail>
-			<birthday>1970-01-01</birthday>
+			<birthday>1994-10-05</birthday>
 			<gender>1</gender>
 		</Student>
 		<Student>
@@ -47,7 +47,7 @@
 			<adress>3 rue des etangs</adress>
 			<phoneNumber>0129436789</phoneNumber>
 			<mail>sd@yopmail.com</mail>
-			<birthday>1970-01-01</birthday>
+			<birthday>1993-10-24</birthday>
 			<gender>1</gender>
 		</Student>
 		<Student>
@@ -57,7 +57,7 @@
 			<adress>9 rue des pieuvres</adress>
 			<phoneNumber>0123456789</phoneNumber>
 			<mail>fu@yopmail.com</mail>
-			<birthday>1970-01-01</birthday>
+			<birthday>1993-2-17</birthday>
 			<gender>2</gender>
 		</Student>
 		<Student>
@@ -67,7 +67,7 @@
 			<adress>3 rue des tulipes</adress>
 			<phoneNumber>0129436789</phoneNumber>
 			<mail>lh@yopmail.com</mail>
-			<birthday>1970-01-01</birthday>
+			<birthday>1993-4-2</birthday>
 			<gender>1</gender>
 		</Student>
 		<Student>
@@ -77,7 +77,7 @@
 			<adress>19 rue des poneys</adress>
 			<phoneNumber>0123456789</phoneNumber>
 			<mail>mb@yopmail.com</mail>
-			<birthday>1970-01-01</birthday>
+			<birthday>1994-1-12</birthday>
 			<gender>1</gender>
 		</Student>
 		<Student>
@@ -87,7 +87,7 @@
 			<adress>1287 avenue de la republique</adress>
 			<phoneNumber>0129436789</phoneNumber>
 			<mail>he@yopmail.com</mail>
-			<birthday>1970-01-01</birthday>
+			<birthday>1993-7-9</birthday>
 			<gender>2</gender>
 		</Student>
 		<Student>
@@ -97,7 +97,17 @@
 			<adress>9 rue des mangoustes</adress>
 			<phoneNumber>0123456789</phoneNumber>
 			<mail>dw@yopmail.com</mail>
-			<birthday>1970-01-01</birthday>
+			<birthday>1993-2-15</birthday>
+			<gender>1</gender>
+		</Student>
+		<Student>
+			<number>109</number>
+			<name>GERBER</name>
+			<firstName>Xavier</firstName>
+			<adress>6</adress>
+			<phoneNumber>0000000000</phoneNumber>
+			<mail>0</mail>
+			<birthday>1994-10-05</birthday>
 			<gender>1</gender>
 		</Student>
 	</Students>
