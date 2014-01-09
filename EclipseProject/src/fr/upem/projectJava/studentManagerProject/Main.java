@@ -225,11 +225,7 @@ public class Main {
 					}
 					break;
 				case 6:
-<<<<<<< HEAD
-					System.out.print("Entrez l'année à afficher : ");
-=======
-					System.out.print("Entrez l'année que vous souhaitez rechercher : ");
->>>>>>> 708e955dda23daa7c162781c8724870f0e3fb641
+					System.out.print("Entrez l'année dont vous voulez parcourir les étudiants : ");
 					try {
 						number = Main.sc.nextInt();
 						if(!Student.showStudentsByYear(number)){
