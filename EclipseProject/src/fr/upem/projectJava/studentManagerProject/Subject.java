@@ -161,15 +161,11 @@ public class Subject {
 	* @return <boolean> return true if it works, else false.
 	*/
 	private static boolean addSubjectToFormation(int id) {
-		/**
-		 * cherchons la matière à ajouter CURRENTLY WORKIN ON
-		 */
 		String answerSubject = "";
 		int idSubject = 0;
 		System.out.println("Entrez le nom de la matière à ajouter : ");
 		try{
 			answerSubject = Main.sc.nextLine();
-			//TODO
 			if((idSubject = Subject.searchSubjectsByName(answerSubject)) == -1){
 				System.out.println("La filière n'éxiste pas dans cette filière.");
 				System.out.println("Appuyez sur Entrée pour revenir à la fiche.");
@@ -178,7 +174,7 @@ public class Subject {
 			}
 		}catch(InputMismatchException e){
 			System.out.println("Ceci n'est pas une filière.");
-			System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
+			System.out.println("Appuyez sur Entrée pour revenir à la fiche.");
 			Main.sc.nextLine();
 			return false;
 		}
@@ -187,7 +183,26 @@ public class Subject {
 		 * récupérons l'année actuelle
 		 */
 		int year = Year.getActualCurrentYear();
-		return false;
+		
+		DBConnection c = new DBConnection();
+		ResultSet result = null;
+		try {
+			result = c.executeQuery("SELECT * FROM year_formation_subject WHERE year = "+year+" AND idFormation = "+id+" AND idSubject = "+idSubject);
+			if(result.next()){
+				c.close();
+				System.out.println("Cette matière appartient déjà à cette formation.");
+				System.out.println("Appuyez sur Entrée pour revenir à la fiche.");
+				Main.sc.nextLine();
+
+				return false;
+			}
+			c.executeUpdate("INSERT INTO year_formation_subject VALUES("+year+","+id+","+idSubject+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.close();
+		return true;
 	}
 
 	public int getIsAvailable() {
