@@ -40,8 +40,10 @@ public class DBConnection {
     
     public void close() {
         try {
-            connection.close();
-            statement.close();
+        	if(connection!=null)
+        		connection.close();
+        	if(statement!=null)
+            	statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -200,5 +202,4 @@ public class DBConnection {
 			}	
 		}	
 	}
-	
 }

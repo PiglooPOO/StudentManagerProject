@@ -172,28 +172,38 @@ public class Formation {
 			return false;
 		}
 		int year = Year.getActualCurrentYear();
-		System.out.println("Choisissez coefficient à appliquer à cette matière : ");
-		int coef = Main.sc.nextInt();
-		Main.sc.nextLine();
+		int coef = 0;
 		Statement state;
 		try {
 			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM year_formation_subject WHERE year = "+year+" AND idFormation = "+idFormation+" AND idSubject = "+idSubject);
 			if(result.next()){
 				System.out.println("La matière est déjà attrribuée à cette formation, \n"
-						+ "Voulez-vous modifier le coefficient? (Oui/Non) ");
+						+ "Voulez-vous modifier le coefficient qui est actuellement de "+result.getInt("coef")+"? (Oui/Non) ");
 				String valid = Main.sc.nextLine();
-				System.out.println("\nValidez-vous cet étudiant? (Oui/Non)");
+
 				do{
 					valid = Main.sc.next();
-				}
-				while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
+				}while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
+				
 				if(valid.equalsIgnoreCase("non") || valid.equalsIgnoreCase("n"))
 					return false;
 				else {
-					//return fonction();
+					System.out.print("Entrez le coefficient : ");
+					coef = Main.sc.nextInt();
+					
+					while(coef<1){
+						System.out.println("Un coefficient doit être positif : ");
+						coef = Main.sc.nextInt();
+					}
+					state.executeUpdate("UPDATE year_formation_subject SET coef = "+coef+" WHERE year = "+year+" AND idFormation = "+idFormation+" AND idSubject = "+idSubject);
+
+					return true;
 				}
 			}
+			System.out.println("Choisissez coefficient à appliquer à cette matière : ");
+			coef = Main.sc.nextInt();
+			Main.sc.nextLine();
 			state.executeUpdate("INSERT INTO year_formation_subject VALUES("+year+","+idFormation+","+idSubject+","+coef+")");
 			return true;
 		} catch (SQLException e) {
