@@ -225,7 +225,7 @@ public class Main {
 					}
 					break;
 				case 6:
-					System.out.print("Entrez l'année que vous souhaitez rechercher : ");
+					System.out.print("Entrez l'année dont vous voulez parcourir les étudiants : ");
 					try {
 						number = Main.sc.nextInt();
 						if(!Student.showStudentsByYear(number)){
