@@ -50,105 +50,106 @@ public class DBConnection {
 				Statement state = DBConnection.getInstance().createStatement();
 				ResultSet result = state.executeQuery("SELECT * FROM student");
 				
-				String caracteres = "<Students>\n";
+				String caracteres = "<XML>\n\t<Students>\n";
 				os.write(caracteres.getBytes());
 				while(result.next()){	
-				caracteres = "\t<Student>\n"
-								+ "\t\t<number>" + result.getInt("number") + "</number>"
-								+ "\n\t\t<name>" + result.getString("name") + "</name>"
-								+ "\n\t\t<firstName>" + result.getString("firstname") + "</firstName>"
-								+ "\n\t\t<adress>" + result.getString("adress") + "</adress>"
-								+ "\n\t\t<phoneNumber>" + result.getString("phoneNumber") + "</phoneNumber>"
-								+ "\n\t\t<mail>" + result.getString("mail") + "</mail>"
-								+ "\n\t\t<birthday>" + result.getDate("birthday") + "</birthday>"
-								+ "\n\t\t<gender>" + result.getInt("gender") + "</gender>\n"
-							+ "\t</Student>\n";
+				caracteres = "\t\t<Student>\n"
+								+ "\t\t\t<number>" + result.getInt("number") + "</number>"
+								+ "\n\t\t\t<name>" + result.getString("name") + "</name>"
+								+ "\n\t\t\t<firstName>" + result.getString("firstname") + "</firstName>"
+								+ "\n\t\t\t<adress>" + result.getString("adress") + "</adress>"
+								+ "\n\t\t\t<phoneNumber>" + result.getString("phoneNumber") + "</phoneNumber>"
+								+ "\n\t\t\t<mail>" + result.getString("mail") + "</mail>"
+								+ "\n\t\t\t<birthday>" + result.getDate("birthday") + "</birthday>"
+								+ "\n\t\t\t<gender>" + result.getInt("gender") + "</gender>\n"
+							+ "\t\t</Student>\n";
 				os.write(caracteres.getBytes());
 				}
-				caracteres = "</Students>\n";
+				caracteres = "\t</Students>\n";
 				os.write(caracteres.getBytes());
 				
 				result = state.executeQuery("SELECT * FROM subject");
-				caracteres = "\n<Subjects>\n";
+				caracteres = "\n\t<Subjects>\n";
 				os.write(caracteres.getBytes());
 				while(result.next()){	
-				caracteres = "\t<Subject>\n"
-								+ "\t\t<id>" + result.getInt("id") + "</id>"
-								+ "\n\t\t<name>" + result.getString("name") + "</name>"
-								+ "\n\t\t<isAvailable>"+ result.getInt("isAvailable") + "</isAvailable>\n"
-							+ "\t</Subject>\n";
+				caracteres = "\t\t<Subject>\n"
+								+ "\t\t\t<id>" + result.getInt("id") + "</id>"
+								+ "\n\t\t\t<name>" + result.getString("name") + "</name>"
+								+ "\n\t\t\t<isAvailable>"+ result.getInt("isAvailable") + "</isAvailable>\n"
+							+ "\t\t</Subject>\n";
 				os.write(caracteres.getBytes());
 				}
-				caracteres = "</Subjects>\n";
+				caracteres = "\t</Subjects>\n";
 				os.write(caracteres.getBytes());
 				
 				result = state.executeQuery("SELECT * FROM formation");
-				caracteres = "\n<Formations>\n";
+				caracteres = "\n\t<Formations>\n";
 				os.write(caracteres.getBytes());
 				while(result.next()){
-				caracteres = "\t<Formation>\n"
-								+ "\t\t<id>" + result.getInt("id") + "</id>"
-								+ "\n\t\t<name>" + result.getString("name") + "</name>"
-								+ "\n\t\t<nbYear>" + result.getInt("nbYear") + "</nbYear>"
-								+ "\n\t\t<curYear>" + result.getInt("curYear") + "</curYear>"
-								+ "\n\t\t<isAvailable>"+ result.getInt("isAvailable") + "</isAvailable>\n"
-							+ "\t</Formation>\n";
+				caracteres = "\t\t<Formation>\n"
+								+ "\t\t\t<id>" + result.getInt("id") + "</id>"
+								+ "\n\t\t\t<name>" + result.getString("name") + "</name>"
+								+ "\n\t\t\t<nbYear>" + result.getInt("nbYear") + "</nbYear>"
+								+ "\n\t\t\t<curYear>" + result.getInt("curYear") + "</curYear>"
+								+ "\n\t\t\t<isAvailable>"+ result.getInt("isAvailable") + "</isAvailable>\n"
+							+ "\t\t</Formation>\n";
 				os.write(caracteres.getBytes());
 				}
-				caracteres = "</Formations>\n";
+				caracteres = "\t</Formations>\n";
 				os.write(caracteres.getBytes());
 				
 				result = state.executeQuery("SELECT * FROM year_formation_student");
-				caracteres = "\n<years_formations_students>\n";
+				caracteres = "\n\t<years_formations_students>\n";
 				os.write(caracteres.getBytes());
 				while(result.next()){	
-				caracteres = "\t<year_formation_student>\n"
-								+ "\t\t<year>" + result.getInt("year") + "</year>"
-								+ "\n\t\t<idFormation>" + result.getInt("idFormation") + "</idFormation>"
-								+ "\n\t\t<idStudent>" + result.getInt("idStudent") + "</idStudent>\n"
-							+ "\t</year_formation_student>\n";
+				caracteres = "\t\t<year_formation_student>\n"
+								+ "\t\t\t<year>" + result.getInt("year") + "</year>"
+								+ "\n\t\t\t<idFormation>" + result.getInt("idFormation") + "</idFormation>"
+								+ "\n\t\t\t<idStudent>" + result.getInt("idStudent") + "</idStudent>\n"
+							+ "\t\t</year_formation_student>\n";
 				os.write(caracteres.getBytes());
 				}
-				caracteres = "</years_formations_students>\n";
+				caracteres = "\t</years_formations_students>\n";
 				os.write(caracteres.getBytes());
 				
 				result = state.executeQuery("SELECT * FROM year_formation_subject");
-				caracteres = "\n<years_formations_subjects>\n";
+				caracteres = "\n\t<years_formations_subjects>\n";
 				os.write(caracteres.getBytes());
 				while(result.next()){	
-				caracteres = "\t<year_formation_subject>\n"
-								+ "\t\t<year>" + result.getInt("year") + "</year>"
-								+ "\n\t\t<idFormation>" + result.getInt("idFormation") + "</idFormation>"
-								+ "\n\t\t<idSubject>" + result.getInt("idSubject") + "</idSubject>"
-								+ "\n\t\t<coef>" + result.getString("coef") + "</coef>\n"
-							+ "\t</year_formation_subject>\n";
+				caracteres = "\t\t<year_formation_subject>\n"
+								+ "\t\t\t<year>" + result.getInt("year") + "</year>"
+								+ "\n\t\t\t<idFormation>" + result.getInt("idFormation") + "</idFormation>"
+								+ "\n\t\t\t<idSubject>" + result.getInt("idSubject") + "</idSubject>"
+								+ "\n\t\t\t<coef>" + result.getString("coef") + "</coef>\n"
+							+ "\t\t</year_formation_subject>\n";
 				os.write(caracteres.getBytes());
 				}
-				caracteres = "</years_formations_subjects>\n";
+				caracteres = "\t</years_formations_subjects>\n";
 				os.write(caracteres.getBytes());
 				
 				result = state.executeQuery("SELECT * FROM year_student_subject_note");
-				caracteres = "\n<years_students_subjects_notes>\n";
+				caracteres = "\n\t<years_students_subjects_notes>\n";
 				os.write(caracteres.getBytes());
 				while(result.next()){	
-				caracteres = "\t<year_student_subject_note>\n"
-								+ "\t\t<year>" + result.getInt("year") + "</year>"
-								+ "\n\t\t<idStudent>" + result.getInt("idStudent") + "</idStudent>"
-								+ "\n\t\t<idSubject>" + result.getInt("idSubject") + "</idSubject>"
-								+ "\n\t\t<note>" + result.getInt("note") + "</note>\n"
-							+ "\t</year_student_subject_note>\n";
+				caracteres = "\t\t<year_student_subject_note>\n"
+								+ "\t\t\t<year>" + result.getInt("year") + "</year>"
+								+ "\n\t\t\t<idStudent>" + result.getInt("idStudent") + "</idStudent>"
+								+ "\n\t\t\t<idSubject>" + result.getInt("idSubject") + "</idSubject>"
+								+ "\n\t\t\t<note>" + result.getInt("note") + "</note>\n"
+							+ "\t\t</year_student_subject_note>\n";
 				os.write(caracteres.getBytes());
 				}
-				caracteres = "</years_students_subjects_notes>\n";
+				caracteres = "\t</years_students_subjects_notes>\n";
 				os.write(caracteres.getBytes());
 				
 				result = state.executeQuery("SELECT * FROM settings");
 				result.next();
-				caracteres = "\n<settings>\n"
-								+"\t<name>" + result.getString("name") + "</name>"
-								+ "\n\t<directorName>" + result.getString("directorName") + "</directorName>"
-								+ "\n\t<directorFirstName>" + result.getString("directorFirstName") + "</directorFirstName>\n"
-							+ "</settings>\n";
+				caracteres = "\n\t<settings>\n"
+								+"\t\t<name>" + result.getString("name") + "</name>"
+								+ "\n\t\t<directorName>" + result.getString("directorName") + "</directorName>"
+								+ "\n\t\t<directorFirstName>" + result.getString("directorFirstName") + "</directorFirstName>\n"
+							+ "\t</settings>\n"
+						+ "</XML>";
 				os.write(caracteres.getBytes());
 				
 				os.close();
