@@ -81,7 +81,7 @@ public class Formation {
 		int choiceNumber = 0;
 		Statement state;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE id = "+id);
 			if(result.next()){
 				System.out.println(
@@ -205,7 +205,7 @@ public class Formation {
 	
 	public static int searchFormationsByName(String answerFormation){
 		try {
-			Statement state = DBConnection.getInstance().createStatement();
+			Statement state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+answerFormation+"%\"");
 			while(result.next()){
 				System.out.println(result.getInt("id")+" Diplome d'Ingénieur "+result.getString("name"));
@@ -223,8 +223,8 @@ public class Formation {
 	
 	public void addFormation(){
 		try {
-			Statement state = DBConnection.getInstance().createStatement();
-			state.executeUpdate("INSERT INTO `formation`(`name`, `nbYear`, `curYear`) VALUES ('"+this.getName()+"','"+this.getNbYear()+"','"+this.getCurYear()+"')");
+			Statement state = new DBConnection().createStatement();
+			state.executeUpdate("INSERT INTO `formation`(`id`, `name`, `nbYear`, `curYear`) VALUES ('null','"+this.getName()+"','"+this.getNbYear()+"','"+this.getCurYear()+"')");
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

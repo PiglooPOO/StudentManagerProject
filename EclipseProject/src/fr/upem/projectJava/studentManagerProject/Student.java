@@ -190,8 +190,8 @@ public class Student {
 		
 		if(valid.equalsIgnoreCase("o") || valid.equalsIgnoreCase("oui")){
 			try {
-				Statement state = DBConnection.getInstance().createStatement();
-				state.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
+				Statement state = new DBConnection().createStatement();				
+				state.executeUpdate("INSERT INTO `student`(`number`,`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('null','"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
 				System.out.println("Etudiant bien ajouté.");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -203,7 +203,7 @@ public class Student {
 	public static boolean showStudent(int number){
 		Statement state;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE number = "+number);
 			
 			int choiceNumber = 1;
@@ -343,7 +343,7 @@ public class Student {
 		 * on regarde si la note n'existe pas encore
 		 */
 		try {
-			Statement state = DBConnection.getInstance().createStatement();
+			Statement state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM year_student_subject_note WHERE year = "+year+" AND idStudent = "+id+" AND idSubject = "+idSubject);
 			if(result.next()){
 				System.out.println(""
@@ -356,8 +356,13 @@ public class Student {
 			 * on note, lets go
 			 */
 			System.out.print("Entrez la note : ");
+<<<<<<< HEAD
 			int note = Main.sc.nextInt();
 			Main.sc.nextLine();
+=======
+			int note = sc.nextInt();
+			sc.nextLine();
+>>>>>>> origin/NewBDD
 			state.executeUpdate("INSERT INTO year_student_subject_note VALUES ("+year+","+id+","+idSubject+","+note+")");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -380,8 +385,14 @@ public class Student {
 		int[] tmpArray = new int[3];
 		
 		try {
+<<<<<<< HEAD
 			state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT year_student_subject_note.note, subject.name, idStudent, idSubject, year FROM student, subject, year_student_subject_note WHERE student.number = "+id+" AND student.number = idStudent AND subject.id = idSubject AND year = "+Year.getActualCurrentYear());
+=======
+			state = new DBConnection().createStatement();
+
+			ResultSet result = state.executeQuery("SELECT year_student_subject_note.note, subject.name, idStudent, idSubject, year FROM student, subject, year_student_subject_note WHERE student.number = "+id+" AND student.number = idStudent AND subject.id = idSubject AND ((year = EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM NOW()) >= 9) OR (year = EXTRACT(YEAR FROM NOW())-1 AND EXTRACT(MONTH FROM NOW()) < 9))");
+>>>>>>> origin/NewBDD
 			if(!result.next())
 				return false;
 			do{
@@ -424,7 +435,7 @@ public class Student {
 	public static boolean showStudentsByFormationName(String st) {
 		Statement state;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+st+"%\" ORDER BY id");
 			if(!result.next())
 				return false;
@@ -454,7 +465,7 @@ public class Student {
 	public static void showStudentsByFormation(int id) {
 		Statement state;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,formation,year_formation_student WHERE formation.id = "+id+" AND formation.id = idFormation AND student.number = idStudent ORDER BY year");
 			int year = 0;
 			while(result.next()){
@@ -490,7 +501,7 @@ public class Student {
 	public static boolean showStudentsByYear(int year) {
 		Statement state;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,year_formation_student WHERE year = "+year+" AND student.number = idStudent ORDER BY number");
 			if(!result.next())
 				return false;
@@ -529,7 +540,7 @@ public class Student {
 	public static boolean showStudentsByName(String st) {
 		Statement state;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.name LIKE \"%"+st+"%\" ORDER BY number");
 			if(!result.next())
 				return false;
@@ -559,7 +570,7 @@ public class Student {
 	public static boolean showStudentsByFirstName(String st) {
 		Statement state;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.firstName LIKE \"%"+st+"%\" ORDER BY number");
 			if(!result.next())
 				return false;

@@ -30,7 +30,7 @@ public class Subject {
 	public static int searchSubjectsByName(String answerSubject){	
 		Statement state;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM subject WHERE name LIKE \"%"+answerSubject+"%\"");
 			if(!result.next())
 				return -1;
@@ -49,8 +49,8 @@ public class Subject {
 	
 	public void addSubject(){
 		try {
-			Statement state = DBConnection.getInstance().createStatement();
-			state.executeUpdate("INSERT INTO `subject`(`name`) VALUES ('"+this.getName()+"')");
+			Statement state = new DBConnection().createStatement();
+			state.executeUpdate("INSERT INTO `subject`(`id`,`name`) VALUES ('null','"+this.getName()+"')");
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -70,7 +70,7 @@ public class Subject {
 		int choiceNumber = 0;
 		Statement state;
 		try {
-			state = DBConnection.getInstance().createStatement();
+			state = new DBConnection().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM subject WHERE id = "+id);
 			if(result.next()){
 				System.out.println(

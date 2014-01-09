@@ -36,7 +36,7 @@ public class Main {
 	
 	
 	public static void checkConnection(){
-		for (int i = 1; (DBConnection.getInstance()==null); i++) {
+		for (int i = 1; (new DBConnection()==null); i++) {
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
@@ -326,7 +326,14 @@ public class Main {
 
 	private static void clearConsole()
 	{
-	    for(int i = 0; i < 25; i++)
-	    	System.out.println();
+		try {
+			  if(System.getProperty("os.name").startsWith("Windows" ))
+			    Runtime.getRuntime().exec("cls");
+			  else
+			    Runtime.getRuntime().exec("clear");
+			} catch(Exception excpt) {
+			  for(int i=0;i<100;i++)
+			    System.out.println();
+			}
 	}
 }
