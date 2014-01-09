@@ -2,9 +2,7 @@ package fr.upem.projectJava.studentManagerProject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 
 
 public class Formation {
@@ -13,8 +11,6 @@ public class Formation {
 	private int nbYear;
 	private int curYear;
 	private	int isAvailable;
-	private List<Subject> subjectList = new ArrayList<Subject>();
-	private List<Student> studentList = new ArrayList<Student>();
 	
 	public Formation(String name, int nbYear, int curYear) {
 		this.name = name;
@@ -60,30 +56,6 @@ public class Formation {
 	
 	public String getName() {
 		return name;
-	}
-
-	public List<Subject> getSubjects() {
-		return subjectList;
-	}
-
-	public void setSubjectList(List<Subject> subjects) {
-		this.subjectList = subjects;
-	}
-	
-	public void addSubject(Subject subject) {
-		this.subjectList.add(subject);
-	}
-	
-	public List<Student> getStudentList() {
-		return studentList;
-	}
-
-	public void setStudentList(List<Student> studentList) {
-		this.studentList = studentList;
-	}
-	
-	public void addStudent(Student etudiant) {
-		this.studentList.add(etudiant);
 	}
 	
 	/**
