@@ -72,7 +72,7 @@ public class Main {
 				+ "8 Charger une base de données\n"
 				+ "9 Enregistrer une base de données\n"
 				+ "10 Modifier la configuration\n"
-				+ "0 Quitter");
+				+ "0 Quitter\n");
 	}
 	
 	public static int startSubMenu(int choiceNumber){
