@@ -15,7 +15,7 @@ public class Diplome {
 	/**
 	* Description about the editDiplome function :
 	* This function allows to edit a diploma.
-	* @param <number> is student number to identify a student (primary key).
+	* @param number, is student number to identify a student (primary key).
 	*/
   public static void editDiplome(int number) throws IOException, TemplateException, JDOMException {
 	  DBConnection c = null;

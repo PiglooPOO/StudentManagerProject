@@ -38,8 +38,8 @@ public class Subject {
 	/**
 	* Description about the searchSubjectsByName function :
 	* This function allows to search the subjects sorted by subjectName.
-	* @param <subjetName> what the user is searching for.
-	* @return <Integer> return the idSubject if it works, else -1.
+	* @param subjetName, what the user is searching for.
+	* @return Integer, return the idSubject if it works, else -1.
 	*/
 	public static int searchSubjectsByName(String subjectName){	
 		DBConnection c = null;
@@ -77,7 +77,7 @@ public class Subject {
 	/**
 	* Description about the deleteSubject function :
 	* This function allows to delete a subject.
-	* @param <id> is subject id, to identify a subject (primary key).
+	* @param id, is subject id, to identify a subject (primary key).
 	*/
 	public static void deleteSubject(int id){
 		DBConnection c = null;
@@ -89,17 +89,44 @@ public class Subject {
 	/**
 	* Description about the editSubject function :
 	* This function allows to edit a subject.
-	* @param <id> is subject id, to identify a subject (primary key).
+	* @param id, is subject id, to identify a subject (primary key).
 	*/
-	public static void editSubject(int id){
-		// TODO
+	public static boolean editSubject(int id) {
+		DBConnection c = null;
+		c = new DBConnection();
+		ResultSet result = null;
+		
+		System.out.println("Veuillez rentrer le nouveau nom de la matière.");
+		String newSubjectName = Main.sc.nextLine();
+		
+		try {
+				deleteSubject(id);
+				c.executeUpdate("INSERT INTO `subject`(`name`, `isAvailable`) VALUES ("+newSubjectName+", 1)");
+				result = c.executeQuery("SELECT id FROM subject WHERE name = "+newSubjectName+"");
+				int newId = -1;
+				if(result.next())
+					newId = result.getInt("id");
+				else{
+					c.close();
+					return false;
+				}
+				//jointures
+				c.executeUpdate("UPDATE year_student_subject_note SET idSubject = "+newId+" WHERE idSubject = "+id+" AND year >= "+Year.getActualCurrentYear());
+				c.executeUpdate("UPDATE year_formation_subject SET idSubject = "+newId+" WHERE idSubject = "+id+" AND year >= "+Year.getActualCurrentYear());
+				c.close();
+				return true;
+		} catch (SQLException e) {
+			c.close();
+			e.printStackTrace();
+			return false;	
+		}
 	}
 	
 	/**
 	* Description about the showSubject function :
 	* This function allows to show the characteristics of a subject.
-	* @param <id> is subject id, to identify a subject (primary key).
-	* @return <boolean> the function return true if the student exist, else false.
+	* @param id, is subject id, to identify a subject (primary key).
+	* @return boolean, the function return true if the student exist, else false.
 	*/
 	public static boolean showSubject(int id){
 		
@@ -125,7 +152,6 @@ public class Subject {
 				
 				switch(choiceNumber){
 					case 1:
-						//TODO
 						Subject.editSubject(id);
 						break;
 					case 2:
@@ -152,8 +178,8 @@ public class Subject {
 	/**
 	* Description about the addSubjectToFormation function :
 	* This function allows to a subject to a formation.
-	* @param <id> is subject id, to identify a subject (primary key).
-	* @return <boolean> return true if it works, else false.
+	* @param id, is subject id, to identify a subject (primary key).
+	* @return boolean, return true if it works, else false.
 	*/
 	private static boolean addSubjectToFormation(int id) {
 		/**
@@ -196,9 +222,9 @@ public class Subject {
 	/**
 	* Description about the searchSubjectsByNameAndStudentId function :
 	* This function allows to search a subject sorted by SubjectName and studentId.
-	* @param <subjectName> is the subject name.
-	* @param <studentid> is the student id (Stranger key).
-	* @return <Integer> return the FormationName, else null.
+	* @param subjectName, is the subject name.
+	* @param studentid, is the student id (Stranger key).
+	* @return Integer, return the FormationName, else null.
 	*/
 	public static int searchSubjectsByNameAndStudentId(String subjectName, int studentid) {
 		DBConnection c = null;
