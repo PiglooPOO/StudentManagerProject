@@ -9,7 +9,7 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 
 - Rechercher un étudiant (par no étudiant \[done\], nom \[done\], prenom \[done\], matière \[done\], filiaire \[done\], année \[done\])
 > - l'afficher \[done\]
-> - Inscrire un élève dans une filière et année
+> - Inscrire un élève dans une filière et année \[EN COURS\]
 > - Modifier des informations
 > - Attribuer des notes \[VERIFIER\] mais ne vérifie pas si la matière est dans la formation suivie
 > - Afficher ses moyennes \[VERIFIER\] 
@@ -17,7 +17,7 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 
 - Créer une filière \[done\]
 - Rechercher une filière \[done\]
-> - Ajouter une matière\[EN COURS\], des élèves \[EN COURS\]
+> - Ajouter une matière\[DONE\], des élèves \[EN COURS\]
 > - Afficher ses éleves par année (pouvoir y acceder) \[done\]
 - Rechercher une matière \[done\]
 > - Ajouter à une filiaire pour une année
@@ -28,7 +28,7 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 - Créer une année
 > - Copier une formation de l'année précédente en faisant passer les élèves year_formation_student.nbyear +1 si < formation.nbyear
 
-- Afficher les diplomés
+- Afficher les diplomés\[EN COURS\]
 > - Editer une attestation de réussite
 
 - Charger une base de données?

@@ -255,7 +255,26 @@ public class Student {
 				
 				switch (choiceNumber) {
 				case 1 :
-					//TODO
+					String answerFormation = "";
+					System.out.println("Entrez le nom de la filière : ");
+					try{
+						answerFormation = Main.sc.nextLine();
+						//TODO
+						if(!Student.addToFormation(number,Formation.searchFormationsByName(answerFormation))){
+							System.out.println("Cette filière n'éxiste pas.");
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
+							}
+						if(answerFormation.length()<0){
+							System.out.println("Cette filière n'éxiste pas.");
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
+						}
+					}catch(InputMismatchException e){
+						System.out.println("Ceci n'est pas une filière.");
+						System.out.println("Appuyez sur Entrée pour continuer.");
+						Main.sc.nextLine();
+					}
 					break;
 				case 2 :
 					//TODO
@@ -304,12 +323,51 @@ public class Student {
 		}
 	}
 	
+<<<<<<< HEAD
 	/**
 	* Description about the followFormation function :
 	* This function allows to know which formation the student follows.
 	* @param <idStudent> is student identification (Stranger Key).
 	* @return <Integer> the function return the idFormation, or -1 if there is a problem.
 	*/
+=======
+	private static boolean addToFormation(int idStudent, int idFormation) {
+		/**
+		 * cherchons la matière à ajouter
+		 */
+		String answerSubject = "";
+		int idSubject = 0;
+		System.out.println("Entrez le nom de la formation à laquelle l'ajouter : ");
+		try{
+			answerSubject = Main.sc.nextLine();
+			//TODO
+			if((idSubject = Subject.searchSubjectsByName(answerSubject)) == -1){
+				System.out.println("La filière n'éxiste pas dans cette filière.");
+				System.out.println("Appuyez sur Entrée pour revenir à la fiche.");
+				Main.sc.nextLine();
+				return false;
+			}
+
+		}catch(InputMismatchException e){
+			System.out.println("Ceci n'est pas une filière.");
+			System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
+			Main.sc.nextLine();
+			return false;
+		}
+		
+		/**
+		 * récupérons l'année actuelle
+		 */
+		int year;
+		while((year = Main.sc.nextInt())<Year.getActualCurrentYear()){
+			Main.sc.nextLine();
+			System.out.println("Vous ne pouvez pas ajouter un étudiant à une année déjà terminée,\n"
+					+ "Veuillez entrer une nouvelle année");
+		}
+		return false;
+	}
+
+>>>>>>> 74965f5aff4be6b85e21efb8419f4a876ef3177f
 	public static int followFormation(int idStudent){
 		int year = Year.getActualCurrentYear();
 		DBConnection c = null;
@@ -430,6 +488,7 @@ public class Student {
 					//Matière
 					+" AND year_student_subject_note.idSubject = year_formation_subject.idSubject"
 					+" AND subject.id = year_student_subject_note.idSubject"
+					+" AND subject.id = year_formation_subject.idSubject"
 					//année
 					+" AND year_student_subject_note.year = year_formation_subject.year"
 					+" AND year_student_subject_note.year = year_formation_student.year"
@@ -448,7 +507,8 @@ public class Student {
 				tmpArray[2] = result.getInt("year");
 				
 				l.add(tmpArray);
-				averageNote[0] += result.getInt("note");
+				
+				averageNote[0] += result.getInt("note")*result.getInt("coef");
 				averageNote[1] += result.getInt("coef");
 				System.out.println(l.size()
 						+ "\t" + result.getString("name")
@@ -527,12 +587,22 @@ public class Student {
 	* @param <id> is student number to identify a student (primary key).
 	*/
 	public static void showStudentsByFormation(int id) {
+		if(id==-1)
+			return;
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
-			ResultSet result = c.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,formation,year_formation_student WHERE formation.id = "+id+" AND formation.id = idFormation AND student.number = idStudent ORDER BY year");
+			ResultSet result = c.executeQuery("SELECT year,student.number,student.name,student.firstName "
+					+ "FROM student,formation,year_formation_student "
+					+ "WHERE formation.id = "+id+" AND formation.id = idFormation "
+					+ "AND student.number = idStudent ORDER BY year");
 			int year = 0;
-			while(result.next()){
+			if(!result.next()){
+				c.close();
+				return;
+			}
+				
+			do{
 				if(year<result.getInt("year")){
 					year = result.getInt("year");
 					System.out.println("\n"
@@ -544,7 +614,7 @@ public class Student {
 				System.out.println(result.getInt("student.number")+"\t"
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
-			}
+			}while(result.next());
 			c.close();
 		} catch (SQLException e) {
 			if(c!=null)
@@ -575,7 +645,10 @@ public class Student {
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
-			ResultSet result = c.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,year_formation_student WHERE year = "+year+" AND student.number = idStudent ORDER BY number");
+			ResultSet result = c.executeQuery("SELECT year,student.number,student.name,student.firstName "
+					+ "FROM student,year_formation_student "
+					+ "WHERE year = "+year+" "
+					+ "AND student.number = idStudent ORDER BY number");
 			if(!result.next()){
 				c.close();
 				return false;
@@ -699,13 +772,124 @@ public class Student {
 		return true;
 	}
 	
+<<<<<<< HEAD
 	/**
 	* Description about the showStudentsBySubject function :
 	* This function allows to show all the students sorted by Subjects.
 	* @param <id> is student number to identify a student (primary key).
 	*/
+=======
+	public static boolean showStudentGraduate(){
+		DBConnection c = null;
+		int[] averageNote = {0,0};
+		try {
+			c = new DBConnection();
+			ResultSet result=c.executeQuery("SELECT number FROM student, year_formation_student, formation "
+						+ "WHERE student.number=year_formation_student.idStudent "
+						+ "AND year_formation_student.idFormation = formation.id "
+						+ "AND formation.curYear=formation.nbYear");
+			
+				while(result.next()){
+					averageNote[0]=0;
+					averageNote[1]=0;
+					ResultSet result2= c.executeQuery("SELECT note, coef, student.number, student.name, student.firstName" 
+							+" FROM student, subject, year_student_subject_note, year_formation_subject, year_formation_student"
+							//étudiant
+							+" WHERE student.number = "+result.getInt("number")
+							+ "AND student.number = year_student_subject_note.idStudent"
+							+" AND student.number = year_formation_student.idStudent"
+							//Matière
+							+" AND year_student_subject_note.idSubject = year_formation_subject.idSubject"
+							+" AND subject.id = year_student_subject_note.idSubject"
+							+" AND subject.id = year_formation_subject.idSubject"
+							//année
+							+" AND year_student_subject_note.year = year_formation_subject.year"
+							+" AND year_student_subject_note.year = year_formation_student.year"
+							+" AND year_student_subject_note.year = "+Year.getActualCurrentYear());
+					averageNote[0] += result.getInt("note")*result.getInt("coef");
+					averageNote[1] += result.getInt("coef");
+					averageNote[0] /= averageNote[1];
+					result2.next();
+					if(averageNote[0]>=10)
+						System.out.println(result2.getInt("number") + " " + result2.getString("name") + " " + result2.getString("firstName"));
+					}
+					try {
+						int number=0;
+						do{
+							System.out.print("Entrez le numéro de l'étudiant pour lequel vous voulez crée le diplôme : ");
+							number= Main.sc.nextInt();
+							if(number<1)
+								System.out.println("L'étudiant sélectionner n'éxiste pas");
+							else{
+								Diplome.editDiplome(number);
+							}
+						}while(number<1);
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (TemplateException e) {
+						e.printStackTrace();
+					} catch (JDOMException e) {
+						e.printStackTrace();
+					}
+			} catch (SQLException e) {
+			if(c!=null)
+				c.close();
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+>>>>>>> 74965f5aff4be6b85e21efb8419f4a876ef3177f
 	public static void showStudentsBySubject(int id) {
-		// TODO Auto-generated method stub
+		if(id==-1)
+			return;
+		DBConnection c = null;
+		try {
+			c = new DBConnection();
+			ResultSet result = c.executeQuery("SELECT * "
+					+ "FROM subject, year_formation_student, year_formation_subject "
+					+ "WHERE subject.isAvailable = 1 AND subject.id = "+id
+					+ " AND year_formation_student.year = year_formation_subject.year"
+					+ " AND year_formation_student.year = "+Year.getActualCurrentYear()
+					+ " AND year_formation_student.idFormation = year_formation_subject.idFormation"
+					+ " AND subject.id = year_formation_subject.idSubject"
+					+ " ORDER BY year_formation_subject.year");
+			int year = 0;
+			if(!result.next()){
+				c.close();
+				return;
+			}
+			do{
+				if(year<result.getInt("year")){
+					year = result.getInt("year");
+					System.out.println("\n"
+							+ "\t####################################\n"
+							+ "\t################# "+year+" #############\n"
+							+ "\t####################################\n"
+							+ "");
+				}
+				System.out.println(result.getInt("student.number")+"\t"
+						+ result.getString("name")
+						+ " " + result.getString("firstName"));
+			}while(result.next());
+			c.close();
+		} catch (SQLException e) {
+			if(c!=null)
+				c.close();
+			e.printStackTrace();
+		}
 		
+		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
+		int idStudent = -1;
+		do {
+			try {
+				idStudent = Main.sc.nextInt();
+				Main.sc.nextLine();
+			} catch (InputMismatchException e) {
+				// TODO: handle exception
+			}
+		} while (idStudent<0);
+		showStudent(idStudent);
 	}
 }

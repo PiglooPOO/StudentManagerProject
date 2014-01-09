@@ -2,6 +2,7 @@ package fr.upem.projectJava.studentManagerProject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 
 public class Subject {
 
@@ -71,7 +72,10 @@ public class Subject {
 	* @param <id> is subject id, to identify a subject (primary key).
 	*/
 	public static void deleteSubject(int id){
-		// TODO
+		DBConnection c = null;
+		c = new DBConnection();
+        c.executeUpdate("UPDATE subject SET isAvailable = 0");
+        c.close();
 	}
 	
 	/**
@@ -119,7 +123,7 @@ public class Subject {
 						break;
 					case 2:
 						//TODO
-						Subject.deleteFormation(id);
+						Subject.deleteSubject(id);
 						break;
 					case 3:
 						//TODO
@@ -142,6 +146,7 @@ public class Subject {
 		return false;
 	}
 
+<<<<<<< HEAD
 	/**
 	* Description about the addSubjectToFormation function :
 	* This function allows to a subject to a formation.
@@ -151,10 +156,37 @@ public class Subject {
 		// TODO Auto-generated method stub
 		
 	}
+=======
+	private static boolean addSubjectToFormation(int id) {
+		/**
+		 * cherchons la matière à ajouter
+		 */
+		String answerSubject = "";
+		int idSubject = 0;
+		System.out.println("Entrez le nom de la matière à ajouter : ");
+		try{
+			answerSubject = Main.sc.nextLine();
+			//TODO
+			if((idSubject = Subject.searchSubjectsByName(answerSubject)) == -1){
+				System.out.println("La filière n'éxiste pas dans cette filière.");
+				System.out.println("Appuyez sur Entrée pour revenir à la fiche.");
+				Main.sc.nextLine();
+				return false;
+			}
+>>>>>>> 74965f5aff4be6b85e21efb8419f4a876ef3177f
 
-	private static void deleteFormation(int id) {
-		// TODO Auto-generated method stub
+		}catch(InputMismatchException e){
+			System.out.println("Ceci n'est pas une filière.");
+			System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
+			Main.sc.nextLine();
+			return false;
+		}
 		
+		/**
+		 * récupérons l'année actuelle
+		 */
+		int year = Year.getActualCurrentYear();
+		return false;
 	}
 
 	public int getIsAvailable() {
