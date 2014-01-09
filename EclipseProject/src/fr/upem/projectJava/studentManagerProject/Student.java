@@ -183,7 +183,7 @@ public class Student {
 		System.out.println(this.toString());
 		String valid=null;
 		do{
-			System.out.println("\nValidez-vous cet étudiant? (O/N)");
+			System.out.println("\nValidez-vous cet étudiant? (Oui/Non)");
 			valid = Main.sc.next();
 		}
 		while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
@@ -295,11 +295,7 @@ public class Student {
 	}
 	
 	public static int followFormation(int idStudent){
-		int year;
-		if(Calendar.getInstance().get(Calendar.MONTH)<=Calendar.SEPTEMBER)
-			year = Calendar.getInstance().get(Calendar.YEAR)-1;
-		else
-			year = Calendar.getInstance().get(Calendar.YEAR);
+		int year = Year.getActualCurrentYear();
 		Statement state;
 		
 		try {
@@ -341,11 +337,7 @@ public class Student {
 		/**
 		 * récupérons l'année actuelle
 		 */
-		int year;
-		if(Calendar.getInstance().get(Calendar.MONTH)<=Calendar.SEPTEMBER)
-			year = Calendar.getInstance().get(Calendar.YEAR)-1;
-		else
-			year = Calendar.getInstance().get(Calendar.YEAR);
+		int year = Year.getActualCurrentYear();
 		
 		/**
 		 * on regarde si la note n'existe pas encore
@@ -389,7 +381,7 @@ public class Student {
 		
 		try {
 			state = DBConnection.getInstance().createStatement();
-			ResultSet result = state.executeQuery("SELECT year_student_subject_note.note, subject.name, idStudent, idSubject, year FROM student, subject, year_student_subject_note WHERE student.number = "+id+" AND student.number = idStudent AND subject.id = idSubject AND ((year = EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM NOW()) >= 9) OR (year = EXTRACT(YEAR FROM NOW())-1 AND EXTRACT(MONTH FROM NOW()) < 9))");
+			ResultSet result = state.executeQuery("SELECT year_student_subject_note.note, subject.name, idStudent, idSubject, year FROM student, subject, year_student_subject_note WHERE student.number = "+id+" AND student.number = idStudent AND subject.id = idSubject AND year = "+Year.getActualCurrentYear());
 			if(!result.next())
 				return false;
 			do{

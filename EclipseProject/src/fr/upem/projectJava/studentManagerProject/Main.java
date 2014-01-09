@@ -257,8 +257,8 @@ public class Main {
 		while(choiceNumber!=0){
 			if(choiceNumber == 1)
 				System.out.println(">> Rechercher dans la structure des filières\n"
-						+ "1 Rechercher une de filière\n"
-						+ "2 Rechercher une de matière\n"
+						+ "1 Rechercher une filière\n"
+						+ "2 Rechercher une matière\n"
 						+ "0 Retour au Menu\n\n");
 			System.out.print("Entrez le chiffre correspondant à votre choix : ");
 			try {	
@@ -300,11 +300,7 @@ public class Main {
 				System.out.println("Entrez le nom de la matière : ");
 				try{
 					answerSubject = Main.sc.nextLine();
-					if(!Subject.showSubject(Subject.searchSubjectsByName(answerSubject))){
-						System.out.println("La matière "+answerSubject+" n'éxiste pas.");
-						System.out.println("Appuyez sur Entrée pour continuer.");
-						Main.sc.nextLine();
-						}
+					Subject.showSubject(Subject.searchSubjectsByName(answerSubject));
 					if(answerSubject.length()<0){
 						System.out.println("Ceci n'est pas un nom de matière.");
 						System.out.println("Appuyez sur Entrée pour continuer.");

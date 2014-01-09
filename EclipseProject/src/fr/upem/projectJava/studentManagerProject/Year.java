@@ -1,5 +1,6 @@
 package fr.upem.projectJava.studentManagerProject;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -28,5 +29,11 @@ public class Year {
 	public int getCurrentYear() {
 		return currentYear;
 	}
-
+	
+	public static int getActualCurrentYear(){
+		if(Calendar.getInstance().get(Calendar.MONTH)<=Calendar.SEPTEMBER)
+			return Calendar.getInstance().get(Calendar.YEAR)-1;
+		else
+			return Calendar.getInstance().get(Calendar.YEAR);
+	}
 }

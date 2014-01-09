@@ -97,6 +97,7 @@
 		</year_formation_student>
 	</years_formations_students>
 
+<<<<<<< HEAD
 	<years_formations_subjects>
 		<year_formation_subject>
 			<year>2013</year>
@@ -123,6 +124,37 @@
 			<coef>4</coef>
 		</year_formation_subject>
 	</years_formations_subjects>
+=======
+<years_formations_subjects>
+	<year_formation_subject>
+		<year>2013</year>
+		<idFormation>1</idFormation>
+		<idSubject>1</idSubject>
+		<coef>0</coef>
+	</year_formation_subject>
+	<year_formation_subject>
+		<year>2013</year>
+		<idFormation>1</idFormation>
+		<idSubject>2</idSubject>
+		<coef>0</coef>
+	</year_formation_subject>
+	<year_formation_subject>
+		<year>2013</year>
+		<idFormation>1</idFormation>
+		<idSubject>1</idSubject>
+		<coef>4</coef>
+	</year_formation_subject>
+<<<<<<< HEAD
+=======
+	<year_formation_subject>
+		<year>2013</year>
+		<idFormation>1</idFormation>
+		<idSubject>1</idSubject>
+		<coef>4</coef>
+	</year_formation_subject>
+>>>>>>> 56e8ebf8b1d0dd97f8f4dc477c4048f47e689679
+</years_formations_subjects>
+>>>>>>> 4f4135bc018aebd6a713be9ed119fdacf700f8f6
 
 	<years_students_subjects_notes>
 		<year_student_subject_note>
