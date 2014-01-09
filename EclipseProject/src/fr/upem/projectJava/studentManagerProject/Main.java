@@ -264,7 +264,7 @@ public class Main {
 		
 		while(choiceNumber!=0){
 			if(choiceNumber == 1)
-				System.out.println(">> Rechercher dans la structure des filières\n"
+				System.out.println("Rechercher dans la structure des filières\n"
 						+ "1 Rechercher une filière\n"
 						+ "2 Rechercher une matière\n"
 						+ "0 Retour au Menu\n\n");
@@ -332,7 +332,7 @@ public class Main {
 		
 		while(choiceNumber!=0){
 			if(choiceNumber == 1)
-				System.out.println(">> Modifier la configuration de l'école\n"
+				System.out.println("Modifier la configuration de l'école\n"
 						+ "1 Changer le nom de l'école\n"
 						+ "2 Changer le directeur de l'école\n"
 						+ "0 Retour au Menu\n\n");
