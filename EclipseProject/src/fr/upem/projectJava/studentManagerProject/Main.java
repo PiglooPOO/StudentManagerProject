@@ -40,17 +40,15 @@ public class Main {
 	public static void checkConnection(){
 		
 		DBConnection a= new DBConnection();
-		for (int i = 1; a == null; i++) {
-			System.out.println(i+")\tErreur de la connexion avec la BDD, nouvel essaie dans 3 secondes.");
-			if(i==10){
-				System.out.println("\n\tErreur de la connexion avec la BDD");
+		for (int i = 1; i>10; i++) {
+			if(a!=null){
+				a.close();
 				return;
 			}
+			System.out.println(i+")\tErreur de la connexion avec la BDD, nouvel essaie dans 3 secondes.");
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
-				if(a!=null)
-					a.close();
 				return;
 			}
 			a = new DBConnection();

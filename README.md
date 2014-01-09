@@ -25,7 +25,7 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 - Créer une année \[QUENTIN APRES\]
 > - Copier une formation de l'année précédente en faisant passer les élèves year_formation_student.nbyear +1 si < formation.nbyear
 
-- Afficher les diplomés\[XAVIER\]
+- Afficher les diplomés\[done a Vérifier\]
 > - Editer une attestation de réussite \[done\]
 
 - Charger une base de données?  \[done\]

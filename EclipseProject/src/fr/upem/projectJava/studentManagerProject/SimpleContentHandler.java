@@ -3,8 +3,6 @@
  */
 package fr.upem.projectJava.studentManagerProject;
 
-import java.sql.Statement;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
@@ -299,16 +297,19 @@ public class SimpleContentHandler implements ContentHandler {
 		DBConnection c = null;
 		switch (localName) {
 		case "Student": //Créé et envoie un nouvel étudiant dans la base
+			@SuppressWarnings("unused")
 			Student tempStu = new Student(Integer.valueOf(number), name, firstName, adress, phoneNumber, mail, birthday, Integer.valueOf(gender));
 			tempStu = null;
 			break;
 			
 		case "Subject": //Créé et envoie une nouvelle matière dans la base
+			@SuppressWarnings("unused")
 			Subject tempSub = new Subject(Integer.valueOf(ID), name, Integer.valueOf(available));
 			tempSub = null;
 			break;
 		
 		case "Formation": //Créé et envoie une nouvelle formation dans la base
+			@SuppressWarnings("unused")
 			Formation tempFor = new Formation(Integer.valueOf(ID), name, Integer.valueOf(nbYear), Integer.valueOf(curYear), Integer.valueOf(available));
 			tempFor = null;
 			break;
@@ -333,7 +334,7 @@ public class SimpleContentHandler implements ContentHandler {
 		
 		case "settings":
 			c = new DBConnection();
-			c.executeUpdate("INSERT INTO `settings` VALUES ('"+name+"', "+Integer.valueOf(idStudent)+", "+Integer.valueOf(idSubject)+" ,"+Integer.valueOf(note)+")");
+			c.executeUpdate("INSERT INTO `settings` VALUES ('"+name+"', "+directorName+"', '"+directorFirstName+")");
 			c.close();
 			break;
 		
