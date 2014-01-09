@@ -3,7 +3,6 @@ package fr.upem.projectJava.studentManagerProject;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -84,8 +83,7 @@ public class Student {
 				int day=Integer.parseInt(verif[0]);
 				int month=Integer.parseInt(verif[1]);
 				int year=Integer.parseInt(verif[2]);
-				if(day>31 || day<1 || month<1 || month>12 || year<1900 || year>Calendar.getInstance().get(Calendar.YEAR))
-				{
+				if(day>31 || day<1 || month<1 || month>12 || year<1900 || year>Calendar.getInstance().get(Calendar.YEAR)){
 					date=null;
 					System.out.println("La date saisie est invalide");
 				}
@@ -192,31 +190,22 @@ public class Student {
 		while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
 		
 		if(valid.equalsIgnoreCase("o") || valid.equalsIgnoreCase("oui")){
-			try {
-				c = new DBConnection();
-				Statement state = c.createStatement();				
-				state.executeUpdate("INSERT INTO `student`(`number`,`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('null','"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
-				System.out.println("Etudiant bien ajouté.");
-				c.close();
-			} catch (SQLException e1) {
-				if(c!=null)
-					c.close();
-				e1.printStackTrace();
-			}
+			c = new DBConnection();
+			c.executeUpdate("INSERT INTO `student`(`name`, `firstName`, `adress`, `phoneNumber`, `mail`, `birthday`, `gender`) VALUES ('"+this.getName()+"','"+this.getFirstName()+"','"+this.getAdress()+"','"+this.getPhoneNumber()+"','"+this.getMail()+"','"+this.getBirthday()+"','"+this.getGender()+"')");
+			System.out.println("Etudiant bien ajouté.");
+			c.close();
 		}
-		
 	}
 	
 	public static boolean showStudent(int number){
 		DBConnection c = null;
+		ResultSet result = null;
 		try {
-			c = new DBConnection();
-			Statement state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM student WHERE number = "+number);
-			
 			int choiceNumber = 1;
-			if(result.next()){
-				while(choiceNumber!=0){
+			while(choiceNumber!=0){
+				c = new DBConnection();
+				result = c.executeQuery("SELECT * FROM student WHERE number = "+number);
+				if(result.next()){
 					if(choiceNumber == 1){
 						System.out.println(
 								"\nNom :\t\t\t" + result.getString("name")+
@@ -225,9 +214,9 @@ public class Student {
 								"\nTel :\t\t\t" + result.getString("phoneNumber")+
 								"\nMail :\t\t\t" + result.getString("mail")+
 								"\nDate de naissance :\t" + result.getDate("birthday").toString()+
-								"\nSexe :\t\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"+ 
-								"\nFilière : \t\t"+Formation.FormationNameByStudentId(Student.followFormation(number))));
-						
+								"\nSexe :\t\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"));
+						c.close();
+						System.out.println("\nFilière : \t\t"+Formation.FormationNameByStudentId(Student.followFormation(number)));
 						System.out.println(""
 								+ "\n1 Inscrire un élève dans une filière et année"
 								+ "\n2 Modifier des informations"
@@ -237,67 +226,68 @@ public class Student {
 								+ "\n0 Revenir au menu précédent");
 						
 					}
-					System.out.print("Entrez le chiffre correspondant à votre choix : ");
-					try {					
-						while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>14){
-							Main.sc.nextLine();
-							System.out.print("Ce choix est invalide, recommencez : ");
-						}
-						Main.sc.nextLine();
-					} catch(InputMismatchException e){
-						System.out.println("Ce choix est invalide, ");
-						choiceNumber = -2;
-				    }
-					
-					switch (choiceNumber) {
-					case 1 :
-						//TODO
-						break;
-					case 2 :
-						//TODO
-						break;
-					case 3 :
-						//TODO en cours Quentin
-						Student.attributeMarkByStudentId(number);
-						break;
-					case 4 :
-						//TODO en cours Quentin
 						
-						if(!Student.printMarksForStudent(number)){
-							System.out.println("Cet étudiant n'a aucune note.");
-							System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
-							Main.sc.nextLine();
-						}
-						break;
-					case 5 :
-						try {
-							Diplome.editDiplome(number);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (TemplateException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (JDOMException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						break;
-					default:
-						break;
-					}
-					if(choiceNumber != 0 && choiceNumber != -2)
-						choiceNumber = 1;
-					//clearConsole();
 				}
-				c.close();
-				return true;
-			}
-			else{
-				c.close();
-				return false;
-			}
+				else{
+					c.close();
+					return false;
+				}
 				
+				System.out.print("Entrez le chiffre correspondant à votre choix : ");
+				try {
+					while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>14){
+						Main.sc.nextLine();
+						System.out.print("Ce choix est invalide, recommencez : ");
+					}
+					Main.sc.nextLine();
+				} catch(InputMismatchException e){
+					System.out.println("Ce choix est invalide, ");
+					choiceNumber = -2;
+			    }
+				
+				switch (choiceNumber) {
+				case 1 :
+					//TODO
+					break;
+				case 2 :
+					//TODO
+					break;
+				case 3 :
+					//TODO en cours Quentin
+					Student.attributeMarkByStudentId(number);
+					break;
+				case 4 :
+					//TODO en cours Quentin
+					
+					if(!Student.printMarksForStudent(number)){
+						System.out.println("Cet étudiant n'a aucune note.");
+						System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
+						Main.sc.nextLine();
+					}
+					break;
+				case 5 :
+					try {
+						Diplome.editDiplome(number);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (TemplateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (JDOMException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+				default:
+					break;
+				}
+				if(choiceNumber != 0 && choiceNumber != -2)
+					choiceNumber = 1;
+				//clearConsole();
+			}
+			
+			return true;
 		} catch (SQLException e) {
 			if(c!=null)
 				c.close();
@@ -312,17 +302,19 @@ public class Student {
 		
 		try {
 			c=new DBConnection();
-			Statement state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT idFormation FROM student, year_formation_student WHERE number = idStudent AND year = "+year+" AND idStudent = "+idStudent);
-			c.close();
-			if(result.next())
-				return result.getInt("idFormation");
+			ResultSet result = c.executeQuery("SELECT idFormation FROM student, year_formation_student WHERE number = idStudent AND year = "+year+" AND idStudent = "+idStudent);
+			
+			if(result.next()){
+				int r = result.getInt("idFormation");
+				c.close();
+				return r;
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			if(c!=null)
 				c.close();
 			e.printStackTrace();
 		}
+		c.close();
 		return -1;
 	}
 	
@@ -336,7 +328,7 @@ public class Student {
 		try{
 			answerSubject = Main.sc.nextLine();
 			//TODO
-			if((idSubject = Subject.searchSubjectsByName(answerSubject)) == -1){
+			if((idSubject = Subject.searchSubjectsByNameAndStudentId(answerSubject, id)) == -1){
 				System.out.println("La filière "+answerSubject+" n'éxiste pas dans cette filière.");
 				System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
 				Main.sc.nextLine();
@@ -361,8 +353,7 @@ public class Student {
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
-			Statement state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM year_student_subject_note WHERE year = "+year+" AND idStudent = "+id+" AND idSubject = "+idSubject);
+			ResultSet result = c.executeQuery("SELECT * FROM year_student_subject_note WHERE year = "+year+" AND idStudent = "+id+" AND idSubject = "+idSubject);
 			if(result.next()){
 				System.out.println(""
 						+ "Une note est déjà attribuée à cet étudiant pour cette matière, vous pouvez la modifier dans son relevé de notes,\n"
@@ -377,7 +368,7 @@ public class Student {
 			System.out.print("Entrez la note : ");
 			int note = Main.sc.nextInt();
 			Main.sc.nextLine();
-			state.executeUpdate("INSERT INTO year_student_subject_note VALUES ("+year+","+id+","+idSubject+","+note+")");
+			c.executeUpdate("INSERT INTO year_student_subject_note VALUES ("+year+","+id+","+idSubject+","+note+")");
 			c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -403,11 +394,25 @@ public class Student {
 		
 		try {
 			c = new DBConnection();
-			Statement state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT year_student_subject_note.note, subject.name, idStudent, idSubject, year FROM student, subject, year_student_subject_note WHERE student.number = "+id+" AND student.number = idStudent AND subject.id = idSubject AND ((year = EXTRACT(YEAR FROM NOW()) AND EXTRACT(MONTH FROM NOW()) >= 9) OR (year = EXTRACT(YEAR FROM NOW())-1 AND EXTRACT(MONTH FROM NOW()) < 9))");
+			ResultSet result = c.executeQuery("SELECT note, coef, subject.name, year_formation_student.idStudent, year_student_subject_note.idSubject, year_student_subject_note.year" 
+					+" FROM student, subject, year_student_subject_note, year_formation_subject, year_formation_student"
+					//étudiant
+					+" WHERE student.number = "+id
+					+" AND student.number = year_student_subject_note.idStudent"
+					+" AND student.number = year_student_subject_note.idStudent"
+					+" AND student.number = year_formation_student.idStudent"
+					//Matière
+					+" AND year_student_subject_note.idSubject = year_formation_subject.idSubject"
+					+" AND subject.id = year_student_subject_note.idSubject"
+					//année
+					+" AND year_student_subject_note.year = year_formation_subject.year"
+					+" AND year_student_subject_note.year = year_formation_student.year"
+					+" AND year_student_subject_note.year = "+Year.getActualCurrentYear());
 
-			if(!result.next())
+			if(!result.next()){
+				c.close();
 				return false;
+			}
 			do{
 				/**
 				 * Ne pas supprimer, pour pouvoir lancer une modification.
@@ -417,11 +422,12 @@ public class Student {
 				tmpArray[2] = result.getInt("year");
 				
 				l.add(tmpArray);
-				averageNote[0] += result.getInt("year_student_subject_note.note");
-				averageNote[1] += 1;
-				System.out.println(l.size()+"\t"
-						+ " " + result.getString("subject.name")
-						+ " " + result.getInt("year_student_subject_note.note"));
+				averageNote[0] += result.getInt("note");
+				averageNote[1] += result.getInt("coef");
+				System.out.println(l.size()
+						+ "\t" + result.getString("name")
+						+ "\t coefficient : " + result.getInt("coef")
+						+ "\t note : " + result.getInt("note"));
 			}while(result.next());
 			averageNote[0] /= averageNote[1];
 			System.out.println(l.size()+"\t"
@@ -452,8 +458,7 @@ public class Student {
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
-			Statement state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+st+"%\" ORDER BY id");
+			ResultSet result = c.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+st+"%\" ORDER BY id");
 			if(!result.next()){
 				c.close();
 				return false;
@@ -488,8 +493,7 @@ public class Student {
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
-			Statement state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,formation,year_formation_student WHERE formation.id = "+id+" AND formation.id = idFormation AND student.number = idStudent ORDER BY year");
+			ResultSet result = c.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,formation,year_formation_student WHERE formation.id = "+id+" AND formation.id = idFormation AND student.number = idStudent ORDER BY year");
 			int year = 0;
 			while(result.next()){
 				if(year<result.getInt("year")){
@@ -528,8 +532,7 @@ public class Student {
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
-			Statement state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,year_formation_student WHERE year = "+year+" AND student.number = idStudent ORDER BY number");
+			ResultSet result = c.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,year_formation_student WHERE year = "+year+" AND student.number = idStudent ORDER BY number");
 			if(!result.next()){
 				c.close();
 				return false;
@@ -562,8 +565,7 @@ public class Student {
 				idStudent = Main.sc.nextInt();
 				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
-				// TODO: handle exception
-				return false;
+				System.out.print("Veuillez entrer un numéro étudiant proposé ci-dessus : ");
 			}
 		} while (idStudent<0);
 		showStudent(idStudent);
@@ -574,8 +576,7 @@ public class Student {
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
-			Statement state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.name LIKE \"%"+st+"%\" ORDER BY number");
+			ResultSet result = c.executeQuery("SELECT * FROM student WHERE student.name LIKE \"%"+st+"%\" ORDER BY number");
 			if(!result.next()){
 				c.close();
 				return false;
@@ -600,7 +601,7 @@ public class Student {
 				idStudent = Main.sc.nextInt();
 				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
-				// TODO: handle exception
+				System.out.print("Veuillez entrer un numéro étudiant proposé ci-dessus : ");
 			}
 		} while (idStudent<0);
 		showStudent(idStudent);
@@ -611,8 +612,7 @@ public class Student {
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
-			Statement state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.firstName LIKE \"%"+st+"%\" ORDER BY number");
+			ResultSet result = c.executeQuery("SELECT * FROM student WHERE student.firstName LIKE \"%"+st+"%\" ORDER BY number");
 			if(!result.next()){
 				c.close();
 				return false;
@@ -623,6 +623,7 @@ public class Student {
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
 			}while(result.next());
+			c.close();
 		} catch (SQLException e) {
 			if(c!=null)
 				c.close();
@@ -636,7 +637,7 @@ public class Student {
 				idStudent = Main.sc.nextInt();
 				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
-				// TODO: handle exception
+				System.out.print("Veuillez entrer un numéro étudiant proposé ci-dessus : ");
 			}
 		} while (idStudent<0);
 		showStudent(idStudent);

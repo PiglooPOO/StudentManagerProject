@@ -31,10 +31,10 @@ public class DBConnection {
             System.out.println("Connexion a " + DBPath + " avec succès");
         } catch (ClassNotFoundException notFoundException) {
             notFoundException.printStackTrace();
-            System.out.println("Erreur de connecxion");
+            System.out.println("Erreur de connexion");
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
-            System.out.println("Erreur de connecxion");
+            System.out.println("Erreur de connexion");
         }
     }
     
@@ -53,16 +53,24 @@ public class DBConnection {
     	return this.statement;
     }
     
-    public ResultSet query(String requet) {
+    public ResultSet executeQuery(String request) {
         ResultSet resultat = null;
         try {
-            resultat = statement.executeQuery(requet);
+            resultat = statement.executeQuery(request);
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Erreur dans la requet : " + requet);
+            System.out.println("Erreur dans la requete : " + request);
         }
         return resultat;
   
+    }
+    public void executeUpdate(String request) {
+        try {
+        	statement.executeUpdate(request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erreur dans la requete : " + request);
+        }  
     }
 
 	static void saveDB() {

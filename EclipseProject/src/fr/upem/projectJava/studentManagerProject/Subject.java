@@ -2,7 +2,6 @@ package fr.upem.projectJava.studentManagerProject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Subject {
 
@@ -27,13 +26,11 @@ public class Subject {
 		return name;
 	}
 	
-	public static int searchSubjectsByName(String answerSubject){	
-		Statement state;
+	public static int searchSubjectsByName(String subjectName){	
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
-			state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM subject WHERE name LIKE \"%"+answerSubject+"%\"");
+			ResultSet result = c.executeQuery("SELECT * FROM subject WHERE isAvailable = 1 AND name LIKE \"%"+subjectName+"%\"");
 			if(!result.next())
 				return -1;
 			do{
@@ -53,16 +50,9 @@ public class Subject {
 	
 	public void addSubject(){
 		DBConnection c = null;
-		try {
-			c = new DBConnection();
-			Statement state = c.createStatement();
-			state.executeUpdate("INSERT INTO `subject`(`id`,`name`) VALUES ('null','"+this.getName()+"')");
-			c.close();
-		} catch (SQLException e1) {
-			if(c!=null)
-				c.close();
-			e1.printStackTrace();
-		}
+		c = new DBConnection();
+		c.executeUpdate("INSERT INTO `subject`(`id`,`name`) VALUES ('null','"+this.getName()+"')");
+		c.close();
 	}
 
 	public static void deleteSubject(int id){
@@ -78,11 +68,9 @@ public class Subject {
 		
 		int choiceNumber = 0;
 		DBConnection c=null;
-		Statement state;
 		try {
 			c=new DBConnection();
-			state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT * FROM subject WHERE id = "+id);
+			ResultSet result = c.executeQuery("SELECT * FROM subject WHERE isAvailable = 1 AND id = "+id);
 			if(result.next()){
 				System.out.println(
 						"\nGestion de la matière " + result.getString("name") +" :");
@@ -144,6 +132,37 @@ public class Subject {
 
 	public void setIsAvailable(int isAvailable) {
 		this.isAvailable = isAvailable;
+	}
+
+	public static int searchSubjectsByNameAndStudentId(String subjectName, int studentid) {
+		DBConnection c = null;
+		try {
+			c = new DBConnection();
+			ResultSet result = c.executeQuery("SELECT * FROM subject, year_formation_student, year_formation_subject WHERE subject.isAvailable = 1 AND subject.name LIKE \"%"+subjectName+"%\""
+					+ " AND year_formation_student.year = year_formation_subject.year"
+					+ " AND year_formation_student.year = "+Year.getActualCurrentYear()
+					+ " AND year_formation_student.idStudent = "+studentid
+					+ " AND year_formation_student.idFormation = year_formation_subject.idFormation"
+					+ " AND subject.id = year_formation_subject.idSubject"
+					+ "");
+			if(!result.next()){
+				c.close();
+				return -1;
+			}
+				
+			do{
+				System.out.println(result.getInt("id")+" "+result.getString("name"));
+			}while(result.next());
+			int id = Main.sc.nextInt();
+			Main.sc.nextLine();
+			c.close();
+			return id;
+		} catch (SQLException e) {
+			if(c!=null)
+				c.close();
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 }

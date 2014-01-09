@@ -37,25 +37,22 @@ public class Main {
 	
 	public static void checkConnection(){
 		
-		DBConnection a;
-		for (int i = 1; ; i++) {
-			a = new DBConnection();
+		DBConnection a= new DBConnection();
+		for (int i = 1; a == null; i++) {
+			System.out.println(i+")\tErreur de la connexion avec la BDD, nouvel essaie dans 3 secondes.");
+			if(i==10){
+				System.out.println("\n\tErreur de la connexion avec la BDD");
+				return;
+			}
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			System.out.println(i+")\tErreur de la connection avec la BDD, nouvel essaie dans 3 secondes.");
-
-			if(i==10){
-				System.out.println("\n\tErreur de la connection avec la BDD");
+				a.close();
 				return;
 			}
-			if(a != null){
-				a.close();
-				break;
-			}
+			a = new DBConnection();
 		}
+		a.close();
 	}
 	
 	

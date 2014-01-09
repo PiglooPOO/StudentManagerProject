@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.jdom.JDOMException;
 import org.jopendocument.dom.OOUtils;
@@ -18,8 +17,7 @@ public class Diplome {
 	  DBConnection c = null;
     try {
     		c=new DBConnection();
-	    	Statement state = c.createStatement();
-			ResultSet result = state.executeQuery("SELECT formation.name,year,student.name,student.firstName,student.adress,student.birthday,settings.name,directorName,directorFirstName FROM student,formation,year_formation_student,settings WHERE number="+number+" AND idStudent="+number+" AND year_formation_student.idFormation=formation.id AND number=idStudent AND nbYear=curYear");
+			ResultSet result = c.executeQuery("SELECT formation.name,year,student.name,student.firstName,student.adress,student.birthday,settings.name,directorName,directorFirstName FROM student,formation,year_formation_student,settings WHERE number="+number+" AND idStudent="+number+" AND year_formation_student.idFormation=formation.id AND number=idStudent AND nbYear=curYear");
 			result.next();
 			
 			File templateFile = new File("template/Attestation.odt");
@@ -46,7 +44,7 @@ public class Diplome {
 			
 			OOUtils.open(file);
 			result.close();
-			state.close();
+			c.close();
     	}
     	catch (SQLException e) {
     		if(c!=null)

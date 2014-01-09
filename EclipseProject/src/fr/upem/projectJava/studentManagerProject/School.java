@@ -1,8 +1,5 @@
 package fr.upem.projectJava.studentManagerProject;
 
-import java.sql.SQLException;
-import java.sql.Statement;
-
 public class School {
 	private String name;
 	private String directorName;
@@ -41,17 +38,10 @@ public class School {
 	public static void changeName(){
 		System.out.print("Entrer le nouveau nom de l'école : ");
 		String name= Main.sc.nextLine();
-		DBConnection c = null;
-		try {
-			c = new DBConnection();
-			Statement state = c.createStatement();			
-			state.executeUpdate("UPDATE settings SET name = "+name);
-			System.out.println("Nom changé avec succès");
-			c.close();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			c.close();
-		}
+		DBConnection c =new DBConnection();
+		c.executeUpdate("UPDATE settings SET name = "+name);
+		System.out.println("Nom changé avec succès");
+		c.close();
 	}
 	
 	public static void changeDirector(){
@@ -60,16 +50,9 @@ public class School {
 		System.out.print("Entrer le nom du nouveau directeur : ");
 		DBConnection c = null;
 		String name= Main.sc.nextLine();
-		try {
-			c = new DBConnection();
-			Statement state = c.createStatement();			
-			state.executeUpdate("UPDATE settings SET directorName = "+name+" AND directorFirstName = "+firstName);
-			System.out.println("Nom changé avec succès");
-			c.close();
-			state.close();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			c.close();
-		}
+		c = new DBConnection();
+		c.executeUpdate("UPDATE settings SET directorName = "+name+" AND directorFirstName = "+firstName);
+		System.out.println("Nom changé avec succès");
+		c.close();
 	}
 }
