@@ -21,26 +21,26 @@ public class Diplome {
 	  DBConnection c = null;
     try {
     		c=new DBConnection();
-			ResultSet result = c.executeQuery("SELECT formation.name,year,student.name,student.firstName,student.adress,student.birthday,settings.name,directorName,directorFirstName FROM student,formation,year_formation_student,settings WHERE number="+number+" AND idStudent="+number+" AND year_formation_student.idFormation=formation.id AND number=idStudent AND nbYear=curYear");
+			ResultSet result = c.executeQuery("SELECT formation.name AS nameF,year,student.name AS nameS,student.firstName,student.adress,student.birthday,settings.name AS nameSet,directorName,directorFirstName FROM student,formation,year_formation_student,settings WHERE number="+number+" AND idStudent="+number+" AND year_formation_student.idFormation=formation.id AND number=idStudent AND nbYear=curYear");
 			result.next();
 			
 			File templateFile = new File("template/Attestation.odt");
 			File file = new File(number+".odt");
 			JavaScriptFileTemplate template = new JavaScriptFileTemplate(templateFile);
 			
-			template.setField("Titre", result.getString("settings.name").toUpperCase());
-			template.setField("formationName",result.getString("formation.name").toUpperCase());
+			template.setField("Titre", result.getString("nameSet").toUpperCase());
+			template.setField("formationName",result.getString("nameF").toUpperCase());
 			template.setField("annee",result.getString("year")+"/"+(result.getString("year")+1));
-			template.setField("name",result.getString("student.name").toUpperCase());
+			template.setField("name",result.getString("nameS").toUpperCase());
 			template.setField("firstName",result.getString("firstName"));
 			template.setField("adress",result.getString("adress"));
-			String date = result.getDate("student.birthday").toString();
+			String date = result.getString("birthday").toString();
 			String[] recup=date.split("-");
 			int day=Integer.parseInt(recup[2]);
 			int month=Integer.parseInt(recup[1]);
 			int year=Integer.parseInt(recup[0]);
 			template.setField("birthday",day+"/"+month+"/"+year);
-			template.setField("formationName",result.getString("formation.name").toUpperCase());
+			template.setField("formationName",result.getString("nameF").toUpperCase());
 			template.setField("DirectorFirstName",result.getString("directorFirstName"));
 			template.setField("directorName",result.getString("directorName").toUpperCase());
 			
