@@ -249,7 +249,7 @@ public class SimpleContentHandler implements ContentHandler {
 	 * 
 	 */
 	public SimpleContentHandler() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/* (non-Javadoc)
@@ -316,19 +316,19 @@ public class SimpleContentHandler implements ContentHandler {
 		
 		case "year_formation_student":
 			c = new DBConnection();
-			c.executeUpdate("INSERT INTO `year_formation_student` VALUES ("+Integer.valueOf(year)+", "+Integer.valueOf(idFormation)+", "+Integer.valueOf(idStudent)+")");
+			c.executeUpdate("INSERT INTO `year_formation_student` VALUES ('"+Integer.valueOf(year)+"', '"+Integer.valueOf(idFormation)+"', '"+Integer.valueOf(idStudent)+"')");
 			c.close();
 			break;
 		
 		case "year_formation_subject":
 			c = new DBConnection();
-			c.executeUpdate("INSERT INTO `year_formation_subject` VALUES ("+Integer.valueOf(year)+", "+Integer.valueOf(idFormation)+", "+Integer.valueOf(idSubject)+", "+Integer.valueOf(coef)+")");
+			c.executeUpdate("INSERT INTO `year_formation_subject` VALUES ('"+Integer.valueOf(year)+"', '"+Integer.valueOf(idFormation)+"', '"+Integer.valueOf(idSubject)+"','"+Integer.valueOf(coef)+"')");
 			c.close();
 			break;
 		
 		case "year_student_subject_note":
 			c = new DBConnection();
-			c.executeUpdate("INSERT INTO `year_student_subject_note` VALUES ("+Integer.valueOf(year)+", "+Integer.valueOf(idStudent)+", "+Integer.valueOf(idSubject)+" ,"+Integer.valueOf(note)+")");
+			c.executeUpdate("INSERT INTO `year_student_subject_note` VALUES ('"+Integer.valueOf(year)+"', '"+Integer.valueOf(idStudent)+"', '"+Integer.valueOf(idSubject)+"' ,'"+Integer.valueOf(note)+"')");
 			c.close();
 			break;
 		
@@ -411,49 +411,7 @@ public class SimpleContentHandler implements ContentHandler {
 	/* (non-Javadoc)
 	 * @see org.xml.sax.ContentHandler#endPrefixMapping(java.lang.String)
 	 */
-	@Override
-	public void endPrefixMapping(String arg0) throws SAXException {
-		// TODO Auto-generated method stub
-
-	}
-
-	/* (non-Javadoc)
-	 * @see org.xml.sax.ContentHandler#ignorableWhitespace(char[], int, int)
-	 */
-	@Override
-	public void ignorableWhitespace(char[] arg0, int arg1, int arg2)
-			throws SAXException {
-		// TODO Auto-generated method stub
-
-	}
-
-	/* (non-Javadoc)
-	 * @see org.xml.sax.ContentHandler#processingInstruction(java.lang.String, java.lang.String)
-	 */
-	@Override
-	public void processingInstruction(String arg0, String arg1)
-			throws SAXException {
-		// TODO Auto-generated method stub
-
-	}
-
-	/* (non-Javadoc)
-	 * @see org.xml.sax.ContentHandler#setDocumentLocator(org.xml.sax.Locator)
-	 */
-	@Override
-	public void setDocumentLocator(Locator arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/* (non-Javadoc)
-	 * @see org.xml.sax.ContentHandler#skippedEntity(java.lang.String)
-	 */
-	@Override
-	public void skippedEntity(String arg0) throws SAXException {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	/* (non-Javadoc)
 	 * @see org.xml.sax.ContentHandler#startDocument()
@@ -582,12 +540,44 @@ public class SimpleContentHandler implements ContentHandler {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.xml.sax.ContentHandler#startPrefixMapping(java.lang.String, java.lang.String)
-	 */
+	@Override
+	public void endPrefixMapping(String arg0) throws SAXException {
+		
+		
+	}
+
+	@Override
+	public void ignorableWhitespace(char[] arg0, int arg1, int arg2)
+			throws SAXException {
+		
+		
+	}
+
+	@Override
+	public void processingInstruction(String arg0, String arg1)
+			throws SAXException {
+		
+		
+	}
+
+	@Override
+	public void setDocumentLocator(Locator arg0) {
+		
+		
+	}
+
+	@Override
+	public void skippedEntity(String arg0) throws SAXException {
+		
+		
+	}
+
 	@Override
 	public void startPrefixMapping(String arg0, String arg1)
 			throws SAXException {
-		// TODO Auto-generated method stub
+		
+		
 	}
+
+
 }

@@ -41,18 +41,6 @@ public class Student {
 		this.adress = adress;
 		this.phoneNumber = phoneNumber;
 		this.mail = mail;
-		String[] verif=birthday.split("/");
-		int day=Integer.parseInt(verif[0]);
-		int month=Integer.parseInt(verif[1]);
-		int year=Integer.parseInt(verif[2]);
-		if(day<10 && month<10)
-			this.birthday=year+"-0"+month+"-0"+day;
-		if(day>9 && month<10)
-			this.birthday=year+"-0"+month+"-"+day;
-		if(day<10 && month>9)
-			this.birthday=year+"-"+month+"-0"+day;
-		else
-			this.birthday=year+"-"+month+"-"+day;
 		this.birthday = birthday;
 		this.gender = gender;
 		DBConnection c = new DBConnection();
@@ -227,8 +215,8 @@ public class Student {
 	/**
 	* Description about the showStudent function :
 	* This function allows to show the characteristics of a student.
-	* @param <number> is student number to identify a student (primary key).
-	* @return <boolean> the function return true if the student exist, else false.
+	* @param number, is student number to identify a student (primary key).
+	* @return boolean, the function return true if the student exist, else false.
 	*/
 	public static boolean showStudent(int number){
 		DBConnection c = null;
@@ -246,7 +234,7 @@ public class Student {
 								"\nAdresse :\t\t" + result.getString("adress")+
 								"\nTel :\t\t\t" + result.getString("phoneNumber")+
 								"\nMail :\t\t\t" + result.getString("mail")+
-								"\nDate de naissance :\t" + result.getDate("birthday").toString()+
+								"\nDate de naissance :\t" + result.getString("birthday").toString()+
 								"\nSexe :\t\t\t" + ((result.getInt("gender")==2)?"Femme":"Homme"));
 						c.close();
 						System.out.println("\nFilière : \t\t"+Formation.FormationNameByStudentId(Student.followFormation(number)));
@@ -299,7 +287,7 @@ public class Student {
 					}
 					break;
 				case 2 :
-					//TODO
+					Student.editStudent(number);
 					break;
 				case 3 :
 					Student.attributeMarkByStudentId(number);
@@ -327,7 +315,6 @@ public class Student {
 				}
 				if(choiceNumber != 0 && choiceNumber != -2)
 					choiceNumber = 1;
-				//clearConsole();
 			}
 			
 			return true;
@@ -387,8 +374,8 @@ public class Student {
 	/**
 	* Description about the followFormation function :
 	* This function allows to know which formation the student follows.
-	* @param <idStudent> is student identification (Stranger Key).
-	* @return <boolean> return true if it works, else false.
+	* @param idStudent, is student identification (Stranger Key).
+	* @return boolean, return true if it works, else false.
 	*/
 	public static int followFormation(int idStudent){
 		int year = Year.getActualCurrentYear();
@@ -415,8 +402,8 @@ public class Student {
 	/**
 	* Description about the attributeMarkByStudentId function :
 	* This function allows to attribute a mark to student with his id.
-	* @param <id> is student number to identify a student (primary key).
-	* @return <boolean> The function return false if there is a problem, else true.
+	* @param id, is student number to identify a student (primary key).
+	* @return boolean, The function return false if there is a problem, else true.
 	*/
 	private static boolean attributeMarkByStudentId(int id) {
 		/**
@@ -427,7 +414,6 @@ public class Student {
 		System.out.println("Entrez le nom de la matière à noter : ");
 		try{
 			answerSubject = Main.sc.nextLine();
-			//TODO
 			if((idSubject = Subject.searchSubjectsByNameAndStudentId(answerSubject, id)) == -1){
 				System.out.println("La filière "+answerSubject+" n'éxiste pas dans cette filière.");
 				System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
@@ -489,8 +475,8 @@ public class Student {
 	/**
 	* Description about the printMarkForStudent function :
 	* This function allows to print a mark for a student with his id.
-	* @param <id> is student number to identify a student (primary key).
-	* @return <boolean> The function return false if there is a problem, else true.
+	* @param id, is student number to identify a student (primary key).
+	* @return boolean, The function return false if there is a problem, else true.
 	*/
 	private static boolean printMarksForStudent(int id) {
 		DBConnection c = null;
@@ -543,7 +529,6 @@ public class Student {
 					+ averageNote[0]);
 			c.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			if(c!=null)
 				c.close();
 			e.printStackTrace();
@@ -565,8 +550,8 @@ public class Student {
 	/**
 	* Description about the showStudentsByFormationName function :
 	* This function allows to show the students sorted by the FormationName.
-	* @param <st> is the string searched (here the FormationName) by the user.
-	* @return <boolean> The function return false if there is a problem, else true.
+	* @param st, is the string searched (here the FormationName) by the user.
+	* @return boolean, The function return false if there is a problem, else true.
 	*/
 	public static boolean showStudentsByFormationName(String st) {
 		DBConnection c = null;
@@ -596,7 +581,7 @@ public class Student {
 				id = Main.sc.nextInt();
 				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
-				// TODO: handle exception
+				System.out.println("Ceci n'est pas une formation");
 			}
 		} while (id<0);
 		showStudentsByFormation(id);
@@ -606,7 +591,7 @@ public class Student {
 	/**
 	* Description about the showStudentsByFormation function :
 	* This function allows to show all the students sorted by Formation.
-	* @param <id> is student number to identify a student (primary key).
+	* @param id, is student number to identify a student (primary key).
 	*/
 	public static void showStudentsByFormation(int id) {
 		if(id==-1)
@@ -651,7 +636,7 @@ public class Student {
 				idStudent = Main.sc.nextInt();
 				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
-				// TODO: handle exception
+				System.out.println("Ceci n'est pas un étudiant");
 			}
 		} while (idStudent<0);
 		showStudent(idStudent);
@@ -660,8 +645,8 @@ public class Student {
 	/**
 	* Description about the showStudentsByYear function :
 	* This function allows to show all the students sorted by year.
-	* @param <year> is the year of the formation.
-	* @return <boolean> The function return false if there is a problem, else true.
+	* @param year, is the year of the formation.
+	* @return boolean, The function return false if there is a problem, else true.
 	*/
 	public static boolean showStudentsByYear(int year) {
 		DBConnection c = null;
@@ -713,8 +698,8 @@ public class Student {
 	/**
 	* Description about the showStudentsByName function :
 	* This function allows to show all the students sorted by name.
-	* @param <st> is the string (here the name of the student) searched by the user.
-	* @return <boolean> The function return false if there is a problem, else true.
+	* @param st, is the string (here the name of the student) searched by the user.
+	* @return boolean, The function return false if there is a problem, else true.
 	*/
 	public static boolean showStudentsByName(String st) {
 		DBConnection c = null;
@@ -755,8 +740,8 @@ public class Student {
 	/**
 	* Description about the showStudentsByFirstName function :
 	* This function allows to show all the students sorted by firstName.
-	* @param <st> is the string (here the firstName of the student) searched by the user.
-	* @return <boolean> The function return false if there is a problem, else true.
+	* @param st, is the string (here the firstName of the student) searched by the user.
+	* @return boolean, The function return false if there is a problem, else true.
 	*/
 	public static boolean showStudentsByFirstName(String st) {
 		DBConnection c = null;
@@ -797,7 +782,7 @@ public class Student {
 	/**
 	* Description about the showStudentGraduate function :
 	* This function allows to show all the students who are graduated.
-	* @return <boolean> return true if it works, else false.
+	* @return boolean, return true if it works, else false.
 	*/
 	public static boolean showStudentGraduate(){
 		DBConnection c = null;
@@ -863,7 +848,7 @@ public class Student {
 	/**
 	* Description about the showStudentsBySubject function :
 	* This function allows to show all the students sorted by Subjects.
-	* @param <id> is student number to identify a student (primary key).
+	* @param id, is student number to identify a student (primary key).
 	*/
 	public static void showStudentsBySubject(int id) {
 		if(id==-1)
@@ -911,7 +896,7 @@ public class Student {
 				idStudent = Main.sc.nextInt();
 				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
-				// TODO: handle exception
+				System.out.println("Ceci n'est pas un étudiant");
 			}
 		} while (idStudent<0);
 		showStudent(idStudent);
@@ -920,7 +905,7 @@ public class Student {
 	/**
 	* Description about the editStudent function :
 	* This function allows to edit a student.
-	* @param <id> is student id to identify a student (primary key).
+	* @param id, is student id to identify a student (primary key).
 	*/
 	public static void editStudent(int id){
 		
@@ -977,7 +962,6 @@ public class Student {
                 choiceNumber = 1;
             
             c.close();
-            //clearConsole();
         }
 	}
 }

@@ -34,7 +34,6 @@ public class DBConnection {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + DBPath);
             statement = connection.createStatement();
-            System.out.println("Connexion a " + DBPath + " avec succès");
         } catch (ClassNotFoundException notFoundException) {
             notFoundException.printStackTrace();
             System.out.println("Erreur de connexion");
@@ -50,7 +49,6 @@ public class DBConnection {
 	*/
     public void close() {
         try {
-        	System.out.println("Déconnection");
         	if(connection!=null)
         		connection.close();
         	if(statement!=null)
@@ -91,13 +89,12 @@ public class DBConnection {
 		File file = new File("sauvegarde.xml");
 		FileOutputStream os = null;
 		DBConnection c =null;
-		
+		ResultSet result=null;
 		try{
 			os = new FileOutputStream(file);
 			try {
 				c = new DBConnection();
-				Statement state = c.createStatement();
-				ResultSet result = state.executeQuery("SELECT * FROM student");
+				result = c.executeQuery("SELECT * FROM student");
 				
 				String caracteres = "<XML>\n\t<Students>\n";
 				os.write(caracteres.getBytes());
@@ -109,7 +106,7 @@ public class DBConnection {
 								+ "\n\t\t\t<adress>" + result.getString("adress") + "</adress>"
 								+ "\n\t\t\t<phoneNumber>" + result.getString("phoneNumber") + "</phoneNumber>"
 								+ "\n\t\t\t<mail>" + result.getString("mail") + "</mail>"
-								+ "\n\t\t\t<birthday>" + result.getDate("birthday") + "</birthday>"
+								+ "\n\t\t\t<birthday>" + result.getString("birthday") + "</birthday>"
 								+ "\n\t\t\t<gender>" + result.getInt("gender") + "</gender>\n"
 							+ "\t\t</Student>\n";
 				os.write(caracteres.getBytes());
@@ -117,7 +114,7 @@ public class DBConnection {
 				caracteres = "\t</Students>\n";
 				os.write(caracteres.getBytes());
 				
-				result = state.executeQuery("SELECT * FROM subject");
+				result = c.executeQuery("SELECT * FROM subject");
 				caracteres = "\n\t<Subjects>\n";
 				os.write(caracteres.getBytes());
 				while(result.next()){	
@@ -131,7 +128,7 @@ public class DBConnection {
 				caracteres = "\t</Subjects>\n";
 				os.write(caracteres.getBytes());
 				
-				result = state.executeQuery("SELECT * FROM formation");
+				result = c.executeQuery("SELECT * FROM formation");
 				caracteres = "\n\t<Formations>\n";
 				os.write(caracteres.getBytes());
 				while(result.next()){
@@ -147,7 +144,7 @@ public class DBConnection {
 				caracteres = "\t</Formations>\n";
 				os.write(caracteres.getBytes());
 				
-				result = state.executeQuery("SELECT * FROM year_formation_student");
+				result = c.executeQuery("SELECT * FROM year_formation_student");
 				caracteres = "\n\t<years_formations_students>\n";
 				os.write(caracteres.getBytes());
 				while(result.next()){	
@@ -161,7 +158,7 @@ public class DBConnection {
 				caracteres = "\t</years_formations_students>\n";
 				os.write(caracteres.getBytes());
 				
-				result = state.executeQuery("SELECT * FROM year_formation_subject");
+				result = c.executeQuery("SELECT * FROM year_formation_subject");
 				caracteres = "\n\t<years_formations_subjects>\n";
 				os.write(caracteres.getBytes());
 				while(result.next()){	
@@ -176,7 +173,7 @@ public class DBConnection {
 				caracteres = "\t</years_formations_subjects>\n";
 				os.write(caracteres.getBytes());
 				
-				result = state.executeQuery("SELECT * FROM year_student_subject_note");
+				result = c.executeQuery("SELECT * FROM year_student_subject_note");
 				caracteres = "\n\t<years_students_subjects_notes>\n";
 				os.write(caracteres.getBytes());
 				while(result.next()){	
@@ -191,7 +188,7 @@ public class DBConnection {
 				caracteres = "\t</years_students_subjects_notes>\n";
 				os.write(caracteres.getBytes());
 				
-				result = state.executeQuery("SELECT * FROM settings");
+				result = c.executeQuery("SELECT * FROM settings");
 				result.next();
 				caracteres = "\n\t<settings>\n"
 								+"\t\t<name>" + result.getString("name") + "</name>"

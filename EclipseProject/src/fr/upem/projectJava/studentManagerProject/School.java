@@ -35,6 +35,10 @@ public class School {
 		this.directorFirstName = directorFirstName;
 	}
 	
+	/**
+	* Description about the changeName function :
+	* This function allows to change the name of the school.
+	*/
 	public static void changeName(){
 		System.out.print("Entrer le nouveau nom de l'école : ");
 		String name= Main.sc.nextLine();
@@ -44,6 +48,10 @@ public class School {
 		c.close();
 	}
 	
+	/**
+	* Description about the changeDirector function :
+	* This function allows to change the name of the director.
+	*/
 	public static void changeDirector(){
 		System.out.print("Entrer le prénom du nouveau directeur : ");
 		String firstName= Main.sc.nextLine();
@@ -51,7 +59,7 @@ public class School {
 		DBConnection c = null;
 		String name= Main.sc.nextLine();
 		c = new DBConnection();
-		c.executeUpdate("UPDATE settings SET directorName = "+name+" AND directorFirstName = "+firstName);
+		c.executeUpdate("UPDATE settings SET directorName = '"+name+"',directorFirstName = '"+firstName+"'");
 		System.out.println("Nom changé avec succès");
 		c.close();
 	}

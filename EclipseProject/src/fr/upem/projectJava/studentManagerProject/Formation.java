@@ -89,8 +89,8 @@ public class Formation {
 	/**
 	* Description about the showFormation function :
 	* This function allows to show the characteristics of a formation.
-	* @param <id> is formation id, to identify a formation (primary key).
-	* @return <boolean> the function return true if the student exist, else false.
+	* @param id, is formation id, to identify a formation (primary key).
+	* @return boolean, the function return true if the student exist, else false.
 	*/
 	public static boolean showFormation(int id){
 		DBConnection c = null;
@@ -133,14 +133,12 @@ public class Formation {
 				
 				switch(choiceNumber){
 					case 1:
-						//TODO
 						Formation.editFormation(id);
 						break;
 					case 2:
 						Formation.deleteFormation(id);
 						break;
 					case 3:
-						//TODO
 						String answerSubject = "";
 						System.out.println("Entrer le nom de la matière : ");
 						try{
@@ -183,8 +181,8 @@ public class Formation {
 	/**
 	* Description about the FormationNameByStudentId function :
 	* This function allows to search a FormationName from studentId.
-	* @param <id> is student number to identify a student (primary key).
-	* @return <String> return the FormationName, else null.
+	* @param id, is student number to identify a student (primary key).
+	* @return String, return the FormationName, else null.
 	*/
 	public static String FormationNameByStudentId(int id){
 		DBConnection c = null;
@@ -210,9 +208,9 @@ public class Formation {
 	/**
 	* Description about the addSubjectToFormation function :
 	* This function allows to add a subject to a formation.
-	* @param <idSubject> is subject number to identify a subject (primary key).
-	* @param <idFormation> is formation number to identify a subject (primary key).
-	* @return <boolean> the function return true if the student exist, else false.
+	* @param idSubject, is subject number to identify a subject (primary key).
+	* @param idFormation, is formation number to identify a subject (primary key).
+	* @return boolean, the function return true if the student exist, else false.
 	*/
 	public static boolean addSubjectToFormation(int idSubject, int idFormation){
 		if(idSubject == -1){
@@ -274,8 +272,8 @@ public class Formation {
 	/**
 	* Description about the searchFormationsByName function :
 	* This function allows to search the formations sorted by formationName.
-	* @param <answerFormation> what the user is searching for.
-	* @return <Integer> return the idFormation if it works, else -1.
+	* @param answerFormation, what the user is searching for.
+	* @return Integer, return the idFormation if it works, else -1.
 	*/
 	public static int searchFormationsByName(String answerFormation){
 		DBConnection c = null;
@@ -315,7 +313,7 @@ public class Formation {
 	/**
 	* Description about the deleteFormation function :
 	* This function allows to delete a formation.
-	* @param <id> is formation id, to identify a formation (primary key).
+	* @param id, is formation id, to identify a formation (primary key).
 	*/
 	public static void deleteFormation(int id){
 		DBConnection c = null;
@@ -327,10 +325,47 @@ public class Formation {
 	/**
 	* Description about the editFormation function :
 	* This function allows to edit a formation.
-	* @param <id> is formation id, to identify a formation (primary key).
+	* @param id, is formation id, to identify a formation (primary key).
+	* @return boolean, return true if it works, else false. 
 	*/
-	public static void editFormation(int id){
-		// TODO louis
+	public static boolean editFormation(int id){
+
+		DBConnection c = null;
+		c = new DBConnection();
+		ResultSet result = null;
+		
+		System.out.println("Veuillez rentrer le nouveau nom de la formation.");
+		String newFormationName = Main.sc.nextLine();
+		
+		result = c.executeQuery("SELECT curYear, nbYear from formation WHERE id="+id);
+		try {
+			if(result.next()){
+				int oldNbYear = result.getInt("nbYear");
+				int oldCurYear = result.getInt("curYear");
+			
+				
+			    deleteFormation(id);
+				c.executeUpdate("INSERT INTO `formation`(`name`, `nbYear`, `curYear`, `available`) VALUES ('"+newFormationName+"','"+oldNbYear+"','"+oldCurYear+"',1)");
+				result = c.executeQuery("SELECT id FROM formation WHERE name = "+newFormationName+", nbYear = "+oldNbYear+", curYear = "+oldCurYear);
+				int newId = -1;
+				if(result.next())
+					newId = result.getInt("id");
+				
+				//jointures
+				c.executeUpdate("UPDATE year_formation_student SET idFormation = "+newId+" WHERE idFormation = "+id+" AND year >= "+Year.getActualCurrentYear());
+			    c.executeUpdate("UPDATE year_formation_subject SET idFormation = "+newId+" WHERE idFormation = "+id+" AND year >= "+Year.getActualCurrentYear());
+			    c.close();
+			    return true;
+			   }
+			else{
+				c.close();
+				return false;
+			}
+		} catch (SQLException e) {
+			c.close();
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public int getIsAvailable() {

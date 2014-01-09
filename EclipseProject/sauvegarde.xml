@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <XML>
 	<Students>
 		<Student>
@@ -41,6 +40,76 @@
 			<birthday>1994-10-05</birthday>
 			<gender>1</gender>
 		</Student>
+		<Student>
+			<number>103</number>
+			<name>D</name>
+			<firstName>s</firstName>
+			<adress>3 rue des etangs</adress>
+			<phoneNumber>0129436789</phoneNumber>
+			<mail>sd@yopmail.com</mail>
+			<birthday>1993-10-24</birthday>
+			<gender>1</gender>
+		</Student>
+		<Student>
+			<number>104</number>
+			<name>U</name>
+			<firstName>f</firstName>
+			<adress>9 rue des pieuvres</adress>
+			<phoneNumber>0123456789</phoneNumber>
+			<mail>fu@yopmail.com</mail>
+			<birthday>1993-2-17</birthday>
+			<gender>2</gender>
+		</Student>
+		<Student>
+			<number>105</number>
+			<name>H</name>
+			<firstName>l</firstName>
+			<adress>3 rue des tulipes</adress>
+			<phoneNumber>0129436789</phoneNumber>
+			<mail>lh@yopmail.com</mail>
+			<birthday>1993-4-2</birthday>
+			<gender>1</gender>
+		</Student>
+		<Student>
+			<number>106</number>
+			<name>B</name>
+			<firstName>m</firstName>
+			<adress>19 rue des poneys</adress>
+			<phoneNumber>0123456789</phoneNumber>
+			<mail>mb@yopmail.com</mail>
+			<birthday>1994-1-12</birthday>
+			<gender>1</gender>
+		</Student>
+		<Student>
+			<number>107</number>
+			<name>E</name>
+			<firstName>h</firstName>
+			<adress>1287 avenue de la republique</adress>
+			<phoneNumber>0129436789</phoneNumber>
+			<mail>he@yopmail.com</mail>
+			<birthday>1993-7-9</birthday>
+			<gender>2</gender>
+		</Student>
+		<Student>
+			<number>108</number>
+			<name>W</name>
+			<firstName>d</firstName>
+			<adress>9 rue des mangoustes</adress>
+			<phoneNumber>0123456789</phoneNumber>
+			<mail>dw@yopmail.com</mail>
+			<birthday>1993-2-15</birthday>
+			<gender>1</gender>
+		</Student>
+		<Student>
+			<number>109</number>
+			<name>GERBER</name>
+			<firstName>Xavier</firstName>
+			<adress>6</adress>
+			<phoneNumber>0000000000</phoneNumber>
+			<mail>0</mail>
+			<birthday>1994-10-05</birthday>
+			<gender>1</gender>
+		</Student>
 	</Students>
 
 	<Subjects>
@@ -62,6 +131,71 @@
 		<Subject>
 			<id>101</id>
 			<name>automate</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>102</id>
+			<name>gestion</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>103</id>
+			<name>communication</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>104</id>
+			<name>langage C</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>105</id>
+			<name>langage PHP</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>106</id>
+			<name>programmation objet</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>107</id>
+			<name>genie logiciel</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>108</id>
+			<name>dessin</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>109</id>
+			<name>mathematiques</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>110</id>
+			<name>histoire</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>111</id>
+			<name>francais</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>112</id>
+			<name>babyfoot</name>
+			<isAvailable>0</isAvailable>
+		</Subject>
+		<Subject>
+			<id>113</id>
+			<name>sport</name>
+			<isAvailable>1</isAvailable>
+		</Subject>
+		<Subject>
+			<id>114</id>
+			<name>exposes</name>
 			<isAvailable>1</isAvailable>
 		</Subject>
 	</Subjects>
@@ -88,212 +222,62 @@
 			<curYear>2</curYear>
 			<isAvailable>1</isAvailable>
 		</Formation>
+		<Formation>
+			<id>102</id>
+			<name>informatique</name>
+			<nbYear>2</nbYear>
+			<curYear>1</curYear>
+			<isAvailable>1</isAvailable>
+		</Formation>
+		<Formation>
+			<id>103</id>
+			<name>informatique</name>
+			<nbYear>2</nbYear>
+			<curYear>2</curYear>
+			<isAvailable>1</isAvailable>
+		</Formation>
+		<Formation>
+			<id>104</id>
+			<name>eco-gestion</name>
+			<nbYear>2</nbYear>
+			<curYear>1</curYear>
+			<isAvailable>1</isAvailable>
+		</Formation>
+		<Formation>
+			<id>105</id>
+			<name>eco-gestion</name>
+			<nbYear>2</nbYear>
+			<curYear>2</curYear>
+			<isAvailable>1</isAvailable>
+		</Formation>
+		<Formation>
+			<id>106</id>
+			<name>management</name>
+			<nbYear>2</nbYear>
+			<curYear>1</curYear>
+			<isAvailable>1</isAvailable>
+		</Formation>
+		<Formation>
+			<id>107</id>
+			<name>management</name>
+			<nbYear>2</nbYear>
+			<curYear>2</curYear>
+			<isAvailable>1</isAvailable>
+		</Formation>
 	</Formations>
-=======
-<Students>
-	<Student>
-		<number>1</number>
-		<name>BOULIC</name>
-		<firstName>Quentin</firstName>
-		<adress>23 boulevard Aristide BRIAND</adress>
-		<phoneNumber>0610101010</phoneNumber>
-		<mail>qboulic@etudiant.univ-mlv.fr</mail>
-		<birthday>1970-01-01</birthday>
-		<gender>1</gender>
-	</Student>
-	<Student>
-		<number>2</number>
-		<name>Gerber</name>
-		<firstName>Xavier</firstName>
-		<adress>6 rue des bleuets</adress>
-		<phoneNumber>0625450907</phoneNumber>
-		<mail>xavier1.gerber@gmail.com</mail>
-		<birthday>1970-01-01</birthday>
-		<gender>1</gender>
-	</Student>
-	<Student>
-		<number>100</number>
-		<name>BOULIC</name>
-		<firstName>Quentin</firstName>
-		<adress>23 boulevard Aristide BRIAND</adress>
-		<phoneNumber>0610101010</phoneNumber>
-		<mail>qboulic@etudiant.univ-mlv.fr</mail>
-		<birthday>1970-01-01</birthday>
-		<gender>1</gender>
-	</Student>
-	<Student>
-		<number>101</number>
-		<name>Gerber</name>
-		<firstName>Xavier</firstName>
-		<adress>6 rue des bleuets</adress>
-		<phoneNumber>0625450907</phoneNumber>
-		<mail>xavier1.gerber@gmail.com</mail>
-		<birthday>1970-01-01</birthday>
-		<gender>1</gender>
-	</Student>
-	<Student>
-		<number>0</number>
-		<name>x</name>
-		<firstName>x</firstName>
-		<adress>x</adress>
-		<phoneNumber>0000000000</phoneNumber>
-		<mail>x</mail>
-		<birthday>1970-01-01</birthday>
-		<gender>1</gender>
-	</Student>
-</Students>
-
-<Subjects>
-	<Subject>
-		<id>1</id>
-		<name>gestion</name>
-		<isAvailable>1</isAvailable>
-	</Subject>
-	<Subject>
-		<id>2</id>
-		<name>automate</name>
-		<isAvailable>1</isAvailable>
-	</Subject>
-	<Subject>
-		<id>100</id>
-		<name>gestion</name>
-		<isAvailable>1</isAvailable>
-	</Subject>
-	<Subject>
-		<id>101</id>
-		<name>automate</name>
-		<isAvailable>1</isAvailable>
-	</Subject>
-</Subjects>
-
-<Formations>
-	<Formation>
-		<id>1</id>
-		<name>informatique</name>
-		<nbYear>2</nbYear>
-		<curYear>2</curYear>
-		<isAvailable>1</isAvailable>
-	</Formation>
-	<Formation>
-		<id>100</id>
-		<name>informatique</name>
-		<nbYear>2</nbYear>
-		<curYear>2</curYear>
-		<isAvailable>1</isAvailable>
-	</Formation>
-	<Formation>
-		<id>101</id>
-		<name>security</name>
-		<nbYear>2</nbYear>
-		<curYear>2</curYear>
-		<isAvailable>1</isAvailable>
-	</Formation>
-</Formations>
->>>>>>> origin/NewBDD
 
 	<years_formations_students>
-		<year_formation_student>
-			<year>2013</year>
-			<idFormation>1</idFormation>
-			<idStudent>1</idStudent>
-		</year_formation_student>
 	</years_formations_students>
 
-<<<<<<< HEAD
 	<years_formations_subjects>
-		<year_formation_subject>
-			<year>2013</year>
-			<idFormation>1</idFormation>
-			<idSubject>1</idSubject>
-			<coef>0</coef>
-		</year_formation_subject>
-		<year_formation_subject>
-			<year>2013</year>
-			<idFormation>1</idFormation>
-			<idSubject>2</idSubject>
-			<coef>0</coef>
-		</year_formation_subject>
-		<year_formation_subject>
-			<year>2013</year>
-			<idFormation>1</idFormation>
-			<idSubject>1</idSubject>
-			<coef>4</coef>
-		</year_formation_subject>
-		<year_formation_subject>
-			<year>2013</year>
-			<idFormation>1</idFormation>
-			<idSubject>1</idSubject>
-			<coef>4</coef>
-		</year_formation_subject>
 	</years_formations_subjects>
-=======
-<years_formations_subjects>
-	<year_formation_subject>
-		<year>2013</year>
-		<idFormation>1</idFormation>
-		<idSubject>1</idSubject>
-		<coef>0</coef>
-	</year_formation_subject>
-	<year_formation_subject>
-		<year>2013</year>
-		<idFormation>1</idFormation>
-		<idSubject>2</idSubject>
-		<coef>0</coef>
-	</year_formation_subject>
-	<year_formation_subject>
-		<year>2013</year>
-		<idFormation>1</idFormation>
-		<idSubject>1</idSubject>
-		<coef>4</coef>
-	</year_formation_subject>
-<<<<<<< HEAD
-=======
-	<year_formation_subject>
-		<year>2013</year>
-		<idFormation>1</idFormation>
-		<idSubject>1</idSubject>
-		<coef>4</coef>
-	</year_formation_subject>
-<<<<<<< HEAD
->>>>>>> 56e8ebf8b1d0dd97f8f4dc477c4048f47e689679
-=======
-	<year_formation_subject>
-		<year>2013</year>
-		<idFormation>1</idFormation>
-		<idSubject>1</idSubject>
-	</year_formation_subject>
-	<year_formation_subject>
-		<year>2013</year>
-		<idFormation>1</idFormation>
-		<idSubject>1</idSubject>
-	</year_formation_subject>
->>>>>>> origin/NewBDD
-</years_formations_subjects>
->>>>>>> 4f4135bc018aebd6a713be9ed119fdacf700f8f6
 
-<<<<<<< HEAD
 	<years_students_subjects_notes>
-		<year_student_subject_note>
-			<year>2013</year>
-			<idStudent>1</idStudent>
-			<idSubject>1</idSubject>
-			<note>12</note>
-		</year_student_subject_note>
 	</years_students_subjects_notes>
-=======
-<years_students_subjects_notes>
-	<year_student_subject_note>
-		<year>2013</year>
-		<idStudent>1</idStudent>
-		<idSubject>1</idSubject>
-		<note>12</note>
-	</year_student_subject_note>
-</years_students_subjects_notes>
->>>>>>> origin/NewBDD
 
 	<settings>
-		<name>Pigloo</name>
-		<directorName>GOUIN</directorName>
-		<directorFirstName>Pain</directorFirstName>
+		<name>Xavier</name>
+		<directorName>GERBER</directorName>
+		<directorFirstName>Xavier</directorFirstName>
 	</settings>
 </XML>

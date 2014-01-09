@@ -1,5 +1,7 @@
 package fr.upem.projectJava.studentManagerProject;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -15,7 +17,7 @@ public class Main {
 				drawMenu();
 			System.out.print("Entrez le chiffre correspondant à votre choix : ");
 			try {
-				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>14){
+				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>9){
 					Main.sc.nextLine();
 					System.out.print("Ce choix est invalide, recommencez : ");
 				}
@@ -29,7 +31,6 @@ public class Main {
 			startSubMenu(choiceNumber);
 			if(choiceNumber != 0 && choiceNumber != -2)
 				choiceNumber = 1;
-			//clearConsole();
 		}
 		if(Main.sc != null)
 			Main.sc.close();
@@ -58,19 +59,32 @@ public class Main {
 	
 	
 	public static void drawMenu(){
-		System.out.println("Bienvenue dans StudentMangager de l'Ecole Pigloo\n");
-		System.out.println("Menu\n");
-		System.out.println("1 Ajouter un élève\n"
-				+ "2 Rechercher un élève\n"
-				+ "3 Ajouter une filière\n"
-				+ "4 Rechercher une filière ou une matière\n"
-		        + "5 Ajouter une matière\n"
-		        + "6 Ajouter une année\n"
-		        + "7 Editer les diplômes\n"
-				+ "8 Charger une base de données\n"
-				+ "9 Enregistrer une base de données\n"
-				+ "10 Modifier la configuration\n"
-				+ "0 Quitter\n");
+		DBConnection c = null;
+		try{
+			c = new DBConnection();
+			ResultSet result=c.executeQuery("SELECT name FROM settings");
+			result.next();
+			System.out.println("Bienvenue dans StudentMangager de l'Ecole "+result.getString("name")+"\n");
+			System.out.println("Menu\n");
+			System.out.println("1 Ajouter un élève\n"
+					+ "2 Rechercher un élève\n"
+					+ "3 Ajouter une filière\n"
+					+ "4 Rechercher une filière ou une matière\n"
+			        + "5 Ajouter une matière\n"
+			        + "6 Editer les diplômes\n"
+					+ "7 Charger une base de données\n"
+					+ "8 Enregistrer une base de données\n"
+					+ "9 Modifier la configuration\n"
+					+ "0 Quitter\n");
+			c.close();
+		}catch (SQLException e) {
+			if(c!=null)
+				c.close();
+			e.printStackTrace();
+			return;
+		}
+		
+		
 	}
 	
 	public static int startSubMenu(int choiceNumber){
@@ -94,18 +108,15 @@ public class Main {
 				m.addSubject();
 				break;
 			case 6:
-				//TODO  Ajouter une année
-				break;
-			case 7:
 				Student.showStudentGraduate();
 				break;
-			case 8:
+			case 7:
 				DBConnection.loadDB();
 				break;
-			case 9:
+			case 8:
 				DBConnection.saveDB();
 				break;
-			case 10:
+			case 9:
 				startMenuConfig();
 				break;
 			default:;
@@ -122,14 +133,12 @@ public class Main {
 				System.out.println("1 Rechercher par numéro d'étudiant\n"
 						+ "2 Rechercher par Nom\n"
 						+ "3 Rechercher par Prénom\n"
-						+ "4 Rechercher par Matière\n"
-						+ "5 Rechercher par Filière\n"
-						+ "6 Rechercher par Année\n"
-						+ "7 Rechercher par Année et Filière\n"
+						+ "4 Rechercher par Filière\n"
+						+ "5 Rechercher par Année\n"
 						+ "0 Retour au Menu principal\n");
 			System.out.print("Entrez le chiffre correspondant à votre choix : ");
 			try {				
-				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>7){
+				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>5){
 					Main.sc.nextLine();
 					System.out.print("Ce choix est invalide, recommencez : ");
 				}
@@ -202,9 +211,6 @@ public class Main {
 					}
 					break;
 				case 4:
-					//TODO
-					break;
-				case 5:
 					System.out.print("Entrez le nom de la filière : ");
 					try {
 						str = Main.sc.nextLine();
@@ -224,7 +230,7 @@ public class Main {
 						Main.sc.nextLine();
 					}
 					break;
-				case 6:
+				case 5:
 					System.out.print("Entrez l'année dont vous voulez parcourir les étudiants : ");
 					try {
 						number = Main.sc.nextInt();
@@ -245,15 +251,11 @@ public class Main {
 						Main.sc.nextLine();
 					}
 					break;
-				case 7:
-					//TODO
-					break;
 				default:
 			}
 			
 			if(choiceNumber != 0 && choiceNumber != -2)
 				choiceNumber = 1;
-			//clearConsole();
 		}
 	}
 	
@@ -262,7 +264,7 @@ public class Main {
 		
 		while(choiceNumber!=0){
 			if(choiceNumber == 1)
-				System.out.println(">> Rechercher dans la structure des filières\n"
+				System.out.println("Rechercher dans la structure des filières\n"
 						+ "1 Rechercher une filière\n"
 						+ "2 Rechercher une matière\n"
 						+ "0 Retour au Menu\n\n");
@@ -284,7 +286,6 @@ public class Main {
 				System.out.println("Entrez le nom de la filière : ");
 				try{
 					answerFormation = Main.sc.nextLine();
-					//TODO
 					if(!Formation.showFormation(Formation.searchFormationsByName(answerFormation))){
 						System.out.println("Cette filière n'éxiste pas.");
 						System.out.println("Appuyez sur Entrée pour continuer.");
@@ -323,7 +324,6 @@ public class Main {
 
 			if(choiceNumber != 0 && choiceNumber != -2)
 				choiceNumber = 1;
-			//clearConsole();
 		}
 	}	
 	
@@ -332,7 +332,7 @@ public class Main {
 		
 		while(choiceNumber!=0){
 			if(choiceNumber == 1)
-				System.out.println(">> Modifier la configuration de l'école\n"
+				System.out.println("Modifier la configuration de l'école\n"
 						+ "1 Changer le nom de l'école\n"
 						+ "2 Changer le directeur de l'école\n"
 						+ "0 Retour au Menu\n\n");
@@ -358,20 +358,6 @@ public class Main {
 			}
 			if(choiceNumber != 0 && choiceNumber != -2)
 				choiceNumber = 1;
-			//clearConsole();
 		}
-	}
-
-	private static void clearConsole()
-	{
-		try {
-			  if(System.getProperty("os.name").startsWith("Windows" ))
-			    Runtime.getRuntime().exec("cls");
-			  else
-			    Runtime.getRuntime().exec("clear");
-			} catch(Exception excpt) {
-			  for(int i=0;i<100;i++)
-			    System.out.println();
-			}
 	}
 }
