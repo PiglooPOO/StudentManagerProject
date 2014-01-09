@@ -2,6 +2,7 @@ package fr.upem.projectJava.studentManagerProject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 
 public class Subject {
 
@@ -119,9 +120,35 @@ public class Subject {
 		return false;
 	}
 
-	private static void addSubjectToFormation(int id) {
-		// TODO Auto-generated method stub
+	private static boolean addSubjectToFormation(int id) {
+		/**
+		 * cherchons la matière à ajouter
+		 */
+		String answerSubject = "";
+		int idSubject = 0;
+		System.out.println("Entrez le nom de la matière à ajouter : ");
+		try{
+			answerSubject = Main.sc.nextLine();
+			//TODO
+			if((idSubject = Subject.searchSubjectsByName(answerSubject)) == -1){
+				System.out.println("La filière n'éxiste pas dans cette filière.");
+				System.out.println("Appuyez sur Entrée pour revenir à la fiche.");
+				Main.sc.nextLine();
+				return false;
+			}
+
+		}catch(InputMismatchException e){
+			System.out.println("Ceci n'est pas une filière.");
+			System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
+			Main.sc.nextLine();
+			return false;
+		}
 		
+		/**
+		 * récupérons l'année actuelle
+		 */
+		int year = Year.getActualCurrentYear();
+		return false;
 	}
 
 	public int getIsAvailable() {

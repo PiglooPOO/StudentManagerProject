@@ -247,7 +247,26 @@ public class Student {
 				
 				switch (choiceNumber) {
 				case 1 :
-					//TODO
+					String answerFormation = "";
+					System.out.println("Entrez le nom de la filière : ");
+					try{
+						answerFormation = Main.sc.nextLine();
+						//TODO
+						if(!Student.addToFormation(number,Formation.searchFormationsByName(answerFormation))){
+							System.out.println("Cette filière n'éxiste pas.");
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
+							}
+						if(answerFormation.length()<0){
+							System.out.println("Cette filière n'éxiste pas.");
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
+						}
+					}catch(InputMismatchException e){
+						System.out.println("Ceci n'est pas une filière.");
+						System.out.println("Appuyez sur Entrée pour continuer.");
+						Main.sc.nextLine();
+					}
 					break;
 				case 2 :
 					//TODO
@@ -296,6 +315,42 @@ public class Student {
 		}
 	}
 	
+	private static boolean addToFormation(int idStudent, int idFormation) {
+		/**
+		 * cherchons la matière à ajouter
+		 */
+		String answerSubject = "";
+		int idSubject = 0;
+		System.out.println("Entrez le nom de la formation à laquelle l'ajouter : ");
+		try{
+			answerSubject = Main.sc.nextLine();
+			//TODO
+			if((idSubject = Subject.searchSubjectsByName(answerSubject)) == -1){
+				System.out.println("La filière n'éxiste pas dans cette filière.");
+				System.out.println("Appuyez sur Entrée pour revenir à la fiche.");
+				Main.sc.nextLine();
+				return false;
+			}
+
+		}catch(InputMismatchException e){
+			System.out.println("Ceci n'est pas une filière.");
+			System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
+			Main.sc.nextLine();
+			return false;
+		}
+		
+		/**
+		 * récupérons l'année actuelle
+		 */
+		int year;
+		while((year = Main.sc.nextInt())<Year.getActualCurrentYear()){
+			Main.sc.nextLine();
+			System.out.println("Vous ne pouvez pas ajouter un étudiant à une année déjà terminée,\n"
+					+ "Veuillez entrer une nouvelle année");
+		}
+		return false;
+	}
+
 	public static int followFormation(int idStudent){
 		int year = Year.getActualCurrentYear();
 		DBConnection c = null;
@@ -404,6 +459,7 @@ public class Student {
 					//Matière
 					+" AND year_student_subject_note.idSubject = year_formation_subject.idSubject"
 					+" AND subject.id = year_student_subject_note.idSubject"
+					+" AND subject.id = year_formation_subject.idSubject"
 					//année
 					+" AND year_student_subject_note.year = year_formation_subject.year"
 					+" AND year_student_subject_note.year = year_formation_student.year"
@@ -490,6 +546,8 @@ public class Student {
 	}
 	
 	public static void showStudentsByFormation(int id) {
+		if(id==-1)
+			return;
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
@@ -498,7 +556,12 @@ public class Student {
 					+ "WHERE formation.id = "+id+" AND formation.id = idFormation "
 					+ "AND student.number = idStudent ORDER BY year");
 			int year = 0;
-			while(result.next()){
+			if(!result.next()){
+				c.close();
+				return;
+			}
+				
+			do{
 				if(year<result.getInt("year")){
 					year = result.getInt("year");
 					System.out.println("\n"
@@ -510,7 +573,7 @@ public class Student {
 				System.out.println(result.getInt("student.number")+"\t"
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
-			}
+			}while(result.next());
 			c.close();
 		} catch (SQLException e) {
 			if(c!=null)
@@ -651,6 +714,8 @@ public class Student {
 	}
 
 	public static void showStudentsBySubject(int id) {
+		if(id==-1)
+			return;
 		DBConnection c = null;
 		try {
 			c = new DBConnection();
@@ -663,7 +728,11 @@ public class Student {
 					+ " AND subject.id = year_formation_subject.idSubject"
 					+ " ORDER BY year_formation_subject.year");
 			int year = 0;
-			while(result.next()){
+			if(!result.next()){
+				c.close();
+				return;
+			}
+			do{
 				if(year<result.getInt("year")){
 					year = result.getInt("year");
 					System.out.println("\n"
@@ -675,7 +744,7 @@ public class Student {
 				System.out.println(result.getInt("student.number")+"\t"
 						+ result.getString("name")
 						+ " " + result.getString("firstName"));
-			}
+			}while(result.next());
 			c.close();
 		} catch (SQLException e) {
 			if(c!=null)
