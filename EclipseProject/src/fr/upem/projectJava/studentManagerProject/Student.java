@@ -880,4 +880,69 @@ public class Student {
 		} while (idStudent<0);
 		showStudent(idStudent);
 	}
+	
+	/**
+	* Description about the editStudent function :
+	* This function allows to edit a student.
+	* @param <id> is student id to identify a student (primary key).
+	*/
+	public static void editStudent(int id){
+		
+		DBConnection c = null;
+		c = new DBConnection();
+		
+		int choiceNumber = 1;
+		while(choiceNumber!=0){
+            if(choiceNumber == 1){
+                showStudent(id);
+                System.out.println("\nQue voulez-vous modifier ?\n"
+                		+ "1 Modifier le prénom\n"
+                		+ "2 Modifier l'adresse\n"
+                		+ "3 Modifier le téléphone\n"
+                		+ "4 Modifier le mail\n"
+                		+ "0 Quitter\n");
+            }
+            System.out.print("Entrez le chiffre correspondant à votre choix : ");
+            try {
+                while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>14){
+                    Main.sc.nextLine();
+                    System.out.print("Ce choix est invalide, recommencez : ");
+                }
+                Main.sc.nextLine();
+            } catch(InputMismatchException e){
+                System.out.println("Ce choix est invalide, ");
+                Main.sc.nextLine();
+                choiceNumber = -2;
+            }
+            
+            switch(choiceNumber){
+            case 1:
+            	System.out.println("Nouveau nom : ");
+            	String newName = Main.sc.nextLine();
+            	c.executeUpdate("UPDATE student SET name="+newName+" WHERE id="+id+"");
+            	break;
+            case 2:
+            	System.out.println("Nouvelle adresse : ");
+            	String newAdress = Main.sc.nextLine();
+            	c.executeUpdate("UPDATE student SET adress="+newAdress+" WHERE id="+id+"");
+            	break;
+            case 3:
+            	System.out.println("Nouveau numéro de téléphone : ");
+            	String newPhoneNumber = Main.sc.nextLine();
+            	c.executeUpdate("UPDATE student SET phoneNumber="+newPhoneNumber+" WHERE id="+id+"");
+            	break;
+            case 4:
+            	System.out.println("Nouveau mail : ");
+            	String newMail = Main.sc.nextLine();
+            	c.executeUpdate("UPDATE student SET mail="+newMail+" WHERE id="+id+"");
+            	break;
+            default:;
+            }
+            if(choiceNumber != 0 && choiceNumber != -2)
+                choiceNumber = 1;
+            
+            c.close();
+            //clearConsole();
+        }
+	}
 }

@@ -10,7 +10,7 @@ Dans les menus, return int (1 pour menu précédent, -1 pour nemu principal et -
 - Rechercher un étudiant (par no étudiant \[done\], nom \[done\], prenom \[done\], matière \[done\], filiaire \[done\], année \[done\])
 > - l'afficher \[done\]
 > - Inscrire un élève dans une filière et année \[QUENTIN\]
-> - Modifier des informations  \[LOUIS\]
+> - Modifier des informations  \[LOUIS\] \[DONE\] Vérification à faire Noobie 2.0
 > - Attribuer des notes \[VERIFIER\] mais ne vérifie pas si la matière est dans la formation suivie
 > - Afficher ses moyennes \[VERIFIER\] 
 > - Editer attestation de réussite \[done\]
