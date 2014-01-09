@@ -2,6 +2,7 @@ package fr.upem.projectJava.studentManagerProject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.InputMismatchException;
 
 public class Subject {
@@ -11,6 +12,14 @@ public class Subject {
 	
 	public Subject(String name, int coefficient) {
 		this.name=name;
+	}
+	
+	public Subject(int id, String name, int available) {
+		this.name=name;
+		this.isAvailable = available;
+		DBConnection c = new DBConnection();
+		c.executeUpdate("INSERT INTO `subject` VALUES ("+id+", '"+name+"', "+available+")");
+		c.close();
 	}
 	
 	public Subject(){
@@ -122,7 +131,7 @@ public class Subject {
 
 	private static boolean addSubjectToFormation(int id) {
 		/**
-		 * cherchons la matière à ajouter
+		 * cherchons la matière à ajouter CURRENTLY WORKIN ON
 		 */
 		String answerSubject = "";
 		int idSubject = 0;

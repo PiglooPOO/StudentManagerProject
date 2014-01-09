@@ -9,6 +9,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
+
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 public class DBConnection {
 	
@@ -213,5 +217,17 @@ public class DBConnection {
 			if(c!=null)
 				c.close();
 		}	
+	}
+	
+	public static void loadDB()
+	{
+		System.out.println("Taper le nom du fichier XML à importer.");
+		try {
+			XMLReader myReader = XMLReaderFactory.createXMLReader();
+			myReader.setContentHandler(new SimpleContentHandler());
+			myReader.parse(Main.sc.nextLine());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

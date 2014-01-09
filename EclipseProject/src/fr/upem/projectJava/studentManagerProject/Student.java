@@ -3,6 +3,7 @@ package fr.upem.projectJava.studentManagerProject;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,7 +36,18 @@ public class Student {
 		this.birthday = birthday;
 		this.gender = gender;
 	}
-	
+	public Student(int id, String name, String firstName, String adress, String phoneNumber, String mail, String birthday, int gender) {
+		this.name = name;
+		this.firstName = firstName;
+		this.adress = adress;
+		this.phoneNumber = phoneNumber;
+		this.mail = mail;
+		this.birthday = birthday;
+		this.gender = gender;
+		DBConnection c = new DBConnection();
+		c.executeUpdate("INSERT INTO `student` VALUES (" + id + ", '" + name + "', '" + firstName + "', '" + adress + "', '" + phoneNumber + "', '" + mail + "', '" + birthday + "', " + gender + ")");
+		c.close();
+	}
 	public Student(){
 		do
 		{

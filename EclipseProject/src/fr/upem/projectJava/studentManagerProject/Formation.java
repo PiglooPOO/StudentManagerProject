@@ -2,6 +2,7 @@ package fr.upem.projectJava.studentManagerProject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -40,7 +41,16 @@ public class Formation {
 		}
 		while(curYear>nbYear);
 	}
-
+	
+	public Formation(int id, String name, int nbYear, int curYear, int available) {
+		this.name = name;
+		this.nbYear = nbYear;
+		this.curYear = curYear;
+		this.isAvailable = available;
+		DBConnection c = new DBConnection();
+		c.executeUpdate("INSERT INTO `formation` VALUES ("+id+", '"+name+"', "+nbYear+", "+curYear+", "+available+")");
+		c.close();
+	}
 	public int getNbYear() {
 		return nbYear;
 	}

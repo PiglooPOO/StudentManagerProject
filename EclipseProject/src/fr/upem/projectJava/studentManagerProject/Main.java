@@ -102,7 +102,7 @@ public class Main {
 				Student.showStudentGraduate();
 				break;
 			case 8:
-				//TODO Charger une base de données
+				DBConnection.loadDB();
 				break;
 			case 9:
 				DBConnection.saveDB();
