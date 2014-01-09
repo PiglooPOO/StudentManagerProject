@@ -276,7 +276,16 @@ public class Formation {
 	}
 	
 	public static void deleteFormation(int id){
-		// TODO
+		DBConnection c = null;
+		try {
+			c = new DBConnection();
+            Statement state = c.createStatement();
+            state.executeUpdate("UPDATE formation SET isAvailable = 0");
+        } catch (SQLException e) {
+        	if(c!=null)
+				c.close();
+            e.printStackTrace();
+        }
 	}
 	
 	public static void editFormation(int id){
