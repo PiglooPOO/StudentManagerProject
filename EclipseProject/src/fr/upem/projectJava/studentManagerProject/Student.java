@@ -12,8 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
-
 import org.jdom.JDOMException;
 import org.jopendocument.dom.template.TemplateException;
 
@@ -39,45 +37,44 @@ public class Student {
 	}
 	
 	public Student(){
-		Scanner sc = new Scanner(System.in);
 		do
 		{
 			System.out.print("Prénom:");
-			this.firstName = sc.next();
+			this.firstName = Main.sc.next();
 			if(this.firstName.length()>30)
-				System.out.println("Erreur, le prénom que vous avez entrer est trop long");
+				System.out.println("Erreur, le prénom que vous avez entré est trop long");
 		}
 		while(this.firstName.length()>30);
 		do
 		{
 			System.out.print("Nom:");
-			this.name = sc.next();
+			this.name = Main.sc.next();
 			if(this.name.length()>30)
-				System.out.println("Erreur, le nom que vous avez entrer est trop long");
+				System.out.println("Erreur, le nom que vous avez entré est trop long");
 		}
 		while(this.name.length()>30);
 		
-		this.adress=sc.nextLine();
+		this.adress = Main.sc.nextLine();
 		System.out.print("Adresse:");
-		adress=sc.nextLine();
+		adress = Main.sc.nextLine();
 		
 		do
 		{
 			System.out.print("Numéro de Téléphone:");
-			this.phoneNumber = sc.next();
+			this.phoneNumber = Main.sc.next();
 			if(this.phoneNumber.length()!=10)
-				System.out.println("Erreur, entrer le numéro de téléphone sans espace");
+				System.out.println("Erreur, Entrez le numéro de téléphone sans espace");
 		}
 		while(this.phoneNumber.length()!=10);
 		
 		System.out.print("E-mail:");
-		this.mail = sc.next();
+		this.mail = Main.sc.next();
 		
 		Date date = null;
 		while(date==null)
 		{
 			System.out.print("Date de naissance (dd/mm/yyyy):");
-			String birthday = sc.next();
+			String birthday = Main.sc.next();
 			DateFormat format= new SimpleDateFormat("dd/mm/yyyy");
 			
 			try{
@@ -113,7 +110,7 @@ public class Student {
 		while(bon==false)
 		{
 			System.out.print("Sexe (homme ou femme):");
-			gender=sc.next();
+			gender = Main.sc.next();
 			gender=gender.toLowerCase();
 			if(gender.equalsIgnoreCase("femme") || gender.equalsIgnoreCase("homme"))
 				bon=true;
@@ -184,11 +181,15 @@ public class Student {
 	
 	public void addStudent(){
 		System.out.println(this.toString());
-		Scanner sc = new Scanner(System.in);
 		String valid=null;
 		do{
+<<<<<<< HEAD
 			System.out.println("\nValidez-vous cet étudiant? (Oui/Non)");
 			valid = sc.next();
+=======
+			System.out.println("\nValidez-vous cet étudiant? (O/N)");
+			valid = Main.sc.next();
+>>>>>>> 56e8ebf8b1d0dd97f8f4dc477c4048f47e689679
 		}
 		while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
 		
@@ -201,11 +202,11 @@ public class Student {
 				e1.printStackTrace();
 			}
 		}
+		
 	}
 	
 	public static boolean showStudent(int number){
 		Statement state;
-		Scanner sc = null;
 		try {
 			state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE number = "+number);
@@ -233,15 +234,13 @@ public class Student {
 								+ "\n0 Revenir au menu précédent");
 						
 					}
-					System.out.print("Entrer le chiffre correspondant à votre choix : ");
-					try {
-						sc = new Scanner(System.in);
-						
-						while((choiceNumber = sc.nextInt())<0 || choiceNumber>14){
-							sc.nextLine();
+					System.out.print("Entrez le chiffre correspondant à votre choix : ");
+					try {					
+						while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>14){
+							Main.sc.nextLine();
 							System.out.print("Ce choix est invalide, recommencez : ");
 						}
-						sc.nextLine();
+						Main.sc.nextLine();
 					} catch(InputMismatchException e){
 						System.out.println("Ce choix est invalide, ");
 						choiceNumber = -2;
@@ -263,8 +262,8 @@ public class Student {
 						
 						if(!Student.printMarksForStudent(number)){
 							System.out.println("Cet étudiant n'a aucune note.");
-							System.out.println("Appuyez sur Entrer pour revenir à la fiche étudiant.");
-							sc.nextLine();
+							System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
+							Main.sc.nextLine();
 						}
 						break;
 					case 5 :
@@ -290,8 +289,9 @@ public class Student {
 				}
 				return true;
 			}
-			else
+			else{
 				return false;
+			}
 				
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -316,27 +316,26 @@ public class Student {
 	}
 	
 	private static boolean attributeMarkByStudentId(int id) {
-		Scanner sc = new Scanner(System.in);
-		
 		/**
 		 * cherchons la matière à noter
 		 */
 		String answerSubject = "";
 		int idSubject = 0;
-		System.out.println("Entrer le nom de la matière à noter : ");
+		System.out.println("Entrez le nom de la matière à noter : ");
 		try{
-			answerSubject = sc.nextLine();
+			answerSubject = Main.sc.nextLine();
 			//TODO
 			if((idSubject = Subject.searchSubjectsByName(answerSubject)) == -1){
 				System.out.println("La filière "+answerSubject+" n'éxiste pas dans cette filière.");
-				System.out.println("Appuyez sur Entrer pour revenir à la fiche étudiant.");
-				sc.nextLine();
+				System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
+				Main.sc.nextLine();
 				return false;
 				}
+
 		}catch(InputMismatchException e){
 			System.out.println("Ceci n'est pas une filière.");
-			System.out.println("Appuyez sur Entrer pour revenir à la fiche étudiant.");
-			sc.nextLine();
+			System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");
+			Main.sc.nextLine();
 			return false;
 		}
 		
@@ -354,35 +353,34 @@ public class Student {
 			if(result.next()){
 				System.out.println(""
 						+ "Une note est déjà attribuée à cet étudiant pour cette matière, vous pouvez la modifier dans son relevé de notes,\n"
-						+ "Appuyez sur Entrer pour revenir à la fiche étudiant.");
-				sc.nextLine();
+						+ "Appuyez sur Entrée pour revenir à la fiche étudiant.");
+				Main.sc.nextLine();
 				return false;
 			}
 			/**
 			 * on note, lets go
 			 */
 			System.out.print("Entrez la note : ");
-			int note = sc.nextInt();
-			sc.nextLine();
+			int note = Main.sc.nextInt();
+			Main.sc.nextLine();
 			state.executeUpdate("INSERT INTO year_student_subject_note VALUES ("+year+","+id+","+idSubject+","+note+")");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(""
-					+ "Une erreur s'est produise lors de l'accès à la base de donnée, veuillez appeller le support,\n"
-					+ "Appuyez sur Entrer pour revenir à la fiche étudiant.");
-			sc.nextLine();
+					+ "Une erreur s'est produite lors de l'accès à la base de donnée, veuillez appeller le support,\n"
+					+ "Appuyez sur Entrée pour revenir à la fiche étudiant.");
+			Main.sc.nextLine();
 			return false;
 		}
 
-		System.out.println("Note bien attribuée, appuyez sur entrer pour continuer.");
-		sc.nextLine();
+		System.out.println("Note bien attribuée, appuyez sur Entrée pour continuer.");
+		Main.sc.nextLine();
 		return true;
 	}
 
 	private static boolean printMarksForStudent(int id) {
 		Statement state;
-		Scanner sc = null;
-		List l = new ArrayList();
+		List<int[]> l = new ArrayList<int[]>();
 		int[] averageNote = {0,0};
 		int[] tmpArray = new int[3];
 		
@@ -430,7 +428,6 @@ public class Student {
 	
 	public static boolean showStudentsByFormationName(String st) {
 		Statement state;
-		Scanner sc = null;
 		try {
 			state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM formation WHERE name LIKE \"%"+st+"%\" ORDER BY id");
@@ -445,13 +442,12 @@ public class Student {
 			e.printStackTrace();
 		}
 		
-		System.out.print("Entrer le numéro de la formation dont vous voulez visualiser les étudiants : ");
+		System.out.print("Entrez le numéro de la formation dont vous voulez visualiser les étudiants : ");
 		int id = -1;
-		sc = new Scanner(System.in);
 		do {
 			try {
-				id = sc.nextInt();
-				sc.nextLine();
+				id = Main.sc.nextInt();
+				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
 				// TODO: handle exception
 			}
@@ -462,7 +458,6 @@ public class Student {
 	
 	public static void showStudentsByFormation(int id) {
 		Statement state;
-		Scanner sc = null;
 		try {
 			state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,formation,year_formation_student WHERE formation.id = "+id+" AND formation.id = idFormation AND student.number = idStudent ORDER BY year");
@@ -486,11 +481,10 @@ public class Student {
 		
 		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
 		int idStudent = -1;
-		sc = new Scanner(System.in);
 		do {
 			try {
-				idStudent = sc.nextInt();
-				sc.nextLine();
+				idStudent = Main.sc.nextInt();
+				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
 				// TODO: handle exception
 			}
@@ -500,7 +494,6 @@ public class Student {
 	
 	public static boolean showStudentsByYear(int year) {
 		Statement state;
-		Scanner sc = null;
 		try {
 			state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT year,student.number,student.name,student.firstName FROM student,year_formation_student WHERE year = "+year+" AND student.number = idStudent ORDER BY number");
@@ -525,11 +518,10 @@ public class Student {
 		
 		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
 		int idStudent = -1;
-		sc = new Scanner(System.in);
 		do {
 			try {
-				idStudent = sc.nextInt();
-				sc.nextLine();
+				idStudent = Main.sc.nextInt();
+				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
 				// TODO: handle exception
 				return false;
@@ -541,7 +533,6 @@ public class Student {
 	
 	public static boolean showStudentsByName(String st) {
 		Statement state;
-		Scanner sc = null;
 		try {
 			state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.name LIKE \"%"+st+"%\" ORDER BY number");
@@ -558,11 +549,10 @@ public class Student {
 		
 		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
 		int idStudent = -1;
-		sc = new Scanner(System.in);
 		do {
 			try {
-				idStudent = sc.nextInt();
-				sc.nextLine();
+				idStudent = Main.sc.nextInt();
+				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
 				// TODO: handle exception
 			}
@@ -573,7 +563,6 @@ public class Student {
 	
 	public static boolean showStudentsByFirstName(String st) {
 		Statement state;
-		Scanner sc = null;
 		try {
 			state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM student WHERE student.firstName LIKE \"%"+st+"%\" ORDER BY number");
@@ -590,11 +579,10 @@ public class Student {
 		
 		System.out.print("Entrez le numéro de l'étudiant à visualiser : ");
 		int idStudent = -1;
-		sc = new Scanner(System.in);
 		do {
 			try {
-				idStudent = sc.nextInt();
-				sc.nextLine();
+				idStudent = Main.sc.nextInt();
+				Main.sc.nextLine();
 			} catch (InputMismatchException e) {
 				// TODO: handle exception
 			}

@@ -4,24 +4,22 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+	public static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		checkConnection();
-		Scanner sc = null;
 		int choiceNumber = 1;
 		
 		while(choiceNumber!=0){
 			if(choiceNumber == 1)
 				drawMenu();
-			System.out.print("Entrer le chiffre correspondant à votre choix : ");
-			try {
-				sc = new Scanner(System.in);
-				
-				while((choiceNumber = sc.nextInt())<0 || choiceNumber>14){
-					sc.nextLine();
+			System.out.print("Entrez le chiffre correspondant à votre choix : ");
+			try {				
+				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>14){
+					Main.sc.nextLine();
 					System.out.print("Ce choix est invalide, recommencez : ");
 				}
-				sc.nextLine();
+				Main.sc.nextLine();
 			} catch(InputMismatchException e){
 				System.out.println("Ce choix est invalide, ");
 				choiceNumber = -2;
@@ -31,8 +29,8 @@ public class Main {
 				choiceNumber = 1;
 			//clearConsole();
 		}
-		if(sc != null)
-			sc.close();
+		if(Main.sc != null)
+			Main.sc.close();
 		System.out.println("\nFermeture du Programme");
 	}
 	
@@ -110,7 +108,6 @@ public class Main {
 	}
 	
 	private static void startMenuSearchStudent(){
-		Scanner sc = null;
 		int choiceNumber = 1;
 		String str;
 		int number;
@@ -124,15 +121,13 @@ public class Main {
 						+ "6 Rechercher par Année\n"
 						+ "7 Rechercher par Année et Filière\n"
 						+ "0 Retour au Menu principal\n");
-			System.out.print("Entrer le chiffre correspondant à votre choix : ");
-			try {
-				sc = new Scanner(System.in);
-				
-				while((choiceNumber = sc.nextInt())<0 || choiceNumber>7){
-					sc.nextLine();
+			System.out.print("Entrez le chiffre correspondant à votre choix : ");
+			try {				
+				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>7){
+					Main.sc.nextLine();
 					System.out.print("Ce choix est invalide, recommencez : ");
 				}
-				sc.nextLine();
+				Main.sc.nextLine();
 			} catch(InputMismatchException e){
 				System.out.println("Ce choix est invalide, ");
 				choiceNumber = -2;
@@ -141,63 +136,63 @@ public class Main {
 				case 1:
 					System.out.print("Entrez le numéro étudiant de l'étudiant : ");
 					try {
-						number = sc.nextInt();
+						number = Main.sc.nextInt();
 						if(!Student.showStudent(number)){
 							System.out.println("L'étudiant "+number+" n'éxiste pas.");
-							System.out.println("Appuyez sur Entrer pour continuer.");
-							sc.nextLine();
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
 						}
 						if(number<0){
 							System.out.println("Ceci n'est pas un numéro étudiant.");
-							System.out.println("Appuyez sur Entrer pour continuer.");
-							sc.nextLine();
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
 						}
 						
 					} catch (InputMismatchException e) {
 						System.out.println("Ceci n'est pas un numéro étudiant.");
-						System.out.println("Appuyez sur Entrer pour continuer.");
-						sc.nextLine();
+						System.out.println("Appuyez sur Entrée pour continuer.");
+						Main.sc.nextLine();
 					}
 					
 					break;
 				case 2:
 					System.out.print("Entrez le nom de l'étudiant : ");
 					try {
-						str = sc.nextLine();
+						str = Main.sc.nextLine();
 						if(!Student.showStudentsByName(str)){
 							System.out.println("L'étudiant "+str+" n'éxiste pas.");
-							System.out.println("Appuyez sur Entrer pour continuer.");
-							sc.nextLine();
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
 						}
 						if(str == ""){
 							System.out.println("Ceci n'est pas un nom.");
-							System.out.println("Appuyez sur Entrer pour continuer.");
-							sc.nextLine();
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
 						}
 					} catch (InputMismatchException e) {
 						System.out.println("Ceci n'est pas un nom.");
-						System.out.println("Appuyez sur Entrer pour continuer.");
-						sc.nextLine();
+						System.out.println("Appuyez sur Entrée pour continuer.");
+						Main.sc.nextLine();
 					}
 					break;
 				case 3:
 					System.out.print("Entrez le nom de l'étudiant : ");
 					try {
-						str = sc.nextLine();
+						str = Main.sc.nextLine();
 						if(!Student.showStudentsByFirstName(str)){
 							System.out.println("L'étudiant "+str+" n'éxiste pas.");
-							System.out.println("Appuyez sur Entrer pour continuer.");
-							sc.nextLine();
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
 						}
 						if(str == ""){
 							System.out.println("Ceci n'est pas un nom.");
-							System.out.println("Appuyez sur Entrer pour continuer.");
-							sc.nextLine();
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
 						}
 					} catch (InputMismatchException e) {
 						System.out.println("Ceci n'est pas un nom.");
-						System.out.println("Appuyez sur Entrer pour continuer.");
-						sc.nextLine();
+						System.out.println("Appuyez sur Entrée pour continuer.");
+						Main.sc.nextLine();
 					}
 					break;
 				case 4:
@@ -206,42 +201,42 @@ public class Main {
 				case 5:
 					System.out.print("Entrez le nom de la filière : ");
 					try {
-						str = sc.nextLine();
+						str = Main.sc.nextLine();
 						if(!Student.showStudentsByFormationName(str)){
 							System.out.println("La filière "+str+" n'éxiste pas.");
-							System.out.println("Appuyez sur Entrer pour continuer.");
-							sc.nextLine();
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
 						}
 						if(str == ""){
 							System.out.println("Ceci n'est pas un nom de filière.");
-							System.out.println("Appuyez sur Entrer pour continuer.");
-							sc.nextLine();
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
 						}
 					} catch (InputMismatchException e) {
 						System.out.println("Ceci n'est pas un nom de filière.");
-						System.out.println("Appuyez sur Entrer pour continuer.");
-						sc.nextLine();
+						System.out.println("Appuyez sur Entrée pour continuer.");
+						Main.sc.nextLine();
 					}
 					break;
 				case 6:
 					System.out.print("Entrez le numéro étudiant de l'étudiant : ");
 					try {
-						number = sc.nextInt();
+						number = Main.sc.nextInt();
 						if(!Student.showStudentsByYear(number)){
 							System.out.println("Pas d'étudiant inscrit pour l'année "+number+".");
-							System.out.println("Appuyez sur Entrer pour continuer.");
-							sc.nextLine();
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
 						}
 						if(number<0){
 							System.out.println("Cette année n'est pas prise en charge.");
-							System.out.println("Appuyez sur Entrer pour continuer.");
-							sc.nextLine();
+							System.out.println("Appuyez sur Entrée pour continuer.");
+							Main.sc.nextLine();
 						}
 						
 					} catch (InputMismatchException e) {
 						System.out.println("Ceci n'est pas une année.");
-						System.out.println("Appuyez sur Entrer pour continuer.");
-						sc.nextLine();
+						System.out.println("Appuyez sur Entrée pour continuer.");
+						Main.sc.nextLine();
 					}
 					break;
 				case 7:
@@ -257,7 +252,6 @@ public class Main {
 	}
 	
 	private static void startMenuSearchFormation(){
-		Scanner sc = null;
 		int choiceNumber = 1;
 		
 		while(choiceNumber!=0){
@@ -266,15 +260,13 @@ public class Main {
 						+ "1 Rechercher une filière\n"
 						+ "2 Rechercher une matière\n"
 						+ "0 Retour au Menu\n\n");
-			System.out.print("Entrer le chiffre correspondant à votre choix : ");
-			try {
-				sc = new Scanner(System.in);
-				
-				while((choiceNumber = sc.nextInt())<0 || choiceNumber>2){
-					sc.nextLine();
+			System.out.print("Entrez le chiffre correspondant à votre choix : ");
+			try {	
+				while((choiceNumber = Main.sc.nextInt())<0 || choiceNumber>2){
+					Main.sc.nextLine();
 					System.out.print("Ce choix est invalide, recommencez : ");
 				}
-				sc.nextLine();
+				Main.sc.nextLine();
 			} catch(InputMismatchException e){
 				System.out.println("Ce choix est invalide, ");
 				choiceNumber = -2;
@@ -283,41 +275,50 @@ public class Main {
 			switch(choiceNumber){
 			case 1:
 				String answerFormation = "";
-				System.out.println("Entrer le nom de la filière : ");
+				System.out.println("Entrez le nom de la filière : ");
 				try{
-					answerFormation = sc.nextLine();
+					answerFormation = Main.sc.nextLine();
 					//TODO
 					if(!Formation.showFormation(Formation.searchFormationsByName(answerFormation))){
-						System.out.println("Cettr filière n'éxiste pas.");
-						System.out.println("Appuyez sur Entrer pour continuer.");
-						sc.nextLine();
+						System.out.println("Cette filière n'éxiste pas.");
+						System.out.println("Appuyez sur Entrée pour continuer.");
+						Main.sc.nextLine();
 						}
 					if(answerFormation.length()<0){
-						System.out.println("Cettr filière n'éxiste pas.");
-						System.out.println("Appuyez sur Entrer pour continuer.");
-						sc.nextLine();
+						System.out.println("Cette filière n'éxiste pas.");
+						System.out.println("Appuyez sur Entrée pour continuer.");
+						Main.sc.nextLine();
 					}
 				}catch(InputMismatchException e){
 					System.out.println("Ceci n'est pas une filière.");
-					System.out.println("Appuyez sur Entrer pour continuer.");
-					sc.nextLine();
+					System.out.println("Appuyez sur Entrée pour continuer.");
+					Main.sc.nextLine();
 				}
 				break;
 			case 2:
 				String answerSubject = "";
-				System.out.println("Entrer le nom de la matière : ");
+				System.out.println("Entrez le nom de la matière : ");
 				try{
+<<<<<<< HEAD
 					answerSubject = sc.nextLine();
 					Subject.showSubject(Subject.searchSubjectsByName(answerSubject));
+=======
+					answerSubject = Main.sc.nextLine();
+					if(!Subject.showSubject(Subject.searchSubjectsByName(answerSubject))){
+						System.out.println("La matière "+answerSubject+" n'éxiste pas.");
+						System.out.println("Appuyez sur Entrée pour continuer.");
+						Main.sc.nextLine();
+						}
+>>>>>>> 56e8ebf8b1d0dd97f8f4dc477c4048f47e689679
 					if(answerSubject.length()<0){
 						System.out.println("Ceci n'est pas un nom de matière.");
-						System.out.println("Appuyez sur Entrer pour continuer.");
-						sc.nextLine();
+						System.out.println("Appuyez sur Entrée pour continuer.");
+						Main.sc.nextLine();
 					}
 				}catch(InputMismatchException e){
 					System.out.println("Ceci n'est pas une matière.");
-					System.out.println("Appuyez sur Entrer pour continuer.");
-					sc.nextLine();
+					System.out.println("Appuyez sur Entrée pour continuer.");
+					Main.sc.nextLine();
 				}
 				break;
 				

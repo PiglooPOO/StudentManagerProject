@@ -3,7 +3,6 @@ package fr.upem.projectJava.studentManagerProject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
 public class Subject {
 
@@ -15,10 +14,9 @@ public class Subject {
 	}
 	
 	public Subject(){
-		Scanner sc = new Scanner(System.in);
 		do{
-			System.out.print("Entrer le nom de la matière : ");
-			this.name=sc.nextLine();
+			System.out.print("Entrez le nom de la matière : ");
+			this.name = Main.sc.nextLine();
 			if(this.name.length()>30)
 				System.out.println("Le nom de la matière entré est trop long.");
 		}
@@ -39,9 +37,8 @@ public class Subject {
 			do{
 				System.out.println(result.getInt("id")+" "+result.getString("name"));
 			}while(result.next());
-			Scanner sc = new Scanner(System.in);
-			int id = sc.nextInt();
-			sc.nextLine();
+			int id = Main.sc.nextInt();
+			Main.sc.nextLine();
 			return id;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -72,7 +69,6 @@ public class Subject {
 		
 		int choiceNumber = 0;
 		Statement state;
-		Scanner sc = null;
 		try {
 			state = DBConnection.getInstance().createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM subject WHERE id = "+id);
@@ -88,9 +84,8 @@ public class Subject {
 						+ "0 Quitter\n");
 				
 				System.out.print(">> ");
-				sc = new Scanner(System.in);
-				choiceNumber = sc.nextInt();
-				sc.nextLine();
+				choiceNumber = Main.sc.nextInt();
+				Main.sc.nextLine();
 				
 				switch(choiceNumber){
 					case 1:

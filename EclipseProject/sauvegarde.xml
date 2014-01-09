@@ -115,6 +115,15 @@
 		<idSubject>1</idSubject>
 		<coef>4</coef>
 	</year_formation_subject>
+<<<<<<< HEAD
+=======
+	<year_formation_subject>
+		<year>2013</year>
+		<idFormation>1</idFormation>
+		<idSubject>1</idSubject>
+		<coef>4</coef>
+	</year_formation_subject>
+>>>>>>> 56e8ebf8b1d0dd97f8f4dc477c4048f47e689679
 </years_formations_subjects>
 
 <years_students_subjects_notes>
