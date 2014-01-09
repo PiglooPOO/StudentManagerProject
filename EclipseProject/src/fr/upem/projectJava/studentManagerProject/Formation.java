@@ -112,21 +112,21 @@ public class Formation {
 						String answerSubject = "";
 						System.out.println("Entrer le nom de la matière : ");
 						try{
-							answerSubject = sc.nextLine();
+							answerSubject = Main.sc.nextLine();
 							if(!Formation.addSubjectToFormation(Subject.searchSubjectsByName(answerSubject),id)){
 								System.out.println("La matière "+answerSubject+" n'éxiste pas.");
 								System.out.println("Appuyez sur Entrer pour continuer.");
-								sc.nextLine();
+								Main.sc.nextLine();
 								}
 							if(answerSubject.length()<0){
 								System.out.println("Ceci n'est pas un nom de matière.");
 								System.out.println("Appuyez sur Entrer pour continuer.");
-								sc.nextLine();
+								Main.sc.nextLine();
 							}
 						}catch(InputMismatchException e){
 							System.out.println("Ceci n'est pas une matière.");
 							System.out.println("Appuyez sur Entrer pour continuer.");
-							sc.nextLine();
+							Main.sc.nextLine();
 						}
 						break;
 					case 4:
@@ -165,17 +165,16 @@ public class Formation {
 	}
 	
 	public static boolean addSubjectToFormation(int idSubject, int idFormation){
-		Scanner sc = new Scanner(System.in);
 		if(idSubject == -1){
 			System.out.println("La matière n'éxiste pas.");
 			System.out.println("Appuyez sur Entrer pour continuer.");
-			sc.nextLine();
+			Main.sc.nextLine();
 			return false;
 		}
 		int year = Year.getActualCurrentYear();
 		System.out.println("Choisissez coefficient à appliquer à cette matière : ");
-		int coef = sc.nextInt();
-		sc.nextLine();
+		int coef = Main.sc.nextInt();
+		Main.sc.nextLine();
 		Statement state;
 		try {
 			state = DBConnection.getInstance().createStatement();
@@ -183,10 +182,10 @@ public class Formation {
 			if(result.next()){
 				System.out.println("La matière est déjà attrribuée à cette formation, \n"
 						+ "Voulez-vous modifier le coefficient? (Oui/Non) ");
-				String valid = sc.nextLine();
+				String valid = Main.sc.nextLine();
 				System.out.println("\nValidez-vous cet étudiant? (Oui/Non)");
 				do{
-					valid = sc.next();
+					valid = Main.sc.next();
 				}
 				while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
 				if(valid.equalsIgnoreCase("non") || valid.equalsIgnoreCase("n"))

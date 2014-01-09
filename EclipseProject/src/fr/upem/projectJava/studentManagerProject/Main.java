@@ -299,17 +299,8 @@ public class Main {
 				String answerSubject = "";
 				System.out.println("Entrez le nom de la matière : ");
 				try{
-<<<<<<< HEAD
-					answerSubject = sc.nextLine();
-					Subject.showSubject(Subject.searchSubjectsByName(answerSubject));
-=======
 					answerSubject = Main.sc.nextLine();
-					if(!Subject.showSubject(Subject.searchSubjectsByName(answerSubject))){
-						System.out.println("La matière "+answerSubject+" n'éxiste pas.");
-						System.out.println("Appuyez sur Entrée pour continuer.");
-						Main.sc.nextLine();
-						}
->>>>>>> 56e8ebf8b1d0dd97f8f4dc477c4048f47e689679
+					Subject.showSubject(Subject.searchSubjectsByName(answerSubject));
 					if(answerSubject.length()<0){
 						System.out.println("Ceci n'est pas un nom de matière.");
 						System.out.println("Appuyez sur Entrée pour continuer.");

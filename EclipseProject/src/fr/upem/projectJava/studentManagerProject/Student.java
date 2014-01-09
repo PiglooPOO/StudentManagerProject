@@ -183,13 +183,8 @@ public class Student {
 		System.out.println(this.toString());
 		String valid=null;
 		do{
-<<<<<<< HEAD
 			System.out.println("\nValidez-vous cet étudiant? (Oui/Non)");
-			valid = sc.next();
-=======
-			System.out.println("\nValidez-vous cet étudiant? (O/N)");
 			valid = Main.sc.next();
->>>>>>> 56e8ebf8b1d0dd97f8f4dc477c4048f47e689679
 		}
 		while(!valid.equalsIgnoreCase("non") && !valid.equalsIgnoreCase("n") && !valid.equalsIgnoreCase("oui") && !valid.equalsIgnoreCase("o"));
 		
