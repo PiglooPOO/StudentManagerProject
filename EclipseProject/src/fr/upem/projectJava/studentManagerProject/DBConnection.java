@@ -68,11 +68,13 @@ public class DBConnection {
 	static void saveDB() {
 		File file = new File("sauvegarde.xml");
 		FileOutputStream os = null;
+		DBConnection c =null;
 		
 		try{
 			os = new FileOutputStream(file);
 			try {
-				Statement state = new DBConnection().createStatement();
+				c = new DBConnection();
+				Statement state = c.createStatement();
 				ResultSet result = state.executeQuery("SELECT * FROM student");
 				
 				String caracteres = "<XML>\n\t<Students>\n";
@@ -179,6 +181,7 @@ public class DBConnection {
 				
 				os.close();
 				result.close();
+				c.close();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -199,7 +202,9 @@ public class DBConnection {
 				{
 					e.printStackTrace();
 				}
-			}	
+			}
+			if(c!=null)
+				c.close();
 		}	
 	}
 }

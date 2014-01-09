@@ -29,8 +29,10 @@ public class Subject {
 	
 	public static int searchSubjectsByName(String answerSubject){	
 		Statement state;
+		DBConnection c = null;
 		try {
-			state = new DBConnection().createStatement();
+			c = new DBConnection();
+			state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM subject WHERE name LIKE \"%"+answerSubject+"%\"");
 			if(!result.next())
 				return -1;
@@ -39,19 +41,26 @@ public class Subject {
 			}while(result.next());
 			int id = Main.sc.nextInt();
 			Main.sc.nextLine();
+			c.close();
 			return id;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 		}
 		return -1;
 	}
 	
 	public void addSubject(){
+		DBConnection c = null;
 		try {
-			Statement state = new DBConnection().createStatement();
+			c = new DBConnection();
+			Statement state = c.createStatement();
 			state.executeUpdate("INSERT INTO `subject`(`id`,`name`) VALUES ('null','"+this.getName()+"')");
+			c.close();
 		} catch (SQLException e1) {
+			if(c!=null)
+				c.close();
 			e1.printStackTrace();
 		}
 	}
@@ -68,9 +77,11 @@ public class Subject {
 		// TODO
 		
 		int choiceNumber = 0;
+		DBConnection c=null;
 		Statement state;
 		try {
-			state = new DBConnection().createStatement();
+			c=new DBConnection();
+			state = c.createStatement();
 			ResultSet result = state.executeQuery("SELECT * FROM subject WHERE id = "+id);
 			if(result.next()){
 				System.out.println(
@@ -110,7 +121,8 @@ public class Subject {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			if(c!=null)
+				c.close();
 			e.printStackTrace();
 		}
 		return false;
