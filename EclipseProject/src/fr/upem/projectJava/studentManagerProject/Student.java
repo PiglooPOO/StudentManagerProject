@@ -323,14 +323,12 @@ public class Student {
 		}
 	}
 	
-<<<<<<< HEAD
 	/**
 	* Description about the followFormation function :
 	* This function allows to know which formation the student follows.
 	* @param <idStudent> is student identification (Stranger Key).
-	* @return <Integer> the function return the idFormation, or -1 if there is a problem.
+	* @return <boolean> return true if it works, else false.
 	*/
-=======
 	private static boolean addToFormation(int idStudent, int idFormation) {
 		/**
 		 * cherchons la matière à ajouter
@@ -367,7 +365,6 @@ public class Student {
 		return false;
 	}
 
->>>>>>> 74965f5aff4be6b85e21efb8419f4a876ef3177f
 	public static int followFormation(int idStudent){
 		int year = Year.getActualCurrentYear();
 		DBConnection c = null;
@@ -772,13 +769,11 @@ public class Student {
 		return true;
 	}
 	
-<<<<<<< HEAD
 	/**
-	* Description about the showStudentsBySubject function :
-	* This function allows to show all the students sorted by Subjects.
-	* @param <id> is student number to identify a student (primary key).
+	* Description about the showStudentGraduate function :
+	* This function allows to show all the students who are graduated.
+	* @return <boolean> return true if it works, else false.
 	*/
-=======
 	public static boolean showStudentGraduate(){
 		DBConnection c = null;
 		int[] averageNote = {0,0};
@@ -840,7 +835,11 @@ public class Student {
 		return true;
 	}
 
->>>>>>> 74965f5aff4be6b85e21efb8419f4a876ef3177f
+	/**
+	* Description about the showStudentsBySubject function :
+	* This function allows to show all the students sorted by Subjects.
+	* @param <id> is student number to identify a student (primary key).
+	*/
 	public static void showStudentsBySubject(int id) {
 		if(id==-1)
 			return;

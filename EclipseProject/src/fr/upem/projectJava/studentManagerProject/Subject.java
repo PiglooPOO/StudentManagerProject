@@ -146,17 +146,12 @@ public class Subject {
 		return false;
 	}
 
-<<<<<<< HEAD
 	/**
 	* Description about the addSubjectToFormation function :
 	* This function allows to a subject to a formation.
 	* @param <id> is subject id, to identify a subject (primary key).
+	* @return <boolean> return true if it works, else false.
 	*/
-	private static void addSubjectToFormation(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-=======
 	private static boolean addSubjectToFormation(int id) {
 		/**
 		 * cherchons la matière à ajouter
@@ -173,8 +168,6 @@ public class Subject {
 				Main.sc.nextLine();
 				return false;
 			}
->>>>>>> 74965f5aff4be6b85e21efb8419f4a876ef3177f
-
 		}catch(InputMismatchException e){
 			System.out.println("Ceci n'est pas une filière.");
 			System.out.println("Appuyez sur Entrée pour revenir à la fiche étudiant.");

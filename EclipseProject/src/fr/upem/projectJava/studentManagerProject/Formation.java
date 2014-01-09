@@ -1,8 +1,5 @@
 package fr.upem.projectJava.studentManagerProject;
-<<<<<<< HEAD
-=======
 
->>>>>>> 74965f5aff4be6b85e21efb8419f4a876ef3177f
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
